@@ -1,17 +1,25 @@
 
 require('date-utils');
 var nowTime = new Date();
-var minutes = nowTime.getMinutes();
-var ArrayMinutes = String(minutes).split('');
-console.log(ArrayMinutes);
+
+var minutes = String(nowTime.getMinutes());
+if(minutes.length==1){
+  minutes = "0"+minutes;
+}
+var ArrayMinutes = minutes.split('');
+
 
 if(ArrayMinutes[1] % 5 == 0){
-
-}else if(0<ArrayMinutes[1]<5){
+  ;
+}else if(0<ArrayMinutes[1] && ArrayMinutes[1]<5){
   ArrayMinutes[1] = 0;
+  console.log("0にする")
 }else{
   ArrayMinutes[1] = 5;
+  console.log("5にする")
 }
+
+
 var format = nowTime.toFormat("YYYYMMDDHH24"+ArrayMinutes[0]+ArrayMinutes[1]);
 console.log(format);
 
