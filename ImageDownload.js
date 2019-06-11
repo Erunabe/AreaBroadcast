@@ -25,14 +25,16 @@ if(ArrayMinutes[1] % 5 == 0){
   console.log("5にする")
 }
 
+var WMhour = 0;
+
 
 var format1 = nowTime.toFormat("YYYYMMDDHH24"+ArrayMinutes[0]+ArrayMinutes[1]);
-var format2 = nowTime.toFormat(ArrayYear[2]+ArrayYear[3]+"MMDD"+"18");
+var format2 = nowTime.toFormat(ArrayYear[2]+ArrayYear[3]+"MMDD"+"09");
 console.log(format2)
 
 
 req(//ナウキャスト
-  {method: 'GET', url: "http://www.jma.go.jp/jp/radnowc/imgs/radar/205/"+format1+"-00.png", encoding: null},
+  {method: 'GET', url: "http://www.jma.go.jp/jp/radnowc/imgs/radar/205/"+format1+"-00.png",proxy:'http://s1500740:Rose-lisa910@wproxy.net.sendai-nct.ac.jp:8080', encoding: null},
   function (error, response, body){
     if(!error && response.statusCode === 200){
       fs.writeFileSync(format1+'.png', body, 'binary');
@@ -41,7 +43,7 @@ req(//ナウキャスト
 );
 
 req(//天気図
-  {method: 'GET', url: "https://www.jma.go.jp/jp/g3/images/jp_c/"+format2+".png", encoding: null},
+  {method: 'GET', url: "https://www.jma.go.jp/jp/g3/images/jp_c/"+format2+".png",proxy:'http://s1500740:Rose-lisa910@wproxy.net.sendai-nct.ac.jp:8080', encoding: null},
   function (error, response, body){
     if(!error && response.statusCode === 200){
       fs.writeFileSync('tenkizu.png', body, 'binary');
