@@ -24,6 +24,16 @@ request(options, function (error, response, body) {
     var rain_i = res.poteka[0].element[6].dataList[0].value;
     var rain_m = res.poteka[0].element[7].dataList[0].value;
 
+    exports.temp = temp;
+    exports.humi = humi;
+    exports.wind_s = wind_s;
+    exports.wind_d = wind_d;
+    exports.wind_max_s = wind_max_s;
+    exports.press_l = press_l;
+    exports.rain_i = rain_i;
+    exports.rain_m = rain_m;
+
+
     console.log(temp,humi,wind_s,wind_d,wind_max_s,press_l,rain_i,rain_m)
 
 
