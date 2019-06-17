@@ -1,28 +1,38 @@
-const mongodb = require('mongodb')
-const MongoClient = mongodb.MongoClient
-const assert = require('assert')
+const MongoClient = require('mongodb').MongoClient;
+const assert = require('assert');
+var req = require('./request_njs.js')
 
-MongoClient.connect('mongodb://127.0.0.1:27017/WeatherData',{useNewUrlParser:true},(err, db) => {
-    assert.equal(null, err)
-    console.log("Connected successfully to server")
-    db.close()
-})
+// Connection URL
+const url = 'mongodb://localhost:27017';
 
-const insertDocuments = (db, callback) => {
-    const documents = [
-        { a: 1 },
-        { a: 2 },
-        { a: 3 }
-    ]
-    // myDBデータベースのdocumentsコレクションに対して
-    // ドキュメントを3つ追加します
-    db.collection('documents').insertMany(documents, (err, result) => {
-        // insert結果の確認
-        assert.equal(err, null)
-        assert.equal(3, result.result.n)
-        assert.equal(3, result.ops.length)
+// Database Name
+const dbName = 'WeatherData';
 
-        console.log("Inserted 3 documents into the collection")
-        callback(result)
-    })
-}
+// Use connect method to connect to the server
+MongoClient.connect(url, { useNewUrlParser: true },function(err, client) {
+  assert.equal(null, err);
+  console.log("Connected successfully to server");
+
+  const db = client.db(dbName);
+
+    // コレクションの取得
+    collection = db.collection("Data");
+
+    // コレクションにドキュメントを挿入
+    collection.insertOne(
+      req.res;
+      /*{
+        "datatime":req.datatime,
+        "temp":req.temp,
+        "humi":req.humi,
+        "wind_s":req.wind_s,
+        "wind_d":req.wind_d,
+        "wind_max_s":req.wind_max_s,
+        "press_l":req.press_l,
+        "rain_i":req.rain_i,
+        "rain_m":req.rain_m
+    }*/
+    , (error, result) => {
+        client.close();
+    });
+});

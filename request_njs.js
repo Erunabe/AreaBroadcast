@@ -1,4 +1,5 @@
 var request = require('request');
+require('date-utils');
 
 var headers = {
     'X-POTEKA-Authorization':'c2VuZGFpLW5jdDpmZzd6dm1wWQ==',
@@ -16,6 +17,7 @@ request(options, function (error, response, body) {
     console.log(body);
     res = JSON.parse(body);
 
+    var datatime = res.poteka[0].element[0].dataList[0].datatime;
     var temp = res.poteka[0].element[0].dataList[0].value;
     var humi = res.poteka[0].element[1].dataList[0].value;
     var wind_s = res.poteka[0].element[2].dataList[0].value;
@@ -25,6 +27,16 @@ request(options, function (error, response, body) {
     var rain_i = res.poteka[0].element[6].dataList[0].value;
     var rain_m = res.poteka[0].element[7].dataList[0].value;
 
+    exports.res = res;
+    exports.datatime = datatime;
+    exports.temp = temp;
+    exports.humi = humi;
+    exports.wind_s = wind_s;
+    exports.wind_d = wind_d;
+    exports.wind_max_s = wind_max_s;
+    exports.press_l = press_l;
+    exports.rain_i = rain_i;
+    exports.rain_m = rain_m;
 
 
     console.log("気温:"+temp,"湿度:"+humi,"風速:"+wind_s,"風向:"+wind_d,"最大瞬間風速:"+wind_max_s,"気圧:"+press_l,"降水強度:"+rain_i,"1時間降水量:"+rain_m);
