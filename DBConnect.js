@@ -18,21 +18,22 @@ MongoClient.connect(url, { useNewUrlParser: true },function(err, client) {
     // コレクションの取得
     collection = db.collection("Data");
 
+    console.log(req.temp)
     // コレクションにドキュメントを挿入
     collection.insertOne(
-      req.res;
-      /*{
-        "datatime":req.datatime,
-        "temp":req.temp,
-        "humi":req.humi,
-        "wind_s":req.wind_s,
-        "wind_d":req.wind_d,
-        "wind_max_s":req.wind_max_s,
-        "press_l":req.press_l,
-        "rain_i":req.rain_i,
-        "rain_m":req.rain_m
-    }*/
-    , (error, result) => {
+    {
+      "データ取得時間":req.datatime,
+      "温度":req.temp,
+      "湿度":req.humi,
+      "風速":req.wind_s,
+      "風向":req.wind_d,
+      "最大瞬間風速":req.wind_max_s,
+      "気圧":req.press_l,
+      "降水強度":req.rain_i,
+      "1時間降水量":req.rain_m,
+      "暑さ指数":req.wbgt
+    }
+, (error, result) => {
         client.close();
     });
 });

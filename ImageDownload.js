@@ -30,6 +30,8 @@ var WMhour = 0;
 
 var format1 = nowTime.toFormat("YYYYMMDDHH24"+ArrayMinutes[0]+ArrayMinutes[1]);
 var format2 = nowTime.toFormat(ArrayYear[2]+ArrayYear[3]+"MMDD"+"09");
+exports.format1 = format1;
+exports.format2 = format2;
 console.log(format2)
 
 
@@ -50,3 +52,38 @@ req(//天気図
     }
   }
 );
+
+const MongoClient = require('mongodb').MongoClient;
+const assert = require('assert');
+
+// Connection URL
+const url = 'mongodb://localhost:27017';
+
+// Database Name
+const dbName = 'WeatherData';
+
+// Use connect method to connect to the server
+MongoClient.connect(url, { useNewUrlParser: true },function(err, client) {
+  assert.equal(null, err);
+  console.log("Connected successfully to server");
+
+  const db = client.db(dbName);
+
+    // コレクションの取得
+    collection = db.collection("Images");
+
+
+    NowcastImage = fs.readFileSync(format1+'.png');
+    // コレクションにドキュメントを挿入
+    collection.insertOne(
+    {
+      "GetImageTime":format1,
+      "Source":"気象庁",
+      "ImageName":"降水ナウキャスト",
+      "ImagePath":NowcastImage,
+      "credit":"出典：気象庁ホームページ(https://www.jma.go.jp/)"
+    }
+, (error, result) => {
+        client.close();
+    });
+});
