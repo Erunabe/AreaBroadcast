@@ -62,3 +62,8 @@ function loadFromDB(GetImageTime, callback) {
     });
   });
 }
+
+// 直接このモジュールがnodeコマンドで実行されているならmain関数を実行する
+if (require.main == module) {
+  main();
+}

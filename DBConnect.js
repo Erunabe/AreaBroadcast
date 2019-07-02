@@ -18,7 +18,6 @@ MongoClient.connect(url, { useNewUrlParser: true },function(err, client) {
     // コレクションの取得
     collection = db.collection("Data");
 
-    console.log(req.temp)
     // コレクションにドキュメントを挿入
     collection.insertOne(
     {
@@ -36,4 +35,9 @@ MongoClient.connect(url, { useNewUrlParser: true },function(err, client) {
 , (error, result) => {
         client.close();
     });
+
+    collection.find().toArray(function(err, items) {
+    console.log(items);
+  });
+
 });
