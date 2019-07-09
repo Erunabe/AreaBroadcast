@@ -73,15 +73,13 @@ MongoClient.connect(url, { useNewUrlParser: true },function(err, client) {
     collection = db.collection("Images");
 
 
-    NowcastImage = fs.readFileSync(format1+'.png');
+    NowcastImage = "C:\\Users\\s1500740\\github\\WeatherDataBroadcast\\NowcastImage\\"+ format1 + ".png";
     // コレクションにドキュメントを挿入
     collection.insertOne(
     {
       "GetImageTime":format1,
-      "Source":"気象庁",
       "ImageName":"降水ナウキャスト",
       "ImagePath":NowcastImage,
-      "credit":"出典：気象庁ホームページ(https://www.jma.go.jp/)"
     }
 , (error, result) => {
         client.close();

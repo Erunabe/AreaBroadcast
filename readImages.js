@@ -51,12 +51,7 @@ function loadFromDB(GetImageTime, callback) {
             db.close();
             return;
           }
-          // バイナリの処理については
-          // http://mongodb.github.io/node-mongodb-native/api-bson-generated/binary.html
-          // を参照
-          // 指定したサイズ分データを読み出す
-          var len = doc.ImagePath.length();
-          callback(err, doc.ImagePath.read(0, len));
+          fs.readFileSync(NowcastImage + "_read", body, 'binary');
         });
       });
     });
