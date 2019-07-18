@@ -22,9 +22,10 @@ MongoClient.connect(url, { useNewUrlParser: true },function(err, client) {
       for(var item of items){
       console.log(item.ImagePath);
     }
-      fs.readFile( item.ImagePath , function (err, data) {
+    
+      readImage = fs.readFile( ImagePathS, 'utf8' , function (err, data) {
       });;
-
+      fs.writeFile('readImage.png',readImage,'binary')
   });
 
 });

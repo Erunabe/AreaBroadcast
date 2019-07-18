@@ -19,10 +19,10 @@ if(ArrayMinutes[1] % 5 == 0){
   ;
 }else if(0<ArrayMinutes[1] && ArrayMinutes[1]<5){
   ArrayMinutes[1] = 0;
-  console.log("0にする")
+  console.log("0にする");
 }else{
   ArrayMinutes[1] = 5;
-  console.log("5にする")
+  console.log("5にする");
 }
 
 var WMhour = 0;

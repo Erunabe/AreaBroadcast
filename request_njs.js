@@ -9,7 +9,7 @@ var options = {
     url: 'http://api.potekanet.com/v1/point/real/ja/poteka?potekaId=555&element=temp,humi,wind_s,wind_d,wind_max_s,press_l,rain_i,rain_m,wbgt',
     method: 'GET',
     headers: headers,
-    proxy:'http://s1500740:Rose-lisa910@wproxy.net.sendai-nct.ac.jp:8080',
+    //proxy:'http://s1500740:Rose-lisa910@wproxy.net.sendai-nct.ac.jp:8080',
     json: false,
 }
 
