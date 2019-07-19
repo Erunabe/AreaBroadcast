@@ -1,6 +1,6 @@
 const MongoClient = require('mongodb').MongoClient;
 const assert = require('assert');
-var req = require('./request_njs.js')
+var req = require('./DataRequest.js')
 
 // Connection URL
 const url = 'mongodb://localhost:27017';
