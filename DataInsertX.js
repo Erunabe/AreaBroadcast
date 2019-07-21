@@ -16,7 +16,7 @@ var options = {
 
 
 const cron = require('node-cron');
-cron.schedule('* * * * *', () => {console.log('毎分実行');
+cron.schedule('2 * * * *', () => {console.log('毎分実行');
 request(options, function (error, response, body) {
     console.log(body);
     res = JSON.parse(body);
