@@ -36,19 +36,29 @@ console.log(format2)
 
 
 req(//ナウキャスト
-  {method: 'GET', url: "http://www.jma.go.jp/jp/radnowc/imgs/radar/205/"+format1+"-00.png",proxy:'http://s1500740:Rose-lisa910@wproxy.net.sendai-nct.ac.jp:8080', encoding: null},
+  {method: 'GET', url: "http://www.jma.go.jp/jp/radnowc/imgs/radar/205/"+format1+"-00.png",/*proxy:'http://s1500740:Rose-lisa910@wproxy.net.sendai-nct.ac.jp:8080',*/ encoding: null},
   function (error, response, body){
     if(!error && response.statusCode === 200){
-      fs.writeFileSync(format1+'.png', body, 'binary');
+      fs.writeFile('./NowcastImage/'+format1+'.png', body, 'binary', (err) => {
+        // 書き出しに失敗した場合
+        if(err){
+          console.log("エラーが発生しました。" + err)
+          throw err
+        }
+        // 書き出しに成功した場合
+        else{
+          console.log("ファイルが正常に書き出しされました")
+        }
+      });
     }
   }
 );
 
 req(//天気図
-  {method: 'GET', url: "https://www.jma.go.jp/jp/g3/images/jp_c/"+format2+".png",proxy:'http://s1500740:Rose-lisa910@wproxy.net.sendai-nct.ac.jp:8080', encoding: null},
+  {method: 'GET', url: "https://www.jma.go.jp/jp/g3/images/jp_c/"+format2+".png",/*proxy:'http://s1500740:Rose-lisa910@wproxy.net.sendai-nct.ac.jp:8080',*/ encoding: null},
   function (error, response, body){
     if(!error && response.statusCode === 200){
-      fs.writeFileSync('tenkizu.png', body, 'binary');
+      fs.writeFileSync('./WeatherMapImage/'+format2+'.png', body, 'binary');
     }
   }
 );
