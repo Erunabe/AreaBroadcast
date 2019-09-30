@@ -39,7 +39,7 @@ req(//ナウキャスト
   {method: 'GET', url: "http://www.jma.go.jp/jp/radnowc/imgs/radar/205/"+format1+"-00.png",proxy:'http://s1500740:Rose-lisa910@wproxy.net.sendai-nct.ac.jp:8080', encoding: null},
   function (error, response, body){
     if(!error && response.statusCode === 200){
-      fs.writeFile('./NowcastImage/'+format1+'.png', body, 'binary', (err) => {
+      fs.writeFile('/home/s1500740/reserch/NowcastImage/'+format1+'.png', body, 'binary', (err) => {
         // 書き出しに失敗した場合
         if(err){
           console.log("エラーが発生しました。" + err)
@@ -80,7 +80,7 @@ const assert = require('assert');
 const url = 'mongodb://localhost:27017';
 
 // Database Name
-const dbName = 'WeatherData';
+const dbName = 'AreaBroadcast';
 
 // Use connect method to connect to the server
 MongoClient.connect(url, { useNewUrlParser: true },function(err, client) {
@@ -90,7 +90,7 @@ MongoClient.connect(url, { useNewUrlParser: true },function(err, client) {
   const db = client.db(dbName);
 
     // コレクションの取得
-    collection = db.collection("Images");
+    collection = db.collection("WeatherImage");
 
 
     NowcastImage = "C:\\Users\\s1500740\\github\\WeatherDataBroadcast\\NowcastImage\\"+ format1 + ".png";

@@ -67,7 +67,7 @@ cron.schedule('* * * * *', () => {
   const url = 'mongodb://localhost:27017';
 
   // Database Name
-  const dbName = 'WeatherData';
+  const dbName = 'AreaBroadcast';
 
   // Use connect method to connect to the server
   MongoClient.connect(url, { useNewUrlParser: true },function(err, client) {
@@ -77,7 +77,7 @@ cron.schedule('* * * * *', () => {
     const db = client.db(dbName);
 
       // コレクションの取得
-      collection = db.collection("Data");
+      collection = db.collection("WeatherData");
 
       // コレクションにドキュメントを挿入
       collection.insertOne(
