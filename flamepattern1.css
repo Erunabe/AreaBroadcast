@@ -1,26 +1,26 @@
 p#title {
   color: white;
-  font-size: 150px;
+  font-size: 50px;
   font-weight: bold;
-  width: 1300px;
+  width: 600px;
   background: #ff4500;
   padding: 10px;
   text-align: center;
   border: 1px solid #cccccc;
   position: absolute;
-  top: 135px;
-  left:110px ;
+  top: -50px;
+  left:10px ;
 }
 
 p#date {
-  font-size: 32px;
+  font-size: 35px;
   background: #f5deb3;
   width: 270px;
   padding: 10px;
   text-align: center;
   border: 1px solid #cccccc;
   position: absolute;
-  top: 720px;
+  top: 10px;
   left:1180px ;
 }
 
@@ -31,7 +31,7 @@ p#E1credit1 {
   text-align: center;
   border: 1px solid #cccccc;
   position: absolute;
-  top: 600px;
+  top: 100px;
   left:240px ;
 
 }
@@ -46,15 +46,15 @@ div#E1 {
   left:100px ;
 }
 
-div#E1credit2 {
-  font-size: 28px;
-  background: #00ff7f;
+p#E1credit2 {
+  font-size: 20px;
+  background: #ffffff;
   padding: 10px;
   text-align: center;
   border: 1px solid #cccccc;
   position: absolute;
-  top: 600px;
-  left:860px ;
+  top: 1000px;
+  left:10px ;
 }
 
 
@@ -65,7 +65,7 @@ p#E2credit1 {
   text-align: center;
   border: 1px solid #cccccc;
   position: absolute;
-  top: 600px;
+  top: 100px;
   left:860px ;
 }
 
@@ -75,16 +75,17 @@ img#E2 {
   text-align: center;
   border: 1px solid #cccccc;
   position: absolute;
-  top: 210px;
-  left:800px ;
+  top: 300px;
+  left:1000px ;
 
 }
 
 p#E2credit2 {
+  font-size: 20px;
   background: #ffffff;
   text-align: center;
   border: 1px solid #cccccc;
   position: absolute;
-  top: 710px;
-  left:480px ;
+  top: 1000px;
+  left:600px ;
 }
