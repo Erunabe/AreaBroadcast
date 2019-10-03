@@ -16,7 +16,7 @@ var options = {
 
 const cron = require('node-cron');
 cron.schedule('* * * * *', () => {
-  console.log('毎分実行');
+  console.log('Per minute execution');
 
   request(options, function (error, response, body) {
     console.log(body);
@@ -55,7 +55,7 @@ cron.schedule('* * * * *', () => {
     wbgt = res.poteka[0].element[7].dataList[0].value;
 
 
-    console.log("気温:"+temp,"湿度:"+humi,"風速:"+wind_s,"風向:"+wind_d,"最大瞬間風速:"+wind_max_s,"気圧:"+press_l,"降水強度:"+rain_i,"1時間降水量:"+rain_m);
+    console.log("取得時間"+datatime,"気温:"+temp,"湿度:"+humi,"風速:"+wind_s,"風向:"+wind_d,"最大瞬間風速:"+wind_max_s,"気圧:"+press_l,"降水強度:"+rain_i,"1時間降水量:"+rain_m);
 
 
   })
@@ -70,7 +70,7 @@ cron.schedule('* * * * *', () => {
   const dbName = 'AreaBroadcast';
 
   // Use connect method to connect to the server
-  MongoClient.connect(url, { useNewUrlParser: true },function(err, client) {
+  MongoClient.connect(url, { useNewUrlParser: true ,useUnifiedTopology: true},function(err, client) {
     assert.equal(null, err);
     console.log("Connected successfully to server");
 

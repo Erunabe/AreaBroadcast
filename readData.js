@@ -5,7 +5,7 @@ const assert = require('assert');
 const url = 'mongodb://localhost:27017';
 
 // Database Name
-const dbName = 'WeatherData';
+const dbName = 'AreaBroadcast';
 
 // Use connect method to connect to the server
 MongoClient.connect(url, { useNewUrlParser: true },function(err, client) {
@@ -15,7 +15,7 @@ MongoClient.connect(url, { useNewUrlParser: true },function(err, client) {
   const db = client.db(dbName);
 
     // コレクションの取得
-    collection = db.collection("Data");
+    collection = db.collection("WeatherData");
 
    //最新の一件を取得
     collection.find().sort({_id: -1}).limit(1).toArray(function(err, items) {
