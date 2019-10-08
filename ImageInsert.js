@@ -36,10 +36,10 @@ console.log(format2)
 
 
 req(//ナウキャスト
-  {method: 'GET', url: "http://www.jma.go.jp/jp/radnowc/imgs/radar/205/"+format1+"-00.png",proxy:'http://s1500740:Rose-lisa910@wproxy.net.sendai-nct.ac.jp:8080', encoding: null},
+  {method: 'GET', url: "http://www.jma.go.jp/jp/radnowc/imgs/radar/205/"+format1+"-00.png",proxy:'http://10.54.199.79:8080', encoding: null},
   function (error, response, body){
     if(!error && response.statusCode === 200){
-      fs.writeFile('/home/s1500740/reserch/NowcastImage/'+format1+'.png', body, 'binary', (err) => {
+      fs.writeFile('/home/s1500740/WeatherDataBroadcast/NowcastImage/'+format1+'.png', body, 'binary', (err) => {
         // 書き出しに失敗した場合
         if(err){
           console.log("エラーが発生しました。" + err)
@@ -55,10 +55,10 @@ req(//ナウキャスト
 );
 
 req(//天気図
-  {method: 'GET', url: "https://www.jma.go.jp/jp/g3/images/jp_c/"+format2+".png",proxy:'http://s1500740:Rose-lisa910@wproxy.net.sendai-nct.ac.jp:8080', encoding: null},
+  {method: 'GET', url: "https://www.jma.go.jp/jp/g3/images/jp_c/"+format2+".png",proxy:'http://10.64.199.79:8080', encoding: null},
   function (error, response, body){
     if(!error && response.statusCode === 200){
-      fs.writeFile('/home/s1500740/reserch/WeatherMapImage/'+format2+'.png', body, 'binary',(err) => {
+      fs.writeFile('/home/s1500740/WeatherDataBroadcast/WeatherMapImage/'+format2+'.png', body, 'binary',(err) => {
         // 書き出しに失敗した場合
         if(err){
           console.log("エラーが発生しました。" + err)
@@ -93,7 +93,7 @@ MongoClient.connect(url, { useNewUrlParser: true ,useUnifiedTopology: true},func
     collection = db.collection("WeatherImage");
 
 
-    NowcastImage = "/home/s1500740/reserch/NowcastImage/"+ format1 + ".png";
+    NowcastImage = "/home/s1500740/WeatherDataBroadcast/NowcastImage/"+ format1 + ".png";
     // コレクションにドキュメントを挿入
     collection.insertOne(
     {
