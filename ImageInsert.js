@@ -1,6 +1,5 @@
-
+var rp = require('request-promise')
 require('date-utils');
-var req = require('request');
 var fs = require('fs');
 
 var nowTime = new Date();
@@ -34,10 +33,14 @@ exports.format1 = format1;
 exports.format2 = format2;
 console.log(format2)
 
+var options =  {
+  method: 'GET',
+  url: "http://www.jma.go.jp/jp/radnowc/imgs/radar/205/"+format1+"-00.png",
+  proxy:'http://10.54.199.79:8080',
+  encoding: null
+}
 
-req(//ナウキャスト
-  {method: 'GET', url: "http://www.jma.go.jp/jp/radnowc/imgs/radar/205/"+format1+"-00.png",proxy:'http://10.54.199.79:8080', encoding: null},
-  function (error, response, body){
+rp(options).then(function(body){
     if(!error && response.statusCode === 200){
       fs.writeFile('/home/s1500740/WeatherDataBroadcast/NowcastImage/'+format1+'.png', body, 'binary', (err) => {
         // 書き出しに失敗した場合
@@ -47,13 +50,51 @@ req(//ナウキャスト
         }
         // 書き出しに成功した場合
         else{
-          console.log("ファイルが正常に書き出しされました")
+          console.log("ファイルが正常に書き出しされました1")
         }
       });
     }
-  }
-);
+  })
+  .then(function(body){
 
+    const MongoClient = require('mongodb').MongoClient;
+    const assert = require('assert');
+
+    // Connection URL
+    const url = 'mongodb://localhost:27017';
+
+    // Database Name
+    const dbName = 'AreaBroadcast';
+
+    // Use connect method to connect to the server
+    MongoClient.connect(url, { useNewUrlParser: true ,useUnifiedTopology: true},function(err, client) {
+      assert.equal(null, err);
+      console.log("Connected successfully to server");
+
+      const db = client.db(dbName);
+
+        // コレクションの取得
+        collection = db.collection("WeatherImage");
+
+
+        NowcastImage = "/home/s1500740/WeatherDataBroadcast/NowcastImage/"+ format1 + ".png";
+        // コレクションにドキュメントを挿入
+        collection.insertOne(
+        {
+          "GetImageTime":format1,
+          "ImageName":"降水ナウキャスト",
+          "ImagePath":NowcastImage,
+        }
+    , (error, result) => {
+            client.close();
+        });
+    });
+  })
+
+   .catch(function(err){
+      console.error(err);
+    });
+/*
 req(//天気図
   {method: 'GET', url: "https://www.jma.go.jp/jp/g3/images/jp_c/"+format2+".png",proxy:'http://10.64.199.79:8080', encoding: null},
   function (error, response, body){
@@ -72,36 +113,4 @@ req(//天気図
     }
   }
 );
-
-const MongoClient = require('mongodb').MongoClient;
-const assert = require('assert');
-
-// Connection URL
-const url = 'mongodb://localhost:27017';
-
-// Database Name
-const dbName = 'AreaBroadcast';
-
-// Use connect method to connect to the server
-MongoClient.connect(url, { useNewUrlParser: true ,useUnifiedTopology: true},function(err, client) {
-  assert.equal(null, err);
-  console.log("Connected successfully to server");
-
-  const db = client.db(dbName);
-
-    // コレクションの取得
-    collection = db.collection("WeatherImage");
-
-
-    NowcastImage = "/home/s1500740/WeatherDataBroadcast/NowcastImage/"+ format1 + ".png";
-    // コレクションにドキュメントを挿入
-    collection.insertOne(
-    {
-      "GetImageTime":format1,
-      "ImageName":"降水ナウキャスト",
-      "ImagePath":NowcastImage,
-    }
-, (error, result) => {
-        client.close();
-    });
-});
+*/

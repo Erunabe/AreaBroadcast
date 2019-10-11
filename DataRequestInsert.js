@@ -1,5 +1,9 @@
-var request = require('request');
+var rp = require('request-promise')
 require('date-utils');
+const cron = require('node-cron');
+const MongoClient = require('mongodb').MongoClient;
+const assert = require('assert');
+
 
 var headers = {
     'X-POTEKA-Authorization':'c2VuZGFpLW5jdDpmZzd6dm1wWQ==',
@@ -13,13 +17,10 @@ var options = {
     json: false,
 }
 
-
-const cron = require('node-cron');
+//毎分実行する
 cron.schedule('* * * * *', () => {
   console.log('Per minute execution');
-
-  request(options, function (error, response, body) {
-    if(body){
+  rp(options).then(function(body) {
       console.log(body);
       res = JSON.parse(body);
 
@@ -57,54 +58,53 @@ cron.schedule('* * * * *', () => {
 
       console.log("取得時間"+datatime,"気温:"+temp,"湿度:"+humi,"風速:"+wind_s,"風向:"+wind_d,"最大瞬間風速:"+wind_max_s,"気圧:"+press_l,"降水強度:"+rain_i,"1時間降水量:"+rain_m);
 
-    }if(error){
-      console.log(error);
-    }
-  })
+    })
+
+    .then(function(body){
+
+      // 接続先URL
+      const url = 'mongodb://localhost:27017';
+
+      //データベース名
+      const dbName = 'AreaBroadcast';
 
 
-  const MongoClient = require('mongodb').MongoClient;
-  const assert = require('assert');
+      MongoClient.connect(url, { useNewUrlParser: true ,useUnifiedTopology: true},function(err, client) {
+        assert.equal(null, err);
+        console.log("Connected successfully to server");
 
-  // 接続先URL
-  const url = 'mongodb://localhost:27017';
+        const db = client.db(dbName);
 
-  //データベース名
-  const dbName = 'AreaBroadcast';
+          // コレクションの取得
+          collection = db.collection("WeatherData");
 
+          // コレクションにドキュメントを挿入
+          collection.insertOne(
+          {
+            "データ取得時間":datatime,
+            "温度":temp,
+            "湿度":humi,
+            "風速":wind_s,
+            "風向":wind_d,
+            "最大瞬間風速":wind_max_s,
+            "気圧":press_l,
+            "降水強度":rain_i,
+            "1時間降水量":rain_m,
+            "暑さ指数":wbgt
+          }
+      , (error, result) => {
+              client.close();
+          });
 
-  MongoClient.connect(url, { useNewUrlParser: true ,useUnifiedTopology: true},function(err, client) {
-    assert.equal(null, err);
-    console.log("Connected successfully to server");
-
-    const db = client.db(dbName);
-
-      // コレクションの取得
-      collection = db.collection("WeatherData");
-
-      // コレクションにドキュメントを挿入
-      collection.insertOne(
-      {
-        "データ取得時間":datatime,
-        "温度":temp,
-        "湿度":humi,
-        "風速":wind_s,
-        "風向":wind_d,
-        "最大瞬間風速":wind_max_s,
-        "気圧":press_l,
-        "降水強度":rain_i,
-        "1時間降水量":rain_m,
-        "暑さ指数":wbgt
-      }
-  , (error, result) => {
-          client.close();
+          collection.find().sort({_id: -1}).limit(1).toArray(function(err, items) {
+            for(var item of items){
+            console.log(item);
+          }
+        });
       });
-
-      collection.find().sort({_id: -1}).limit(1).toArray(function(err, items) {
-        for(var item of items){
-        console.log(item);
-      }
+    })
+    .catch(function(err){
+      console.error(err);
     });
-  });
 
 });
