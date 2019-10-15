@@ -24,24 +24,18 @@ if(ArrayMinutes[1] % 5 == 0){
   console.log("end 5");
 }
 
-var WMhour = 0;
-
-
+//ファイルの日時指定のフォーマット定義
 var format1 = nowTime.toFormat("YYYYMMDDHH24"+ArrayMinutes[0]+ArrayMinutes[1]);
 var format2 = nowTime.toFormat(ArrayYear[2]+ArrayYear[3]+"MMDD"+"09");
-exports.format1 = format1;
-exports.format2 = format2;
-console.log(format2)
 
 var options =  {
   method: 'GET',
   url: "http://www.jma.go.jp/jp/radnowc/imgs/radar/205/"+format1+"-00.png",
-  proxy:'http://10.54.199.79:8080',
+  proxy:'http://10.64.199.79:8080',
   encoding: null
 }
 
 rp(options).then(function(body){
-    if(!error && response.statusCode === 200){
       fs.writeFile('/home/s1500740/WeatherDataBroadcast/NowcastImage/'+format1+'.png', body, 'binary', (err) => {
         // 書き出しに失敗した場合
         if(err){
@@ -53,7 +47,6 @@ rp(options).then(function(body){
           console.log("ファイルが正常に書き出しされました1")
         }
       });
-    }
   })
   .then(function(body){
 
