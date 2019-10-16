@@ -64,7 +64,7 @@ cron.schedule('* * * * *', () => {
       const url = 'mongodb://localhost:27017';
 
       //データベース名
-      const dbName = 'AreaBroadcast';
+      const dbName = 'AreaBroadcast';s
 
 
       MongoClient.connect(url, { useNewUrlParser: true ,useUnifiedTopology: true},function(err, client) {
@@ -87,7 +87,7 @@ cron.schedule('* * * * *', () => {
             "最大瞬間風速":wind_max_s,
             "気圧":press_l,
             "降水強度":rain_i,
-            "1時間降水量":rain_m,
+            "降水量":rain_m,
             "暑さ指数":wbgt
           }
       , (error, result) => {

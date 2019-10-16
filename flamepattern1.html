@@ -22,15 +22,20 @@
             }
             setInterval('showClock2()',1000);
     </script>
+    <script src="./readData.js">
+      document.getElementById("E1").innerHTML = readData.temp;
+      console.log(readData.temp);
+    </script>
   </head>
+
   <body>
     <p id="title">愛子地区 気象情報</p>
     <p id="date"></p>
 
     <p id="E1credit1">気象データ観測値　時点</p>
-    <div id="E1">
+    <p id="E1">
 
-    </div>
+  </p>
     <p id="E1credit2">※風向・降水強度は参考値です</p>
 
     <p id="E2credit1">降水ナウキャスト(5分更新)</br>時点</p>
