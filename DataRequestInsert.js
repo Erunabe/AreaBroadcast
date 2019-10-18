@@ -64,7 +64,7 @@ cron.schedule('* * * * *', () => {
       const url = 'mongodb://localhost:27017';
 
       //データベース名
-      const dbName = 'AreaBroadcast';s
+      const dbName = 'AreaBroadcast';
 
 
       MongoClient.connect(url, { useNewUrlParser: true ,useUnifiedTopology: true},function(err, client) {

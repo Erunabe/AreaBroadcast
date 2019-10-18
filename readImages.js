@@ -23,17 +23,8 @@ MongoClient.connect(url, { useNewUrlParser: true ,useUnifiedTopology: true},func
      for(var item of items){
       console.log(item);
 
-      datatime = item.データ取得時間;
-      temp = item.温度;
-      humi = item.湿度;
-      wind_s = item.風速;
-      wind_d = item.風向;
-      wind_max_s = item.最大瞬間風速;
-      press_l = item.気圧;
-      rain_i = item.降水強度;
-      rain_m = item.1時間降水量;
-      wbgt = item.暑さ指数;
-     }
+
+
    }, (error, result) => {
      client.close();
  });
