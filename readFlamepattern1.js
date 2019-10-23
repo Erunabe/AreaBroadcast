@@ -1,15 +1,23 @@
 var http = require("http");
 var fs = require("fs");
 var ejs = require("ejs");
-var readData = require("./readData.js")
+var readData = require("./DataReqInsRead.js")
 
-
+console.log(readData.temp);
 var srv = http.createServer();
-var temp = fs.readFileSync(__dirname + "/flamepattern1.ejs", "utf-8");
+var template = fs.readFileSync("./flamepattern1.ejs", "utf-8");
 srv.on("request", function(req, res) {
-var page = ejs.render(temp, {
-title:"TITLE",
-content:"hogehoge"
+var page = ejs.render(template, {
+datatime:readData.datatime,
+temp:readData.temp,
+humi:readData.humi,
+wind_s:readData.wind_s,
+wind_d:readData.wind_d,
+wind_max_s:readData.wind_max_s,
+press_l:readData.press_l,
+rain_i:readData.rain_i,
+rain_m:readData.rain_m,
+wbgt:readData.wbgt,
 });
 res.writeHead(200, {"Content-Type": "text/html"});
 res.write(page);

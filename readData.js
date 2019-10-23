@@ -8,7 +8,7 @@ const url = 'mongodb://localhost:27017';
 // Database Name
 const dbName = 'AreaBroadcast';
 
-cron.schedule('1 * * * *', () => {
+cron.schedule('* * * * *', () => {
 // Use connect method to connect to the server
 MongoClient.connect(url, { useNewUrlParser: true ,useUnifiedTopology: true},function(err, client) {
   assert.equal(null, err);
