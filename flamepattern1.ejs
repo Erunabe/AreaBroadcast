@@ -26,11 +26,20 @@
 
   <body>
     <p id="title">愛子地区 気象情報</p>
-    <p id="date"><%= datatime %></p>
+    <p id="date"></p>
 
     <p id="E1credit1">気象データ観測値　時点</p>
     <div id="E1">
+      <p><%= datatime %></p>
       <p><%= temp %></p>
+      <p><%= humi %></p>
+      <p><%= wind_s %></p>
+      <p><%= wind_d %></p>
+      <p><%= wind_max_s %></p>
+      <p><%= press_l %></p>
+      <p><%= rain_i %></p>
+      <p><%= rain_m %></p>
+      <p><%= wbgt %></p>
     </div>
     <p id="E1credit2">※風向・降水強度は参考値です</p>
 

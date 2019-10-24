@@ -1,13 +1,14 @@
 var http = require("http");
 var fs = require("fs");
 var ejs = require("ejs");
-var readData = require("./DataReqInsRead.js")
 
-console.log(readData.temp);
+var readData = require("./DataReqInsRead.js")
+console.log(readData)
+
 var srv = http.createServer();
-var template = fs.readFileSync("./flamepattern1.ejs", "utf-8");
+var temp = fs.readFileSync("./flamepattern1.ejs", "utf-8");
 srv.on("request", function(req, res) {
-var page = ejs.render(template, {
+var page = ejs.render(temp, {
 datatime:readData.datatime,
 temp:readData.temp,
 humi:readData.humi,

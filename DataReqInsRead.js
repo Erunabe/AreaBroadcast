@@ -14,7 +14,7 @@ var options = {
     url: 'http://api.potekanet.com/v1/point/real/ja/poteka?potekaId=555&element=temp,humi,wind_s,wind_d,wind_max_s,press_l,rain_i,rain_m,wbgt',
     method: 'GET',
     headers: headers,
-    //proxy:'http://10.64.199.79:8080',
+    proxy:'http://10.64.199.79:8080',
     json: false,
 }
 
@@ -129,7 +129,7 @@ cron.schedule('* * * * *', () => {
             rain_m = item.降水量;
             wbgt = item.暑さ指数;
 
-          /*  exports.datatime = 'datatime';
+            exports.datatime = 'datatime';
             exports.temp = 'temp';
             exports.humi = 'humi';
             exports.wind_s = 'wind_s';
@@ -138,46 +138,17 @@ cron.schedule('* * * * *', () => {
             exports.press_l = 'press_l';
             exports.rain_i = 'rain_i';
             exports.rain_m = 'rain_m';
-            exports.wbgt = 'wbgt';*/
+            exports.wbgt = 'wbgt';
            }
          }, (error, result) => {
            client.close();
        });
 
       });
-
-    })
-    .then(function(body){
-
-      var http = require("http");
-      var ejs = require("ejs");
-
-      var srv = http.createServer();
-      var template = fs.readFileSync("./flamepattern1.ejs", "utf-8");
-      srv.on("request", function(req, res) {
-      var page = ejs.render(template, {
-      datatime:datatime,
-      temp:temp,
-      humi:humi,
-      wind_s:wind_s,
-      wind_d:wind_d,
-      wind_max_s:wind_max_s,
-      press_l:press_l,
-      rain_i:rain_i,
-      rain_m:rain_m,
-      wbgt:wbgt,
-      });
-      res.writeHead(200, {"Content-Type": "text/html"});
-      res.write(page);
-      res.end();
-      });
-      srv.listen(1234, "0.0.0.0");
-      console.log("server listening...");
-
     })
 
     .catch(function(err){
       console.error(err);
     });
 
-});
+  });
