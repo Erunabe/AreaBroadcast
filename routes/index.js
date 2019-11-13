@@ -1,7 +1,7 @@
 var express = require('express');
 var cron = require('node-cron');
 var router = express.Router();
-readData = require("/home/s1500740/testExp/DataReqInsRead.js")
+readData = require("/home/s1500740/WeatherDataBroadcast/DataReqInsRead.js")
 
 cron.schedule('* * * * *', () => {
 
