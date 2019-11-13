@@ -129,16 +129,16 @@ cron.schedule('* * * * *', () => {
             rain_m = item.降水量;
             wbgt = item.暑さ指数;
 
-            exports.datatime = 'datatime';
-            exports.temp = 'temp';
-            exports.humi = 'humi';
-            exports.wind_s = 'wind_s';
-            exports.wind_d = 'wind_d';
-            exports.wind_max_s = 'wind_max_s';
-            exports.press_l = 'press_l';
-            exports.rain_i = 'rain_i';
-            exports.rain_m = 'rain_m';
-            exports.wbgt = 'wbgt';
+            exports.datatime = datatime;
+            exports.temp = temp;
+            exports.humi = humi;
+            exports.wind_s = wind_s;
+            exports.wind_d = wind_d;
+            exports.wind_max_s = wind_max_s;
+            exports.press_l = press_l;
+            exports.rain_i = rain_i;
+            exports.rain_m = rain_m;
+            exports.wbgt = wbgt;
            }
          }, (error, result) => {
            client.close();
