@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>気象情報FP1</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="/home/s1500740/WeatherDataBroadcast/public/flamepattern1.css" type="text/css">
+    <script>
+        function set2fig(num) {
+          // 桁数が1桁だったら先頭に0を加えて2桁に調整する
+          var ret;
+          if( num < 10 ) { ret = "0" + num; }
+          else { ret = num; }
+            return ret;
+          }
+          function showClock2() {
+            var nowTime = new Date();
+            var nowHour = set2fig( nowTime.getHours() );
+            var nowMin  = set2fig( nowTime.getMinutes() );
+            var nowSec  = set2fig( nowTime.getSeconds() );
+            var msg = "現在時刻</br>" + nowHour + ":" + nowMin + ":" + nowSec ;
+            document.getElementById("date").innerHTML = msg;
+            }
+            setInterval('showClock2()',1000);
+    </script>
+  </head>
+
+  <body>
+    <p id="title">愛子地区 気象情報</p>
+    <p id="date"></p>
+
+    <p id="E1credit1">気象データ観測値　時点</p>
+    <div id="E1">
+      <p><%= datatime %></p>
+      <p><%= temp %></p>
+      <p><%= humi %></p>
+      <p><%= wind_s %></p>
+      <p><%= wind_d %></p>
+      <p><%= wind_max_s %></p>
+      <p><%= press_l %></p>
+      <p><%= rain_i %></p>
+      <p><%= rain_m %></p>
+      <p><%= wbgt %></p>
+    </div>
+    <p id="E1credit2">※風向・降水強度は参考値です</p>
+
+    <p id="E2credit1">降水ナウキャスト(5分更新)</br>時点</p>
+    <img src="./NowcastImage/201910011555.png" id="E2"></img>
+    <p id="E2credit2">出典：気象庁ホームページ(https://www.jma.go.jp/))</p>
+  </body>
+</html>
