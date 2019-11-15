@@ -46,6 +46,83 @@ div#E1 {
   left:100px ;
 }
 
+div#temp {
+  background: #ffffff;
+  padding: 10px;
+  text-align: center;
+  border: 1px solid #cccccc;
+  position: absolute;
+  top: 210px;
+  left:100px ;
+}
+
+div#humi {
+  background: #ffffff;
+  padding: 10px;
+  text-align: center;
+  border: 1px solid #cccccc;
+  position: absolute;
+  top: 210px;
+  left:300px ;
+}
+
+div#wind_s {
+  background: #ffffff;
+  padding: 10px;
+  text-align: center;
+  border: 1px solid #cccccc;
+  position: absolute;
+  top: 410px;
+  left:100px ;
+}
+div#wind_d {
+  background: #ffffff;
+  padding: 10px;
+  text-align: center;
+  border: 1px solid #cccccc;
+  position: absolute;
+  top: 410px;
+  left:300px ;
+}
+div#wind_max_s {
+  background: #ffffff;
+  padding: 10px;
+  text-align: center;
+  border: 1px solid #cccccc;
+  position: absolute;
+  top: 610px;
+  left:300px ;
+}
+div#press_l {
+  background: #ffffff;
+  padding: 10px;
+  text-align: center;
+  border: 1px solid #cccccc;
+  position: absolute;
+  top: 610px;
+  left:100px ;
+}
+div#rain_i {
+  background: #ffffff;
+  padding: 10px;
+  text-align: center;
+  border: 1px solid #cccccc;
+  position: absolute;
+  top: 810px;
+  left:300px ;
+}
+
+div#rain_m {
+  background: #ffffff;
+  padding: 10px;
+  text-align: center;
+  border: 1px solid #cccccc;
+  position: absolute;
+  top: 810px;
+  left:100px ;
+}
+
+
 p#E1credit2 {
   font-size: 20px;
   background: #ffffff;

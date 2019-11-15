@@ -2,6 +2,7 @@ var rp = require('request-promise')
 var fs = require('fs')
 require('date-utils');
 const cron = require('node-cron');
+const moment = require('moment')
 const MongoClient = require('mongodb').MongoClient;
 const assert = require('assert');
 
@@ -26,7 +27,9 @@ cron.schedule('* * * * *', () => {
       res = JSON.parse(body);
 
 
-      datatime = res.poteka[0].element[0].dataList[0].datatime;
+      dt = new Date(res.poteka[0].element[0].dataList[0].datatime);
+      datatime = dt.toLocaleString();
+      console.log(datatime)
       temp = res.poteka[0].element[0].dataList[0].value;
       humi = res.poteka[0].element[1].dataList[0].value;
       wind_s = res.poteka[0].element[2].dataList[0].value;
