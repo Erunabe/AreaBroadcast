@@ -17,7 +17,7 @@
             var nowHour = set2fig( nowTime.getHours() );
             var nowMin  = set2fig( nowTime.getMinutes() );
             var nowSec  = set2fig( nowTime.getSeconds() );
-            var msg = "現在時刻</br>" + nowHour + ":" + nowMin + ":" + nowSec ;
+            var msg = "現在時刻" + nowHour + ":" + nowMin + ":" + nowSec ;
             document.getElementById("date").innerHTML = msg;
             }
             setInterval('showClock2()',1000);
@@ -27,18 +27,50 @@
   <body>
     <p id="title">愛子地区 気象情報</p>
     <p id="date"></p>
-
+    <p id="info">雨雲の動き</p>
     <p id="E1credit1">気象データ観測値　<%= datatime %>時点</p>
-    <div id="E1">
-      <div id="temp"><%= temp %></div>
-      <div id="humi"><%= humi %></div>
-      <div id="wind_s"><%= wind_s %></div>
-      <div id="wind_d"><%= wind_d %></div>
-      <div id="wind_max_s"><%= wind_max_s %></div>
-      <div id="press_l"><%= press_l %></div>
-      <div id="rain_i"><%= rain_i %></div>
-      <div id="rain_m"><%= rain_m %></div>
-    </div>
+
+      <div id="temp">
+        <p id="tempL">気温</p>
+        <p id="tempD"><%= temp %></p>
+      </div>
+
+      <div id="humi">
+        <p id="humiL">湿度</p>
+        <p id="humiD"><%= humi %></p>
+      </div>
+
+      <div id="wind_s">
+        <p id="wind_sL">風速</p>
+        <p id="wind_sD"><%= wind_s %></p>
+      </div>
+
+      <div id="wind_d">
+        <p id="wind_dL">風向</p>
+        <p id="wind_dD"><%= wind_d %></p>
+      </div>
+
+      <div id="wind_max_s">
+        <p id="wind_max_sL">最大瞬間風速</p>
+        <p id="wind_max_sD"><%= wind_max_s %></p>
+      </div>
+
+      <div id="press_l">
+        <p id="press_lL">気圧</p>
+        <p id="press_lD"><%= press_l %></p>
+      </div>
+
+      <div id="rain_i">
+        <p id="rain_iL">降水強度</p>
+        <p id="rain_iD"><%= rain_i %></p>
+      </div>
+
+      <div id="rain_m">
+        <p id="rain_mL">1時間降水量</p>
+        <p id="rain_mD"><%= rain_m %></p>
+      </div>
+
+
     <p id="E1credit2">※風向・降水強度は参考値です</p>
 
     <p id="E2credit1">降水ナウキャスト(5分更新)</br>時点</p>

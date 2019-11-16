@@ -24,6 +24,18 @@ p#date {
   left:1180px ;
 }
 
+
+p#info {
+  font-size: 20px;
+  background: #ffffff;
+  padding: 10px;
+  text-align: center;
+  border: 1px solid #cccccc;
+  position: absolute;
+  top: 70px;
+  left:1200px ;
+}
+
 p#E1credit1 {
   font-size: 28px;
   background: #00ff7f;
@@ -36,100 +48,219 @@ p#E1credit1 {
 
 }
 
-div#E1 {
-  background: #ffffff;
-  padding: 10px;
-  text-align: center;
-  border: 1px solid #cccccc;
-  position: absolute;
-  top: 210px;
-  left:100px ;
-}
 
 div#temp {
   background: #ffffff;
-  padding: 10px;
   text-align: center;
   border: 1px solid #cccccc;
   position: absolute;
+  width: 220px;
+  height: 160px;
   top: 210px;
-  left:100px ;
+  left:80px ;
 }
+
+    p#tempL {
+      white-space: nowrap;
+      font-size: 30px;
+      line-height: 0em;
+    }
+
+    p#tempD {
+      padding-left: 50px;
+      padding-right: 50px;
+      white-space: nowrap;
+      font-size: 75px;
+      line-height: 0em;
+    }
 
 div#humi {
   background: #ffffff;
-  padding: 10px;
   text-align: center;
   border: 1px solid #cccccc;
   position: absolute;
+  width: 220px;
+  height: 160px;
   top: 210px;
-  left:300px ;
+  left:370px ;
 }
+    p#humiL {
+      white-space: nowrap;
+      font-size: 30px;
+      line-height: 0em;
+    }
+
+    p#humiD {
+      padding-left: 50px;
+      padding-right: 50px;
+      white-space: nowrap;
+      font-size: 75px;
+      line-height: 0em;
+    }
+
+
 
 div#wind_s {
   background: #ffffff;
-  padding: 10px;
   text-align: center;
   border: 1px solid #cccccc;
   position: absolute;
+  width: 220px;
+  height: 160px;
   top: 410px;
-  left:100px ;
+  left:80px ;
 }
+
+    p#wind_sL {
+      white-space: nowrap;
+      font-size: 30px;
+      line-height: 0em;
+    }
+
+    p#wind_sD {
+      padding-left: 50px;
+      padding-right: 50px;
+      white-space: nowrap;
+      font-size: 75px;
+      line-height: 0em;
+    }
+
+
 div#wind_d {
   background: #ffffff;
-  padding: 10px;
   text-align: center;
   border: 1px solid #cccccc;
   position: absolute;
+  width: 220px;
+  height: 160px;
   top: 410px;
-  left:300px ;
+  left:370px ;
 }
+
+    p#wind_dL {
+      white-space: nowrap;
+      font-size: 30px;
+      line-height: 0em;
+    }
+
+    p#wind_dD {
+      padding-left: 50px;
+      padding-right: 50px;
+      white-space: nowrap;
+      font-size: 75px;
+      line-height: 0em;
+    }
+
+
 div#wind_max_s {
   background: #ffffff;
-  padding: 10px;
   text-align: center;
   border: 1px solid #cccccc;
   position: absolute;
+  width: 220px;
+  height: 160px;
   top: 610px;
-  left:300px ;
+  left:80px ;
 }
+
+    p#wind_max_sL {
+      white-space: nowrap;
+      font-size: 30px;
+      line-height: 0em;
+    }
+
+    p#wind_max_sD {
+      padding-left: 50px;
+      padding-right: 50px;
+      white-space: nowrap;
+      font-size: 75px;
+      line-height: 0em;
+    }
+
+
 div#press_l {
   background: #ffffff;
-  padding: 10px;
   text-align: center;
   border: 1px solid #cccccc;
   position: absolute;
+  width: 220px;
+  height: 160px;
   top: 610px;
-  left:100px ;
+  left:370px ;
 }
+
+    p#press_lL {
+      white-space: nowrap;
+      font-size: 30px;
+      line-height: 0em;
+    }
+
+    p#press_lD {
+      padding-left: 20px;
+      padding-right: 20px;
+      white-space: nowrap;
+      font-size: 60px;
+      line-height: 0em;
+    }
+
 div#rain_i {
   background: #ffffff;
-  padding: 10px;
   text-align: center;
   border: 1px solid #cccccc;
   position: absolute;
+  width: 220px;
+  height: 160px;
   top: 810px;
-  left:300px ;
+  left:80px ;
 }
+
+    p#rain_iL {
+      white-space: nowrap;
+      font-size: 30px;
+      line-height: 0em;
+    }
+
+    p#rain_iD {
+      padding-left: 50px;
+      padding-right: 50px;
+      white-space: nowrap;
+      font-size: 75px;
+      line-height: 0em;
+    }
+
 
 div#rain_m {
   background: #ffffff;
-  padding: 10px;
   text-align: center;
   border: 1px solid #cccccc;
   position: absolute;
+  width: 220px;
+  height: 160px;
   top: 810px;
-  left:100px ;
+  left:370px ;
 }
 
+    p#rain_mL {
+      white-space: nowrap;
+      font-size: 30px;
+      line-height: 0em;
+    }
+
+    p#rain_mD {
+      padding-left: 50px;
+      padding-right: 50px;
+      white-space: nowrap;
+      font-size: 75px;
+      line-height: 0em;
+    }
 
 p#E1credit2 {
-  font-size: 20px;
   background: #ffffff;
-  padding: 10px;
   text-align: center;
   border: 1px solid #cccccc;
   position: absolute;
+  width: 100px;
+  height: 20px;
   top: 1000px;
   left:10px ;
 }
