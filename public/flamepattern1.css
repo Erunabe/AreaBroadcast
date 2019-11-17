@@ -48,14 +48,22 @@ p#E1credit1 {
 
 }
 
+.element{
+display: inline-block;
+background: #ffffff;
+text-align: center;
+border: 1px solid #cccccc;
+position: absolute;
+width: 240px;
+height: 180px;
+margin: 1em;
+}
+
+.side{
+  display: inline;
+}
 
 div#temp {
-  background: #ffffff;
-  text-align: center;
-  border: 1px solid #cccccc;
-  position: absolute;
-  width: 220px;
-  height: 160px;
   top: 210px;
   left:80px ;
 }
@@ -67,20 +75,17 @@ div#temp {
     }
 
     p#tempD {
-      padding-left: 50px;
-      padding-right: 50px;
       white-space: nowrap;
       font-size: 75px;
-      line-height: 0em;
+      line-height: 1em;
+    }
+
+    p#tempU {
+      font-size: 30px;
+      line-height: 1em;
     }
 
 div#humi {
-  background: #ffffff;
-  text-align: center;
-  border: 1px solid #cccccc;
-  position: absolute;
-  width: 220px;
-  height: 160px;
   top: 210px;
   left:370px ;
 }
@@ -91,22 +96,19 @@ div#humi {
     }
 
     p#humiD {
-      padding-left: 50px;
-      padding-right: 50px;
       white-space: nowrap;
       font-size: 75px;
-      line-height: 0em;
+      line-height: 1em;
+    }
+
+    p#humiU {
+      font-size: 30px;
+      line-height: 1em;
     }
 
 
 
 div#wind_s {
-  background: #ffffff;
-  text-align: center;
-  border: 1px solid #cccccc;
-  position: absolute;
-  width: 220px;
-  height: 160px;
   top: 410px;
   left:80px ;
 }
@@ -118,21 +120,18 @@ div#wind_s {
     }
 
     p#wind_sD {
-      padding-left: 50px;
-      padding-right: 50px;
       white-space: nowrap;
       font-size: 75px;
-      line-height: 0em;
+      line-height: 1em;
+    }
+
+    p#wind_sU {
+      font-size: 30px;
+      line-height: 1em;
     }
 
 
 div#wind_d {
-  background: #ffffff;
-  text-align: center;
-  border: 1px solid #cccccc;
-  position: absolute;
-  width: 220px;
-  height: 160px;
   top: 410px;
   left:370px ;
 }
@@ -144,21 +143,13 @@ div#wind_d {
     }
 
     p#wind_dD {
-      padding-left: 50px;
-      padding-right: 50px;
       white-space: nowrap;
       font-size: 75px;
-      line-height: 0em;
+      line-height: 1em;
     }
 
 
 div#wind_max_s {
-  background: #ffffff;
-  text-align: center;
-  border: 1px solid #cccccc;
-  position: absolute;
-  width: 220px;
-  height: 160px;
   top: 610px;
   left:80px ;
 }
@@ -170,21 +161,18 @@ div#wind_max_s {
     }
 
     p#wind_max_sD {
-      padding-left: 50px;
-      padding-right: 50px;
       white-space: nowrap;
       font-size: 75px;
-      line-height: 0em;
+      line-height: 1em;
+    }
+
+    p#wind_max_sU {
+      font-size: 30px;
+      line-height: 1em;
     }
 
 
 div#press_l {
-  background: #ffffff;
-  text-align: center;
-  border: 1px solid #cccccc;
-  position: absolute;
-  width: 220px;
-  height: 160px;
   top: 610px;
   left:370px ;
 }
@@ -196,20 +184,17 @@ div#press_l {
     }
 
     p#press_lD {
-      padding-left: 20px;
-      padding-right: 20px;
       white-space: nowrap;
       font-size: 60px;
-      line-height: 0em;
+      line-height: 1em;
+    }
+
+    p#pless_lU {
+      font-size: 30px;
+      line-height: 1em;
     }
 
 div#rain_i {
-  background: #ffffff;
-  text-align: center;
-  border: 1px solid #cccccc;
-  position: absolute;
-  width: 220px;
-  height: 160px;
   top: 810px;
   left:80px ;
 }
@@ -221,21 +206,18 @@ div#rain_i {
     }
 
     p#rain_iD {
-      padding-left: 50px;
-      padding-right: 50px;
       white-space: nowrap;
       font-size: 75px;
-      line-height: 0em;
+      line-height: 1em;
+    }
+
+    p#rain_iU {
+      font-size: 30px;
+      line-height: 1em;
     }
 
 
 div#rain_m {
-  background: #ffffff;
-  text-align: center;
-  border: 1px solid #cccccc;
-  position: absolute;
-  width: 220px;
-  height: 160px;
   top: 810px;
   left:370px ;
 }
@@ -243,15 +225,18 @@ div#rain_m {
     p#rain_mL {
       white-space: nowrap;
       font-size: 30px;
-      line-height: 0em;
+      line-height: 1em;
     }
 
     p#rain_mD {
-      padding-left: 50px;
-      padding-right: 50px;
       white-space: nowrap;
       font-size: 75px;
       line-height: 0em;
+    }
+
+    p#rain_mU {
+      font-size: 30px;
+      line-height: 1em;
     }
 
 p#E1credit2 {
