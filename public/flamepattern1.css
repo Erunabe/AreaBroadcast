@@ -1,39 +1,34 @@
-p#title {
-  color: white;
-  font-size: 50px;
-  font-weight: bold;
-  width: 600px;
+img#title {
+  width: 2100px;
   background: #ff4500;
   padding: 10px;
-  text-align: center;
-  border: 1px solid #cccccc;
-  position: absolute;
-  top: -50px;
+  top: -75px;
   left:10px ;
+  height: 250px;
 }
 
 p#date {
+  white-space: nowrap;
   font-size: 35px;
-  background: #f5deb3;
   width: 270px;
   padding: 10px;
   text-align: center;
   border: 1px solid #cccccc;
   position: absolute;
-  top: 10px;
-  left:1180px ;
+  top: 210px;
+  left:1500px ;
 }
 
 
 p#info {
-  font-size: 20px;
+  font-size: 75px;
   background: #ffffff;
   padding: 10px;
   text-align: center;
   border: 1px solid #cccccc;
   position: absolute;
-  top: 70px;
-  left:1200px ;
+  top: 310px;
+  left:1700px ;
 }
 
 p#E1credit1 {
@@ -43,8 +38,8 @@ p#E1credit1 {
   text-align: center;
   border: 1px solid #cccccc;
   position: absolute;
-  top: 100px;
-  left:240px ;
+  top: 200px;
+  left:160px ;
 
 }
 
@@ -54,7 +49,7 @@ background: #ffffff;
 text-align: center;
 border: 1px solid #cccccc;
 position: absolute;
-width: 240px;
+width: 320px;
 height: 180px;
 margin: 1em;
 }
@@ -64,7 +59,7 @@ margin: 1em;
 }
 
 div#temp {
-  top: 210px;
+  top: 300px;
   left:80px ;
 }
 
@@ -76,7 +71,7 @@ div#temp {
 
     p#tempD {
       white-space: nowrap;
-      font-size: 75px;
+      font-size: 80px;
       line-height: 1em;
     }
 
@@ -86,8 +81,8 @@ div#temp {
     }
 
 div#humi {
-  top: 210px;
-  left:370px ;
+  top: 300px;
+  left:450px ;
 }
     p#humiL {
       white-space: nowrap;
@@ -97,7 +92,7 @@ div#humi {
 
     p#humiD {
       white-space: nowrap;
-      font-size: 75px;
+      font-size: 80px;
       line-height: 1em;
     }
 
@@ -109,7 +104,7 @@ div#humi {
 
 
 div#wind_s {
-  top: 410px;
+  top: 500px;
   left:80px ;
 }
 
@@ -121,7 +116,7 @@ div#wind_s {
 
     p#wind_sD {
       white-space: nowrap;
-      font-size: 75px;
+      font-size: 80px;
       line-height: 1em;
     }
 
@@ -132,8 +127,8 @@ div#wind_s {
 
 
 div#wind_d {
-  top: 410px;
-  left:370px ;
+  top: 500px;
+  left:450px ;
 }
 
     p#wind_dL {
@@ -144,13 +139,13 @@ div#wind_d {
 
     p#wind_dD {
       white-space: nowrap;
-      font-size: 75px;
+      font-size: 80px;
       line-height: 1em;
     }
 
 
 div#wind_max_s {
-  top: 610px;
+  top: 700px;
   left:80px ;
 }
 
@@ -162,7 +157,7 @@ div#wind_max_s {
 
     p#wind_max_sD {
       white-space: nowrap;
-      font-size: 75px;
+      font-size: 80px;
       line-height: 1em;
     }
 
@@ -173,8 +168,8 @@ div#wind_max_s {
 
 
 div#press_l {
-  top: 610px;
-  left:370px ;
+  top: 700px;
+  left:450px ;
 }
 
     p#press_lL {
@@ -185,7 +180,7 @@ div#press_l {
 
     p#press_lD {
       white-space: nowrap;
-      font-size: 60px;
+      font-size: 80px;
       line-height: 1em;
     }
 
@@ -195,7 +190,7 @@ div#press_l {
     }
 
 div#rain_i {
-  top: 810px;
+  top: 900px;
   left:80px ;
 }
 
@@ -207,7 +202,7 @@ div#rain_i {
 
     p#rain_iD {
       white-space: nowrap;
-      font-size: 75px;
+      font-size: 80px;
       line-height: 1em;
     }
 
@@ -218,20 +213,20 @@ div#rain_i {
 
 
 div#rain_m {
-  top: 810px;
-  left:370px ;
+  top: 900px;
+  left:450px ;
 }
 
     p#rain_mL {
       white-space: nowrap;
       font-size: 30px;
-      line-height: 1em;
+      line-height: 0em;
     }
 
     p#rain_mD {
       white-space: nowrap;
       font-size: 75px;
-      line-height: 0em;
+      line-height: 1em;
     }
 
     p#rain_mU {
@@ -240,13 +235,13 @@ div#rain_m {
     }
 
 p#E1credit2 {
+  white-space: nowrap;
   background: #ffffff;
   text-align: center;
-  border: 1px solid #cccccc;
   position: absolute;
-  width: 100px;
+  width: 300px;
   height: 20px;
-  top: 1000px;
+  top: 1150px;
   left:10px ;
 }
 
@@ -258,8 +253,8 @@ p#E2credit1 {
   text-align: center;
   border: 1px solid #cccccc;
   position: absolute;
-  top: 100px;
-  left:860px ;
+  top: 400px;
+  left:1000px ;
 }
 
 
@@ -267,8 +262,7 @@ p#E2credit2 {
   font-size: 20px;
   background: #ffffff;
   text-align: center;
-  border: 1px solid #cccccc;
   position: absolute;
-  top: 1000px;
-  left:600px ;
+  top: 1150px;
+  left:900px ;
 }

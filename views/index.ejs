@@ -17,7 +17,7 @@
             var nowHour = set2fig( nowTime.getHours() );
             var nowMin  = set2fig( nowTime.getMinutes() );
             var nowSec  = set2fig( nowTime.getSeconds() );
-            var msg = "現在時刻" + nowHour + ":" + nowMin + ":" + nowSec ;
+            var msg = "現在時刻 " + nowHour + ":" + nowMin + ":" + nowSec ;
             document.getElementById("date").innerHTML = msg;
             }
             setInterval('showClock2()',1000);
@@ -25,7 +25,7 @@
   </head>
 
   <body>
-    <p id="title">愛子地区 気象情報</p>
+    <img src="title.jpg" alt="タイトル"></p>
     <p id="date"></p>
     <p id="info">雨雲の動き</p>
     <p id="E1credit1">気象データ観測値　<%= datatime %>時点</p>
