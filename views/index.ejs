@@ -17,7 +17,7 @@
             var nowHour = set2fig( nowTime.getHours() );
             var nowMin  = set2fig( nowTime.getMinutes() );
             var nowSec  = set2fig( nowTime.getSeconds() );
-            var msg = "現在時刻 " + nowHour + ":" + nowMin + ":" + nowSec ;
+            var msg = "現在時刻&nbsp;" + nowHour + ":" + nowMin + ":" + nowSec ;
             document.getElementById("date").innerHTML = msg;
             }
             setInterval('showClock2()',1000);
@@ -80,7 +80,8 @@
 
     <p id="E1credit2">※風向・降水強度は参考値です</p>
 
-    <p id="E2credit1">降水ナウキャスト(5分更新)</br>時点</p>
+    <img id="E2" src="<%= ImagePath %>"></img>
+    <p id="E2credit1"><%= ImageName %>(5分更新)</br><%= GetImageTime %>時点</p>
     <p id="E2credit2">出典：気象庁ホームページ(https://www.jma.go.jp/))</p>
   </body>
 </html>

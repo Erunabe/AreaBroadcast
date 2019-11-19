@@ -9,14 +9,13 @@ img#title {
 
 p#date {
   white-space: nowrap;
-  font-size: 35px;
+  font-size: 50px;
   width: 270px;
   padding: 10px;
   text-align: center;
-  border: 1px solid #cccccc;
   position: absolute;
-  top: 210px;
-  left:1500px ;
+  top: 200px;
+  left:1400px ;
 }
 
 
@@ -27,8 +26,8 @@ p#info {
   text-align: center;
   border: 1px solid #cccccc;
   position: absolute;
-  top: 310px;
-  left:1700px ;
+  top: 260px;
+  left:1500px ;
 }
 
 p#E1credit1 {
@@ -235,6 +234,7 @@ div#rain_m {
     }
 
 p#E1credit2 {
+  font-size: 25px;
   white-space: nowrap;
   background: #ffffff;
   text-align: center;
@@ -246,6 +246,12 @@ p#E1credit2 {
 }
 
 
+
+img#E2 {
+  top: 520px;
+  left:1200px ;
+}
+
 p#E2credit1 {
   font-size: 28px;
   background: #00ff7f;
@@ -253,16 +259,16 @@ p#E2credit1 {
   text-align: center;
   border: 1px solid #cccccc;
   position: absolute;
-  top: 400px;
-  left:1000px ;
+  top: 370px;
+  left:1260px ;
 }
 
 
 p#E2credit2 {
-  font-size: 20px;
+  font-size: 25px;
   background: #ffffff;
   text-align: center;
   position: absolute;
   top: 1150px;
-  left:900px ;
+  left:1200px ;
 }

@@ -1,9 +1,9 @@
 var express = require('express');
 var cron = require('node-cron');
 var router = express.Router();
-readData = require("/home/s1500740/WeatherDataBroadcast/DataReqInsRead.js")
+readData = require("/home/s1500740/WeatherDataBroadcast/DataReqInsRead.js");
+readImage = require("/home/s1500740/WeatherDataBroadcast/ImageReqInsRead.js");
 
-cron.schedule('* * * * *', () => {
 
   router.get("/", function (req, res) {
     var data = {
@@ -17,10 +17,14 @@ cron.schedule('* * * * *', () => {
       rain_i:readData.rain_i,
       rain_m:readData.rain_m,
       wbgt:readData.wbgt,
+
+      GetImageTime:readImage.GetImageTime,
+      ImageName:readImage.ImageName,
+      ImagePath:readImage.ImagePath,
+
     };
     // レンダリングを行う
     res.render('index', data);
   });
-});
 
 module.exports = router;

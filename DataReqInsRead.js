@@ -21,7 +21,7 @@ var options = {
 
 //毎分実行する
 cron.schedule('* * * * *', () => {
-  console.log('Per minute execution');
+  console.log('Data : Per minute execution');
   rp(options).then(function(body) {
     //  console.log(body);
       res = JSON.parse(body);
@@ -73,7 +73,7 @@ cron.schedule('* * * * *', () => {
 
       MongoClient.connect(url, { useNewUrlParser: true ,useUnifiedTopology: true},function(err, client) {
         assert.equal(null, err);
-        console.log("Connected successfully to server");
+        console.log("DataInsert : Connected successfully to server");
 
         const db = client.db(dbName);
 
@@ -108,7 +108,7 @@ cron.schedule('* * * * *', () => {
     .then(function(body){
       MongoClient.connect(url, { useNewUrlParser: true ,useUnifiedTopology: true},function(err, client) {
         assert.equal(null, err);
-        console.log("Connected successfully to server");
+        console.log("DataRead : Connected successfully to server");
 
         const db = client.db(dbName);
 
