@@ -29,7 +29,6 @@ cron.schedule('* * * * *', () => {
 
       dt = new Date(res.poteka[0].element[0].dataList[0].datatime);
       datatime = dt.toLocaleString();
-      console.log(datatime)
       temp = res.poteka[0].element[0].dataList[0].value;
       humi = res.poteka[0].element[1].dataList[0].value;
       wind_s = res.poteka[0].element[2].dataList[0].value;

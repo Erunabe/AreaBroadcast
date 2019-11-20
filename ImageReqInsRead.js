@@ -3,9 +3,11 @@ require('date-utils');
 var fs = require('fs');
 const MongoClient = require('mongodb').MongoClient;
 const assert = require('assert');
-var nowTime = new Date();
 const cron = require('node-cron');
 
+cron.schedule('* * * * *', () => {
+
+var nowTime = new Date();
 var Year_2 = String(nowTime.getFullYear());
 var minutes = String(nowTime.getMinutes());
 if(minutes.length==1){
@@ -31,8 +33,8 @@ var format1 = nowTime.toFormat("YYYYMMDDHH24"+ArrayMinutes[0]+ArrayMinutes[1]);
 var format2 = nowTime.toFormat(ArrayYear[2]+ArrayYear[3]+"MMDD"+"09");
 
 //DB格納時の日時フォーマット
-var DBformat1 = nowTime.toFormat("YYYY"+"-"+"MM"+"-"+"DD"+"\t"+"HH24"+":"+"MI"+":"+"SS");
-console.log(DBformat1)
+var DBformat1 = nowTime.toFormat("YYYY"+"-"+"MM"+"-"+"DD"+"\t"+"HH24"+":"+ArrayMinutes[0]+ArrayMinutes[1]);
+console.log(format1);
 
 var options =  {
   method: 'GET',
@@ -41,8 +43,7 @@ var options =  {
   encoding:null,
 }
 
-//
-cron.schedule('* * * * *', () => {
+
   console.log('Image : Per minute execution');
   rp(options).then(function(body){
         fs.writeFile('/home/s1500740/WeatherDataBroadcast/public/NowcastImage/'+format1+'.png', body, 'binary', (err) => {
@@ -80,7 +81,7 @@ cron.schedule('* * * * *', () => {
           // コレクションにドキュメントを挿入
           collection.insertOne(
           {
-            "GetImageTime":format1,
+            "GetImageTime":DBformat1,
             "ImageName":"降水ナウキャスト",
             "ImagePath":NowcastImage,
           }

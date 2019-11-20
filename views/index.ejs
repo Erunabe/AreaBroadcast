@@ -5,6 +5,8 @@
     <meta charset="utf-8">
     <link href="flamepattern1.css" rel="stylesheet">
     <script>
+        setTimeout("location.reload()",1000*60);
+
         function set2fig(num) {
           // 桁数が1桁だったら先頭に0を加えて2桁に調整する
           var ret;
@@ -12,12 +14,19 @@
           else { ret = num; }
             return ret;
           }
+
           function showClock2() {
             var nowTime = new Date();
+            var Year = nowTime.getFullYear();
+            var Month = nowTime.getMonth()+1;
+            var nowDate = nowTime.getDate();
+            var week = nowTime.getDay();
+            var weekArray = new Array("日","月","火","水","木","金","土");
             var nowHour = set2fig( nowTime.getHours() );
             var nowMin  = set2fig( nowTime.getMinutes() );
             var nowSec  = set2fig( nowTime.getSeconds() );
-            var msg = "現在時刻&nbsp;" + nowHour + ":" + nowMin + ":" + nowSec ;
+
+            var msg = Year +　"年"　+ Month +　"月"　+ nowDate + "日" + "(" + weekArray[week] + ")" + "&nbsp;" + nowHour + ":" + nowMin + ":" + nowSec;
             document.getElementById("date").innerHTML = msg;
             }
             setInterval('showClock2()',1000);
