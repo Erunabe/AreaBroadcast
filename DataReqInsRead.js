@@ -82,6 +82,7 @@ cron.schedule('* * * * *', () => {
           // コレクションにドキュメントを挿入
           collection.insertOne(
           {
+            "TTLフィールド": new Date(),
             "データ取得時間":datatime,
             "温度":temp,
             "湿度":humi,

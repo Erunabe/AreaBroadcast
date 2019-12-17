@@ -33,8 +33,9 @@ var format1 = nowTime.toFormat("YYYYMMDDHH24"+ArrayMinutes[0]+ArrayMinutes[1]);
 var format2 = nowTime.toFormat(ArrayYear[2]+ArrayYear[3]+"MMDD"+"09");
 
 //DB格納時の日時フォーマット
-var DBformat1 = nowTime.toFormat("YYYY"+"-"+"MM"+"-"+"DD"+"\t"+"HH24"+":"+ArrayMinutes[0]+ArrayMinutes[1]);
-console.log(format1);
+var DBformat1_Day = nowTime.toFormat("YYYY"+"-"+"MM"+"-"+"DD");
+var DBformat1_Time = nowTime.toFormat("HH24"+":"+ArrayMinutes[0]+ArrayMinutes[1]
+c);onsole.log(format1);
 
 var options =  {
   method: 'GET',
@@ -81,7 +82,8 @@ var options =  {
           // コレクションにドキュメントを挿入
           collection.insertOne(
           {
-            "GetImageTime":DBformat1,
+            "GetImageDay":DBformat1_Day,
+            "GetImageTime":DBformat1_Time,
             "ImageName":"降水ナウキャスト",
             "ImagePath":NowcastImage,
           }
