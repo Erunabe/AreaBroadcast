@@ -15,7 +15,6 @@ if(minutes.length==1){
 
 var NowTemp =  nowTime.toFormat("HH24"+minutes) ;
 var nowTemp = parseInt(NowTemp,10);
-console.log(typeof(nowTemp))
 
 var ArrayYear = Year_2.split('');
 var constHour = [3,6,9,12,15,18,21];
@@ -33,9 +32,9 @@ if(510 <= nowTemp && nowTemp < 810){
   HourFormat = constHour[3];
 }else if(1710 <= nowTemp && nowTemp < 2010){
   HourFormat = constHour[4];
-}else if(2010 <= nowTemp && nowTemp < 2210){
+}else if(2010 <= nowTemp && nowTemp < 2310){
   HourFormat = constHour[5];
-}else if(2210 <= nowTemp && nowTemp < 0510){
+}else if(2310 <= nowTemp && nowTemp < 0510){
   HourFormat = constHour[6];
 }
 
