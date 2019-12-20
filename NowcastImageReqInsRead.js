@@ -34,8 +34,8 @@ var format2 = nowTime.toFormat(ArrayYear[2]+ArrayYear[3]+"MMDD"+"09");
 
 //DB格納時の日時フォーマット
 var DBformat1_Day = nowTime.toFormat("YYYY"+"-"+"MM"+"-"+"DD");
-var DBformat1_Time = nowTime.toFormat("HH24"+":"+ArrayMinutes[0]+ArrayMinutes[1]
-c);onsole.log(format1);
+var DBformat1_Time = nowTime.toFormat("HH24"+":"+ArrayMinutes[0]+ArrayMinutes[1]);
+console.log(format1);
 
 var options =  {
   method: 'GET',
@@ -82,9 +82,8 @@ var options =  {
           // コレクションにドキュメントを挿入
           collection.insertOne(
           {
-            "GetImageDay":DBformat1_Day,
-            "GetImageTime":DBformat1_Time,
-            "ImageName":"降水ナウキャスト",
+            "GetDay":DBformat1_Day,
+            "GetTime":DBformat1_Time,
             "ImagePath":NowcastImage,
           }
       , (error, result) => {
@@ -99,20 +98,17 @@ var options =  {
 
             const db = client.db(dbName);
             // コレクションの取得
-            collection = db.collection("WeatherImage");
+            collection = db.collection("NowcastImage");
 
             //最新の一件を取得
               collection.find().sort({_id: -1}).limit(1).toArray(function(err, items) {
                for(var item of items){
                 console.log(item);
 
-                GetImageTime = item.GetImageTime;
-                ImageName = item.ImageName;
-                ImagePath = item.ImagePath;
+                exports.GetDay = item.GetDay;
+                exports.GetTime = item.GetTime;
+                exports.ImagePath = item.ImagePath;
 
-                exports.GetImageTime= GetImageTime;
-                exports.ImageName = ImageName;
-                exports.ImagePath = ImagePath;
                }
              }, (error, result) => {
                client.close();

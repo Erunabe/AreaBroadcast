@@ -46,7 +46,7 @@ console.log(HourFormat);
 //ファイルの日時指定のフォーマット定義
 var format = nowTime.toFormat(ArrayYear[2]+ArrayYear[3]+"MMDD"+HourFormat);
 
-var DBformat1_Day =  nowTime.toFormat(Year_2+"MMDD")
+var DBformat1_Day =  nowTime.toFormat(Year_2+"-"+"MM"+"-"+"DD")
 var DBformat1_Time =  nowTime.toFormat(HourFormat+":"+"00");
 
 var options =  {
@@ -87,16 +87,15 @@ var options =  {
         const db = client.db(dbName);
 
           // コレクションの取得
-          collection = db.collection("WeatherImage");
+          collection = db.collection("WeatherMapImage");
 
 
           WeatherMapImage = "/WeatherMapImage/"+format + ".png";
           // コレクションにドキュメントを挿入
           collection.insertOne(
           {
-            "GetImageDay":DBformat1_Day,
-            "GetImageTime":DBformat1_Time,
-            "ImageName":"実況天気図",
+            "GetDay":DBformat1_Day,
+            "GetTime":DBformat1_Time,
             "ImagePath":WeatherMapImage,
           }
       , (error, result) => {
@@ -118,16 +117,10 @@ var options =  {
                for(var item of items){
                 console.log(item);
 
-                GetImageDay = item.GetImageDay;
-                GetImageTime = item.GetImageTime;
-                ImageName = item.ImageName;
-                ImagePath = item.ImagePath;
+                exports.GetImageDay = item.GetImageDay;
+                exports.GetImageTime = item.GetImageTime;
+                exports.ImagePath = item.ImagePath;
 
-                exports.GetImageDay= GetImageDay;
-                exports.GetImageTime= GetImageTime;
-                exports.ImageName = ImageName;
-                exports.ImagePath = ImagePath;
-               }
              }, (error, result) => {
                client.close();
            });

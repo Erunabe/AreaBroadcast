@@ -7,6 +7,7 @@ readImage = require("/home/s1500740/WeatherDataBroadcast/ImageReqInsRead.js");
 
   router.get("/", function (req, res) {
     var data = {
+      dataday:readData.dataday,
       datatime:readData.datatime,
       temp:readData.temp,
       humi:readData.humi,

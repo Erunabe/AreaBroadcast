@@ -29,6 +29,7 @@ cron.schedule('* * * * *', () => {
 
       dt = new Date(res.poteka[0].element[0].dataList[0].datatime);
       datatime = dt.toLocaleString();
+      ArrayDatatime = datatime.split(' ');
       temp = res.poteka[0].element[0].dataList[0].value;
       humi = res.poteka[0].element[1].dataList[0].value;
       wind_s = res.poteka[0].element[2].dataList[0].value;
@@ -82,17 +83,18 @@ cron.schedule('* * * * *', () => {
           // コレクションにドキュメントを挿入
           collection.insertOne(
           {
-            "TTLフィールド": new Date(),
-            "データ取得時間":datatime,
-            "温度":temp,
-            "湿度":humi,
-            "風速":wind_s,
-            "風向":wind_d,
-            "最大瞬間風速":wind_max_s,
-            "気圧":press_l,
-            "降水強度":rain_i,
-            "降水量":rain_m,
-            "暑さ指数":wbgt
+            "TTLfield": new Date(),
+            "GetDay":ArrayDatatime[0],
+            "GetTime":ArrayDatatime[1],
+            "temp":temp,
+            "humi":humi,
+            "wind_s":wind_s,
+            "wind_d":wind_d,
+            "wind_max_s":wind_max_s,
+            "press_lD":press_l,
+            "rain_i":rain_i,
+            "rain_m":rain_m,
+            "wbgt":wbgt
           }
       , (error, result) => {
               client.close();
@@ -121,18 +123,20 @@ cron.schedule('* * * * *', () => {
            for(var item of items){
             console.log(item);
 
-            datatime = item.データ取得時間;
-            temp = item.温度;
-            humi = item.湿度;
-            wind_s = item.風速;
-            wind_d = item.風向;
-            wind_max_s = item.最大瞬間風速;
-            press_l = item.気圧;
-            rain_i = item.降水強度;
-            rain_m = item.降水量;
-            wbgt = item.暑さ指数;
+            exports.GetDay = item.GetDay;
+            exports.GetTime = item.GetTime;
+            exports.temp = item.temp;
+            exports.humi = item.humi;
+            exports.wind_s = item.wind_s;
+            exports.wind_d = item.wind_d;
+            exports.wind_max_s = item.wind_max_s;
+            exports.press_l = item.press_l;
+            exports.rain_i = item.rain_i;
+            exports.rain_m = item.rain_m;
+            exports.wbgt = item.wbgt;
 
-            exports.datatime = datatime;
+            /*exports.GetDay = GetDay;
+            exports.GetTime = GetTime;
             exports.temp = temp;
             exports.humi = humi;
             exports.wind_s = wind_s;
@@ -141,7 +145,7 @@ cron.schedule('* * * * *', () => {
             exports.press_l = press_l;
             exports.rain_i = rain_i;
             exports.rain_m = rain_m;
-            exports.wbgt = wbgt;
+            exports.wbgt = wbgt;*/
            }
          }, (error, result) => {
            client.close();
