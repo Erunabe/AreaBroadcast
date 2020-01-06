@@ -91,7 +91,7 @@ cron.schedule('* * * * *', () => {
             "wind_s":wind_s,
             "wind_d":wind_d,
             "wind_max_s":wind_max_s,
-            "press_lD":press_l,
+            "press_l":press_l,
             "rain_i":rain_i,
             "rain_m":rain_m,
             "wbgt":wbgt
