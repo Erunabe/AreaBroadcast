@@ -78,7 +78,7 @@ cron.schedule('* * * * *', () => {
         const db = client.db(dbName);
 
           // コレクションの取得
-          collection = db.collection("WeatherData");
+          collection = db.collection("MeteorogicalObserv");
 
           // コレクションにドキュメントを挿入
           collection.insertOne(
@@ -115,7 +115,7 @@ cron.schedule('* * * * *', () => {
         const db = client.db(dbName);
 
           // コレクションの取得
-          collection = db.collection("WeatherData");
+          collection = db.collection("MeteorogicalObserv");
 
          //最新の一件を取得
 
@@ -157,5 +157,4 @@ cron.schedule('* * * * *', () => {
     .catch(function(err){
       console.error(err);
     });
-
-  });
+});

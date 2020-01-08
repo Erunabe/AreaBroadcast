@@ -110,7 +110,7 @@ var options =  {
 
             const db = client.db(dbName);
             // コレクションの取得
-            collection = db.collection("WeatherImage");
+            collection = db.collection("WeatherMapImage");
 
             //最新の一件を取得
               collection.find().sort({_id: -1}).limit(1).toArray(function(err, items) {
@@ -128,6 +128,13 @@ var options =  {
       })
      .catch(function(err){
         console.error(err);
+        switch(err.statusCode){
+        case 404:
+            // NOT FOUND Process
+            break;
+        default:
+            // Other Error Process
+            break;
    });
 
   /*

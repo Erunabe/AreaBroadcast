@@ -5,7 +5,8 @@ const MongoClient = require('mongodb').MongoClient;
 const assert = require('assert');
 const cron = require('node-cron');
 
-cron.schedule('* * * * *', () => {
+
+cron.schedule('*/5 * * * *', () => {
 
 var nowTime = new Date();
 var Year_2 = String(nowTime.getFullYear());
@@ -75,7 +76,7 @@ var options =  {
         const db = client.db(dbName);
 
           // コレクションの取得
-          collection = db.collection("WeatherImage");
+          collection = db.collection("NowcastImage");
 
 
           NowcastImage = "/NowcastImage/"+format1 + ".png";
@@ -115,27 +116,7 @@ var options =  {
            });
          })
       })
-     .catch(function(err){
-        console.error(err);
-   });
-});
-  /*
-  req(//天気図
-    {method: 'GET', url: "https://www.jma.go.jp/jp/g3/images/jp_c/"+format2+".png",proxy:'http://10.64.199.79:8080', encoding: null},
-    function (error, response, body){
-      if(!error && response.statusCode === 200){
-        fs.writeFile('/home/s1500740/WeatherDataBroadcast/WeatherMapImage/'+format2+'.png', body, 'binary',(err) => {
-          // 書き出しに失敗した場合
-          if(err){
-            console.log("エラーが発生しました。" + err)
-            throw err
-          }
-          // 書き出しに成功した場合
-          else{
-            console.log("ファイルが正常に書き出しされました")
-          }
-        });
-      }
-    }
-  );
-  */
+      .catch(function(err){
+         console.error(err);
+    });
+ });
