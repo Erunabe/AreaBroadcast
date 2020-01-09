@@ -115,7 +115,7 @@ cron.schedule('* * * * *', () => {
         const db = client.db(dbName);
 
           // コレクションの取得
-          collection = db.collection("MeteorogicalObserv");
+          collection = db.collection("MeteorObserv");
 
          //最新の一件を取得
 

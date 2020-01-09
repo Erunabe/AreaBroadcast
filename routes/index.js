@@ -29,16 +29,28 @@ TempRead = require("/home/s1500740/WeatherDataBroadcast/TempRead.js");
   });
 
   router.get("/graph", function (req, res) {
-    var data = {
+    var gdata = {
       items: [
         ['Hour', '温度'],
         [TempRead.GetTime1,  TempRead.Temp1],
         [TempRead.GetTime2,  TempRead.Temp2],
         [TempRead.GetTime3,  TempRead.Temp3],
-        [TempRead.GetTime4,  TempRead.Temp4]
+        [TempRead.GetTime4,  TempRead.Temp4],
+        [TempRead.GetTime5,  TempRead.Temp5],
+        [TempRead.GetTime6,  TempRead.Temp6],
+        [TempRead.GetTime7,  TempRead.Temp7],
+        [TempRead.GetTime8,  TempRead.Temp8],
+        [TempRead.GetTime9,  TempRead.Temp9],
+        [TempRead.GetTime10,  TempRead.Temp10],
+        [TempRead.GetTime11,  TempRead.Temp11],
+        [TempRead.GetTime12,  TempRead.Temp12],
+        [TempRead.GetTime13,  TempRead.Temp13],
+        [TempRead.GetTime14,  TempRead.Temp14],
+        [TempRead.GetTime15,  TempRead.Temp15],
+        [TempRead.GetTime16,  TempRead.Temp16]
       ]
     };
     // レンダリングを行う
-    res.render('graph.ejs', data);
+    res.render('graph.ejs', gdata);
   });
 module.exports = router;
