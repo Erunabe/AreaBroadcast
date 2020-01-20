@@ -38,17 +38,16 @@ TempRead = require("/home/s1500740/WeatherDataBroadcast/TempRead.js");
         [TempRead.GetTime4,  TempRead.Temp4],
         [TempRead.GetTime5,  TempRead.Temp5],
         [TempRead.GetTime6,  TempRead.Temp6],
-        [TempRead.GetTime7,  TempRead.Temp7],
-        [TempRead.GetTime8,  TempRead.Temp8],
-        [TempRead.GetTime9,  TempRead.Temp9],
-        [TempRead.GetTime10,  TempRead.Temp10],
-        [TempRead.GetTime11,  TempRead.Temp11],
-        [TempRead.GetTime12,  TempRead.Temp12],
-        [TempRead.GetTime13,  TempRead.Temp13],
-        [TempRead.GetTime14,  TempRead.Temp14],
-        [TempRead.GetTime15,  TempRead.Temp15],
-        [TempRead.GetTime16,  TempRead.Temp16]
-      ]
+        [TempRead.GetTime7,  TempRead.Temp7]
+
+      ],
+
+      MaxTemp:TempRead.MaxTemp,
+      MaxGetDay:TempRead.maxGetDay,
+      MaxGetTime:TempRead.maxGetTime,
+      MinTemp:TempRead.MinTemp,
+      MinGetDay:TempRead.minGetDay,
+      MinGetTime:TempRead.minGetTime
     };
     // レンダリングを行う
     res.render('graph.ejs', gdata);

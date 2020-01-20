@@ -1,0 +1,176 @@
+img#title {
+  width: 2100px;
+  background: #ff4500;
+  padding: 10px;
+  top: -75px;
+  left:10px ;
+  height: 250px;
+}
+
+p#date {
+  white-space: nowrap;
+  font-size: 50px;
+  width: 270px;
+  padding: 10px;
+  text-align: center;
+  position: absolute;
+  top: 135px;
+  left:1250px ;
+}
+
+
+p#info {
+  font-size: 75px;
+  background: #fffacd;
+  padding: 10px;
+  text-align: center;
+  border: 1px solid #cccccc;
+  border-radius: 40px;
+  position: absolute;
+  width: 800px;
+  top: 190px;
+  left:1170px ;
+}
+
+p#E1credit1 {
+  font-size: 35px;
+  background: #afeeee;
+  padding: 10px;
+  text-align: center;
+  border: 1px solid #cccccc;
+  position: absolute;
+  top: 180px;
+  left:120px ;
+
+}
+
+.Label{
+display: inline-block;
+background: #ffffff;
+text-align: center;
+border: 1px solid #cccccc;
+position: absolute;
+width: 250px;
+height: 200px;
+margin: 1em;
+}
+
+.element{
+display: inline-block;
+background: #ffffff;
+text-align: center;
+border: 1px solid #cccccc;
+position: absolute;
+width: 400px;
+height: 200px;
+margin: 1em;
+}
+
+.side{
+  display: inline;
+}
+
+
+
+
+
+div#maxTemp_U {
+  top: 345px;
+  left:1350px;
+  font-size: 70px;
+  line-height: 1.3em;
+}
+
+
+div#Max {
+  top: 400px;
+  left:1650px;
+}
+
+    p#maxTempTime {
+      white-space: nowrap;
+      font-size: 35px;
+      line-height: 0em;
+    }
+
+
+    p#maxTemp {
+      white-space: nowrap;
+      font-size: 75px;
+      line-height: 1em;
+    }
+
+div#minTemp_U {
+  top: 545px;
+  left:1350px;
+  font-size: 70px;
+  line-height: 1.3em;
+}
+
+    div#Min {
+      top: 600px;
+      left:1650px;
+    }
+
+        p#minTempTime {
+          white-space: nowrap;
+          font-size: 35px;
+          line-height: 0em;
+        }
+
+
+        p#minTemp {
+          white-space: nowrap;
+          font-size: 75px;
+          line-height: 1em;
+        }
+
+
+
+div#curve_chart {
+  top: 100px;
+
+}
+
+p#E1credit2 {
+  font-size: 25px;
+  white-space: nowrap;
+  background: #ffffff;
+  text-align: center;
+  position: absolute;
+  width: 300px;
+  height: 20px;
+  top: 1145px;
+  left:10px ;
+}
+
+
+
+img#E2 {
+  position:absolute;
+  top: 540px;
+  left:1100px ;
+  width: 720px;
+  height: 624px;
+}
+
+p#E2credit1 {
+  font-size: 32px;
+  background: #afeeee;
+  padding: 10px;
+  text-align: center;
+  border: 1px solid #cccccc;
+  position: absolute;
+  top: 380px;
+  left:1250px ;
+}
+
+
+p#E2credit2 {
+  font-size: 25px;
+  background: #ffffff;
+  text-align: center;
+  position: absolute;
+  top: 1145px;
+  left:1200px ;
+}

@@ -1,6 +1,40 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <title>気象情報FP1</title>
+    <meta charset="utf-8">
+    <link href="graph.css" rel="stylesheet">
+    <script>
+        setTimeout("location.reload()",1000*60);
+
+        function set2fig(num) {
+          // 桁数が1桁だったら先頭に0を加えて2桁に調整する
+          var ret;
+          if( num < 10 ) { ret = "0" + num; }
+          else { ret = num; }
+            return ret;
+          }
+
+          function showClock2() {
+            var nowTime = new Date();
+            var Year = nowTime.getFullYear();
+            var Month = nowTime.getMonth()+1;
+            var nowDate = nowTime.getDate();
+            var week = nowTime.getDay();
+            var weekArray = new Array("日","月","火","水","木","金","土");
+            var nowHour = set2fig( nowTime.getHours() );
+            var nowMin  = set2fig( nowTime.getMinutes() );
+
+            var msg = Year +　"年"　+ Month +　"月"　+ nowDate + "日" + "(" + weekArray[week] + ")" + "&nbsp;" + nowHour + ":" + nowMin;
+            document.getElementById("date").innerHTML = msg;
+            }
+            setInterval('showClock2()',1000);
+    </script>
+  </head>
+
+  <body>
+    <img src="title.jpg" alt="タイトル"></p>
+    <p id="date"></p>
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script type="text/javascript">
       google.charts.load('current', {'packages':['corechart']});
@@ -12,7 +46,9 @@
         var options = {
           title: '気温変化',
           curveType: 'function',
-          legend: { position: 'bottom' }
+          legend: { position: 'bottom' },
+          chatArea:{width:'150%',height:'150%'}
+
         };
 
         var chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
@@ -20,8 +56,19 @@
         chart.draw(gdata, options);
       }
     </script>
+    <div class="Label" id="maxTemp_U">最高</br>気温</p></div>
+    <div class="element" id="Max">
+      <p id="maxTempTime"><%= maxGetDay %> <%= maxGetTime %></p>
+      <p  id="maxTemp"><%= maxTemp %></p>
+    </div>
+
+      <div class="Label" id="minTemp_U">最低</br>気温</p></div>
+      <div class="element" id="Min">
+        <p id="minTempTime"><%= minGetDay %> <%= minGetTime %></p>
+        <p  id="minTemp"><%= minTemp %></p>
+      </div>
   </head>
   <body>
-    <div id="curve_chart" style="width: 1200px; height: 500px"></div>
+    <div id="curve_chart" style="width: 1400px; height: 800px"></div>
   </body>
 </html>
