@@ -42,12 +42,12 @@ TempRead = require("/home/s1500740/WeatherDataBroadcast/TempRead.js");
 
       ],
 
-      MaxTemp:TempRead.MaxTemp,
-      MaxGetDay:TempRead.maxGetDay,
-      MaxGetTime:TempRead.maxGetTime,
-      MinTemp:TempRead.MinTemp,
-      MinGetDay:TempRead.minGetDay,
-      MinGetTime:TempRead.minGetTime
+      maxTemp:TempRead.maxTemp,
+      maxGetDay:TempRead.maxGetDay,
+      maxGetTime:TempRead.maxGetTime,
+      minTemp:TempRead.minTemp,
+      minGetDay:TempRead.minGetDay,
+      minGetTime:TempRead.minGetTime
     };
     // レンダリングを行う
     res.render('graph.ejs', gdata);

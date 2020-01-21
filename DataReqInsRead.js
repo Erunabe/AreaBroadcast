@@ -19,6 +19,9 @@ var options = {
     json: false,
 }
 
+var nowTime = new Date();
+var Today = nowtime.toFormat("YYYY"+"-"+"MM"+"-"+"DD");
+
 //毎分実行する
 cron.schedule('* * * * *', () => {
   console.log('Data : Per minute execution');
@@ -78,10 +81,12 @@ cron.schedule('* * * * *', () => {
         const db = client.db(dbName);
 
           // コレクションの取得
-          collection = db.collection("MeteorogicalObserv");
+          collection1 = db.collection("MeteorObserv");
+          collection2 = db.collection("MaxElement");
+
 
           // コレクションにドキュメントを挿入
-          collection.insertOne(
+          collection1.insertOne(
           {
             "TTLfield": new Date(),
             "GetDay":ArrayDatatime[0],
@@ -100,11 +105,16 @@ cron.schedule('* * * * *', () => {
               client.close();
           });
 
-          /*collection.find().sort({_id: -1}).limit(1).toArray(function(err, items) {
+          //これから書く
+          collection2.find({Day:Today}).sort({_id: 1}).limit(1).toArray(function(err, items) {
             for(var item of items){
-            console.log(item);
+            }
+            if(items[0].temp<=temp){
+              collection2.update({Day:Today},{$set:{
+                "maxtemp":temp
+              }})
+            }
           }
-        }); */
       });
     })
     .then(function(body){
