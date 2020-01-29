@@ -16,11 +16,11 @@ const assert = require('assert');
         const db = client.db(dbName);
 
           // コレクションの取得
-          collection = db.collection("MeteorogicalObserv");
+          collection = db.collection("MeteorObserv");
 
          //最新の一件を取得
 
-          collection.find({GetTime:/00:00/},{temp:1}).sort({_id: 1}).toArray(function(err, items) {
+          collection.find({GetTime:/00:00/},{temp:1}).sort({_id: -1}).toArray(function(err, items) {
            for(var item of items){
 
           }

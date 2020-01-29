@@ -108,109 +108,35 @@ cron.schedule('* * * * *', () => {
           });
 
 //coll2=1日の最大観測値
-    collection2.find().sort({_id: 1}).limit(1).toArray(function(err, items) {
-      if(items[0].GetDay != Today){
-        console.log("日付変更：最大要素格納更新");
-          collection2.insertOne(
-          {
-            "TTLfield": new Date(),
-            "GetDay":ArrayDatatime[0],
-            "max_temp":temp,
-            "max_humi":humi,
-            "max_wind_s":wind_s,
-            "max_wind_d":wind_d,
-            "max_wind_max_s":wind_max_s,
-            "max_press_l":press_l,
-            "max_rain_i":rain_i,
-            "max_rain_m":rain_m,
-            "max_wbgt":wbgt
-          }
-      , (error, result) => {
-              client.close();
-          });
-
-        }
-      })
-
-          //これから書く
-          collection2.find({GetDay:Today}).sort({_id: -1}).limit(1).toArray(function(err, items) {
+          collection2.find().sort({_id: -1}).limit(1).toArray(function(err, items) {
             for(var item of items){
+          }
+            GetDay = item.GetDay;
+            console.log(GetDay)
+            if(GetDay != Today){
+              console.log("日付変更：最大要素格納更新");
+                collection2.insertOne(
+                {
+                  "TTLfield": new Date(),
+                  "GetDay":ArrayDatatime[0],
+                  "max_temp":temp,
+                  "max_humi":humi,
+                  "max_wind_s":wind_s,
+                  "max_wind_max_s":wind_max_s,
+                  "max_press_l":press_l,
+                  "max_rain_i":rain_i,
+                  "max_rain_m":rain_m,
+                  "max_wbgt":wbgt
+                }
+            , (error, result) => {
+                client.close();
+              })
             }
-            console.log(items[0]);
-            console.log(items[0].max_temp);
-            console.log(temp);
-            if(temp >= items[0].max_temp ){
-              console.log("update_temp");
-              collection2.updateOne({GetDay:Today},{$set:{
-                "max_temp":temp
-              }}
-              , (error, result) => {
-                      client.close();
-              });
-            }
-            if(items[0].max_humi <= humi){
-              collection2.updateOne({GetDay:Today},{$set:{
-                "max_humi":humi
-              }}
-              , (error, result) => {
-                      client.close();
-              });
-            }
-            if(items[0].max_wind_s <= wind_s){
-              collection2.updateOne({GetDay:Today},{$set:{
-                "max_wind_s":wind_s
-              }}
-              , (error, result) => {
-                      client.close();
-              });
-            }
-
-            if(items[0].max_wind_max_s <= wind_max_s){
-              collection2.updateOne({GetDay:Today},{$set:{
-                "max_wind_max_s":wind_max_s
-              }}
-              , (error, result) => {
-                      client.close();
-              });
-            }
-            if(items[0].max_press_l <= press_l){
-              collection2.updateOne({GetDay:Today},{$set:{
-                "max_press_l":press_l
-              }}
-              , (error, result) => {
-                      client.close();
-              });
-            }
-            if(items[0].max_rain_i <= rain_i){
-              collection2.updateOne({GetDay:Today},{$set:{
-                "max_rain_i":rain_i
-              }}
-              , (error, result) => {
-                      client.close();
-              });
-            }
-            if(items[0].max_rain_m <= rain_m){
-              collection2.updateOne({GetDay:Today},{$set:{
-                "max_rain_m":rain_m
-              }}
-              , (error, result) => {
-                      client.close();
-              });
-            }
-            if(items[0].max_wbgt <= wbgt){
-             collection2.updateOne({GetDay:Today},{$set:{
-                "max_wbgt":wbgt
-              }}
-              , (error, result) => {
-                      client.close();
-              });
-            }
-
-          },(error, result) => {
-                  client.close();
-          });
-      });
-    })
+        }, (error, result) => {
+            client.close();
+       });
+     })
+  })
     .then(function(body){
       MongoClient.connect(url, { useNewUrlParser: true ,useUnifiedTopology: true},function(err, client) {
         assert.equal(null, err);
@@ -219,11 +145,13 @@ cron.schedule('* * * * *', () => {
         const db = client.db(dbName);
 
           // コレクションの取得
-          collection = db.collection("MeteorObserv");
+          collection1 = db.collection("MeteorObserv");
+          collection2 = db.collection("MaxElement");
+          collection3 = db.collection("MinElement");
 
          //最新の一件を取得
 
-          collection.find().sort({_id: -1}).limit(1).toArray(function(err, items) {
+          collection1.find().sort({_id: -1}).limit(1).toArray(function(err, items) {
            for(var item of items){
             console.log(item);
 
@@ -253,6 +181,88 @@ cron.schedule('* * * * *', () => {
            }
          }, (error, result) => {
            client.close();
+       });
+
+       collection2.find({GetDay:Today}).sort({_id: -1}).limit(1).toArray(function(err, items) {
+         for(var item of items){
+            console.log(item);
+         }
+         if(item.max_temp < temp ){
+           console.log("update_MAXtemp");
+           collection2.updateOne({GetDay:Today},{$set:{
+             "max_temp":temp
+           }}
+           , (error, result) => {
+                   client.close();
+           });
+         }
+         if(item.max_humi < humi){
+           console.log("update_MAXhumi");
+           collection2.updateOne({GetDay:Today},{$set:{
+             "max_humi":humi
+           }}
+           , (error, result) => {
+                   client.close();
+           });
+         }
+         if(item.max_wind_s < wind_s){
+           console.log("update_MAXwind_s");
+           collection2.updateOne({GetDay:Today},{$set:{
+             "max_wind_s":wind_s
+           }}
+           , (error, result) => {
+                   client.close();
+           });
+         }
+
+         if(item.max_wind_max_s < wind_max_s){
+           console.log("update_MAXwind_max_s");
+           collection2.updateOne({GetDay:Today},{$set:{
+             "max_wind_max_s":wind_max_s
+           }}
+           , (error, result) => {
+                   client.close();
+           });
+         }
+         if(item.max_press_l < press_l){
+           console.log("update_MAXpress_l");
+           collection2.updateOne({GetDay:Today},{$set:{
+             "max_press_l":press_l
+           }}
+           , (error, result) => {
+                   client.close();
+           });
+         }
+         if(item.max_rain_i < rain_i){
+           console.log("update_MAXrain_i");
+           collection2.updateOne({GetDay:Today},{$set:{
+             "max_rain_i":rain_i
+           }}
+           , (error, result) => {
+                   client.close();
+           });
+         }
+         if(item.max_rain_m < rain_m){
+           console.log("update_MAXrain_m");
+           collection2.updateOne({GetDay:Today},{$set:{
+             "max_rain_m":rain_m
+           }}
+           , (error, result) => {
+                   client.close();
+           });
+         }
+         if(item.max_wbgt < wbgt){
+           console.log("update_MAXwbgt");
+          collection2.updateOne({GetDay:Today},{$set:{
+             "max_wbgt":wbgt
+           }}
+           , (error, result) => {
+                   client.close();
+           });
+         }
+
+       },(error, result) => {
+               client.close();
        });
 
       });
