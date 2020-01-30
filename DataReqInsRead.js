@@ -110,10 +110,7 @@ cron.schedule('* * * * *', () => {
 
 //coll2=1日の最大観測値
           collection2.find().sort({_id: -1}).limit(1).toArray(function(err, items) {
-            for(var item of items){
-              console.log(items);
-          }
-            GetDay = item.GetDay;
+            GetDay = items.GetDay;
             console.log(GetDay)
             if(GetDay != Today){
               console.log("日付変更：最大要素格納更新");
