@@ -106,10 +106,12 @@ cron.schedule('* * * * *', () => {
       , (error, result) => {
               client.close();
           });
+          console.log("最新要素格納完了")
 
 //coll2=1日の最大観測値
           collection2.find().sort({_id: -1}).limit(1).toArray(function(err, items) {
             for(var item of items){
+              console.log(items);
           }
             GetDay = item.GetDay;
             console.log(GetDay)
@@ -137,6 +139,7 @@ cron.schedule('* * * * *', () => {
        });
      })
   })
+
     .then(function(body){
       MongoClient.connect(url, { useNewUrlParser: true ,useUnifiedTopology: true},function(err, client) {
         assert.equal(null, err);
