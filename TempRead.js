@@ -16,11 +16,12 @@ const assert = require('assert');
         const db = client.db(dbName);
 
           // コレクションの取得
-          collection = db.collection("MeteorObserv");
-
+          collection1 = db.collection("MeteorObserv");
+          collection2 = db.collection("MaxElement");
+          collection3 = db.collection("MinElement");
          //最新の一件を取得
 
-          collection.find({GetTime:/00:00/},{temp:1}).sort({_id: -1}).toArray(function(err, items) {
+          collection1.find({GetTime:/00:00/},{temp:1}).sort({_id: 1}).toArray(function(err, items) {
            for(var item of items){
 
           }
@@ -30,15 +31,6 @@ const assert = require('assert');
               tempArray[i] = items[i].temp;
             }
 
-            console.log(tempArray);
-            maxTemp = Math.max.apply(null,tempArray);
-            maxNumber = tempArray.indexOf(maxTemp);
-            minTemp = Math.min.apply(null,tempArray);
-            minNumber = tempArray.indexOf(minTemp);
-            maxGetDay = items[maxNumber].GetDay;
-            maxGetTime = items[maxNumber].GetTime;
-            minGetDay = items[minNumber].GetDay;
-            minGetTime = items[minNumber].GetTime;
 
             exports.GetTime1 = items[0].GetTime;
             exports.Temp1 = items[0].temp;
@@ -57,15 +49,30 @@ const assert = require('assert');
             exports.GetTime8 = items[21].GetTime;
             exports.Temp8 = items[21].temp;
 
-            exports.maxTemp = maxTemp;
-            exports.maxGetDay = maxGetDay;
-            exports.maxGetTime = maxGetTime;
-            exports.minTemp = minTemp;
-            exports.minGetDay = minGetDay;
-            exports.minGetTime = minGetTime;
+
 
          }, (error, result) => {
            client.close();
        });
 
-     });
+  collection2.find().sort({_id: -1}).limit(1).toArray(function(err, items) {
+    for(var item of items){
+       exports.max_GetDay = item.max_GetDay;
+       exports.max_temp_Time = item.max_temp_Time;
+       exports.max_temp = item.max_temp;
+     }
+   }, (error, result) => {
+      client.close();
+  });
+
+  collection3.find().sort({_id: -1}).limit(1).toArray(function(err, items) {
+    for(var item of items){
+  exports.min_GetDay = item.min_GetDay;
+  exports.min_temp_Time = item.min_temp_Time;
+  exports.min_temp = item.min_temp;
+    }
+  }, (error, result) => {
+      client.close();
+  });
+
+});

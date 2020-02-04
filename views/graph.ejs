@@ -47,7 +47,6 @@
           title: '気温変化',
           curveType: 'function',
           legend: { position: 'bottom' },
-          chatArea:{width:'150%',height:'150%'}
 
         };
 
@@ -58,14 +57,20 @@
     </script>
     <div class="Label" id="maxTemp_U">最高</br>気温</p></div>
     <div class="element" id="Max">
-      <p id="maxTempTime"><%= maxGetDay %> <%= maxGetTime %></p>
-      <p  id="maxTemp"><%= maxTemp %></p>
+      <p id="maxTempTime"> <%= max_temp_Time %></p>
+      <p  id="maxTemp"> <%= max_temp %> ℃ </p>
     </div>
 
       <div class="Label" id="minTemp_U">最低</br>気温</p></div>
       <div class="element" id="Min">
-        <p id="minTempTime"><%= minGetDay %> <%= minGetTime %></p>
-        <p  id="minTemp"><%= minTemp %></p>
+        <p id="minTempTime"><%= min_temp_Time %></p>
+        <p  id="minTemp"><%= min_temp %>℃</p>
+      </div>
+
+      <div class="Label" id="latestTemp_U">現在</br>気温</p></div>
+      <div class="element" id="latest">
+        <p id="latestTempTime"><%= latest_temp_Time %></p>
+        <p  id="latestTemp"><%= latest_temp %>℃</p>
       </div>
   </head>
   <body>

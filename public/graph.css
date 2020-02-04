@@ -126,9 +126,34 @@ div#minTemp_U {
         }
 
 
+div#latestTemp_U {
+      top: 900px;
+      left:1350px;
+      font-size: 70px;
+      line-height: 1.3em;
+    }
+
+
+    div#latest {
+      top: 955px;
+      left:1650px;
+    }
+
+        p#latestTempTime {
+          white-space: nowrap;
+          font-size: 35px;
+          line-height: 0em;
+        }
+
+
+        p#latestTemp {
+          white-space: nowrap;
+          font-size: 75px;
+          line-height: 1em;
+        }
 
 div#curve_chart {
-  top: 100px;
+  top: 300px;
 
 }
 
