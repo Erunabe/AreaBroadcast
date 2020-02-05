@@ -10,7 +10,7 @@ const cron = require('node-cron');
       dbName = 'AreaBroadcast';
 
 
-  cron.schedule('*/5 * * * *', () => {
+  cron.schedule('* * * * *', () => {
 
       MongoClient.connect(url, { useNewUrlParser: true ,useUnifiedTopology: true},function(err, client) {
         assert.equal(null, err);
