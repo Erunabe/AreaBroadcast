@@ -1,13 +1,16 @@
 require('date-utils');
 const MongoClient = require('mongodb').MongoClient;
 const assert = require('assert');
-
+const cron = require('node-cron');
 
       // 接続先URL
       url = 'mongodb://localhost:27017';
 
       //データベース名
       dbName = 'AreaBroadcast';
+
+
+  cron.schedule('*/5 * * * *', () => {
 
       MongoClient.connect(url, { useNewUrlParser: true ,useUnifiedTopology: true},function(err, client) {
         assert.equal(null, err);
@@ -21,7 +24,8 @@ const assert = require('assert');
           collection3 = db.collection("MinElement");
          //最新の一件を取得
 
-          collection1.find({GetTime:/00:00/},{temp:1}).sort({_id: 1}).toArray(function(err, items) {
+
+          collection1.find({GetTime:/00:00/},{temp:1}).sort({_id:1}).toArray(function(err, items) {
            for(var item of items){
 
           }
@@ -74,5 +78,7 @@ const assert = require('assert');
   }, (error, result) => {
       client.close();
   });
+
+});
 
 });

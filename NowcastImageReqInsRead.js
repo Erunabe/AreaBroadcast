@@ -6,7 +6,7 @@ const assert = require('assert');
 const cron = require('node-cron');
 
 
-cron.schedule('*/5 * * * *', () => {
+cron.schedule('* * * * *', () => {
 
 var nowTime = new Date();
 var Year_2 = String(nowTime.getFullYear());
@@ -40,9 +40,10 @@ console.log(format1);
 
 var options =  {
   method: 'GET',
-  url: "http://www.jma.go.jp/jp/radnowc/imgs/radar/205/"+format1+"-00.png",
+  url: 'http://www.jma.go.jp/jp/radnowc/imgs/radar/205/'+format1+'-00.png',
   proxy:'http://10.64.199.79:8080',
   encoding:null,
+  json: true
 }
 
 
@@ -83,8 +84,9 @@ var options =  {
           // コレクションにドキュメントを挿入
           collection.insertOne(
           {
-            "GetDay":DBformat1_Day,
-            "GetTime":DBformat1_Time,
+            "TTLfield": new Date(),
+            "GetImageDay":DBformat1_Day,
+            "GetImageTime":DBformat1_Time,
             "ImagePath":NowcastImage,
           }
       , (error, result) => {
@@ -106,8 +108,8 @@ var options =  {
                for(var item of items){
                 console.log(item);
 
-                exports.GetDay = item.GetDay;
-                exports.GetTime = item.GetTime;
+                exports.GetImageDay = item.GetImageDay;
+                exports.GetImageTime = item.GetImageTime;
                 exports.ImagePath = item.ImagePath;
 
                }

@@ -19,9 +19,9 @@ TempRead = require("/home/s1500740/WeatherDataBroadcast/TempRead.js");
       rain_m:readData.rain_m,
       wbgt:readData.wbgt,
 
+      GetImageDay:readImage.GetImageDay,
       GetImageTime:readImage.GetImageTime,
-      ImageName:readImage.ImageName,
-      ImagePath:readImage.ImagePath,
+      ImagePath:readImage.ImagePath
 
     };
     // レンダリングを行う

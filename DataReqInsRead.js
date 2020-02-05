@@ -127,7 +127,8 @@ cron.schedule('* * * * *', () => {
                   "max_wind_s":wind_s,
                   "max_wind_max_s_Time":ArrayDatatime[1],
                   "max_wind_max_s":wind_max_s,
-                  "max_pless_l_Time":ArrayDatatime[1],
+                  "max_wind_max_d":wind_d,
+                  "max_press_l_Time":ArrayDatatime[1],
                   "max_press_l":press_l,
                   "max_rain_i_Time":ArrayDatatime[1],
                   "max_rain_i":rain_i,
@@ -164,7 +165,7 @@ cron.schedule('* * * * *', () => {
               "min_wind_s":wind_s,
               "min_wind_max_s_Time":ArrayDatatime[1],
               "min_wind_max_s":wind_max_s,
-              "min_pless_l_Time":ArrayDatatime[1],
+              "min_press_l_Time":ArrayDatatime[1],
               "min_press_l":press_l,
               "min_rain_i_Time":ArrayDatatime[1],
               "min_rain_i":rain_i,
@@ -269,7 +270,8 @@ cron.schedule('* * * * *', () => {
            console.log("update_MAXwind_max_s");
            collection2.updateOne({max_GetDay:Today},{$set:{
              "max_wind_max_s_Time":ArrayDatatime[1],
-             "max_wind_max_s":wind_max_s
+             "max_wind_max_s":wind_max_s,
+             "max_wind_max_d":wind_d
            }}
            , (error, result) => {
                    client.close();
@@ -278,7 +280,7 @@ cron.schedule('* * * * *', () => {
          if(item.max_press_l < press_l){
            console.log("update_MAXpress_l");
            collection2.updateOne({max_GetDay:Today},{$set:{
-             "max_pless_l_Time":ArrayDatatime[1],
+             "max_press_l_Time":ArrayDatatime[1],
              "max_press_l":press_l
            }}
            , (error, result) => {
@@ -358,7 +360,7 @@ cron.schedule('* * * * *', () => {
                    client.close();
            });
          }
-         if( humi < item.max_humi ){
+         if( humi < item.min_humi ){
            console.log("update_MINhumi");
            collection3.updateOne({min_GetDay:Today},{$set:{
              "min_humi_Time":ArrayDatatime[1],
@@ -368,7 +370,7 @@ cron.schedule('* * * * *', () => {
                    client.close();
            });
          }
-         if(wind_s < item.max_wind_s){
+         if(wind_s < item.min_wind_s){
            console.log("update_MINwind_s");
            collection3.updateOne({min_GetDay:Today},{$set:{
              "min_wind_s_Time":ArrayDatatime[1],
@@ -379,7 +381,7 @@ cron.schedule('* * * * *', () => {
            });
          }
 
-         if(wind_max_s < item.max_wind_max_s ){
+         if(wind_max_s < item.min_wind_max_s ){
            console.log("update_MINwind_max_s");
            collection3.updateOne({min_GetDay:Today},{$set:{
              "min_wind_max_s_Time":ArrayDatatime[1],
@@ -389,17 +391,18 @@ cron.schedule('* * * * *', () => {
                    client.close();
            });
          }
-         if(press_l < item.max_press_l){
+
+         if(press_l < item.min_press_l){
            console.log("update_MINpress_l");
            collection3.updateOne({min_GetDay:Today},{$set:{
-             "min_pless_l_Time":ArrayDatatime[1],
+             "min_press_l_Time":ArrayDatatime[1],
              "min_press_l":press_l
            }}
            , (error, result) => {
                    client.close();
            });
          }
-         if(rain_i < item.max_rain_i ){
+         if(rain_i < item.min_rain_i ){
            console.log("update_MINrain_i");
            collection3.updateOne({min_GetDay:Today},{$set:{
              "min_rain_i_Time":ArrayDatatime[1],
@@ -409,7 +412,7 @@ cron.schedule('* * * * *', () => {
                    client.close();
            });
          }
-         if(rain_m  < item.max_rain_m){
+         if(rain_m  < item.min_rain_m){
            console.log("update_MINrain_m");
            collection3.updateOne({min_GetDay:Today},{$set:{
              "min_rain_m_Time":ArrayDatatime[1],
@@ -419,7 +422,7 @@ cron.schedule('* * * * *', () => {
                    client.close();
            });
          }
-         if(wbgt < item.max_wbgt){
+         if(wbgt < item.min_wbgt){
            console.log("update_MINwbgt");
           collection3.updateOne({min_GetDay:Today},{$set:{
              "min_wbgt_Time":ArrayDatatime[1],
