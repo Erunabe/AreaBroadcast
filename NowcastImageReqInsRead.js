@@ -6,7 +6,7 @@ const assert = require('assert');
 const cron = require('node-cron');
 
 
-cron.schedule('*/5 * * * *', () => {
+cron.schedule('* * * * *', () => {
 
 var nowTime = new Date();
 var Year_2 = String(nowTime.getFullYear());
