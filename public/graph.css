@@ -21,7 +21,7 @@ p#date {
 
 
 p#info {
-  font-size: 75px;
+  font-size: 60px;
   background: #fffacd;
   padding: 10px;
   text-align: center;
@@ -29,7 +29,7 @@ p#info {
   border-radius: 40px;
   position: absolute;
   width: 800px;
-  top: 190px;
+  top: 200px;
   left:1170px ;
   z-index: 30;
 }
