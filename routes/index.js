@@ -32,13 +32,15 @@ TempRead = require("/home/s1500740/WeatherDataBroadcast/TempRead.js");
     var gdata = {
       items: [
         ['Hour', '温度'],
-        [TempRead.GetTime1,  TempRead.Temp1],
-        [TempRead.GetTime2,  TempRead.Temp2],
-        [TempRead.GetTime3,  TempRead.Temp3],
-        [TempRead.GetTime4,  TempRead.Temp4],
-        [TempRead.GetTime5,  TempRead.Temp5],
+        [TempRead.GetTime8,  TempRead.Temp8],
+        [TempRead.GetTime7,  TempRead.Temp7],
+        [TempRead.GetTime7,  TempRead.Temp7],
         [TempRead.GetTime6,  TempRead.Temp6],
-        [TempRead.GetTime7,  TempRead.Temp7]
+        [TempRead.GetTime5,  TempRead.Temp5],
+        [TempRead.GetTime4,  TempRead.Temp4],
+        [TempRead.GetTime3,  TempRead.Temp3],
+        [TempRead.GetTime2,  TempRead.Temp2],
+        [TempRead.GetTime1,  TempRead.Temp1]
 
       ],
 
