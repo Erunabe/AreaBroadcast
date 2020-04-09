@@ -3,7 +3,7 @@ var cron = require('node-cron');
 var router = express.Router();
 readData = require("/home/s1500740/WeatherDataBroadcast/DataReqInsRead.js");
 readImage = require("/home/s1500740/WeatherDataBroadcast/NowcastImageReqInsRead.js");
-TempRead = require("/home/s1500740/WeatherDataBroadcast/TempRead.js");
+//TempRead = require("/home/s1500740/WeatherDataBroadcast/TempRead.js");
 
   router.get("/", function (req, res) {
     var data = {
@@ -28,6 +28,7 @@ TempRead = require("/home/s1500740/WeatherDataBroadcast/TempRead.js");
     res.render('index', data);
   });
 
+/*
   router.get("/graph", function (req, res) {
     var gdata = {
       items: [
@@ -57,4 +58,7 @@ TempRead = require("/home/s1500740/WeatherDataBroadcast/TempRead.js");
     // レンダリングを行う
     res.render('graph.ejs', gdata);
   });
+
+*/
+
 module.exports = router;
