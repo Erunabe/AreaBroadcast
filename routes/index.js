@@ -1,9 +1,9 @@
 var express = require('express');
 var cron = require('node-cron');
 var router = express.Router();
-readData = require("/home/s1500740/WeatherDataBroadcast/DataReqInsRead.js");
-readImage = require("/home/s1500740/WeatherDataBroadcast/NowcastImageReqInsRead.js");
-//TempRead = require("/home/s1500740/WeatherDataBroadcast/TempRead.js");
+readData = require("/home/s1500740/AreaBroadcast/DataReqInsRead.js");
+readImage = require("/home/s1500740/AreaBroadcast/NowcastImageReqInsRead.js");
+TempRead = require("/home/s1500740/AreaBroadcast/TempRead.js");
 
   router.get("/", function (req, res) {
     var data = {
@@ -19,7 +19,7 @@ readImage = require("/home/s1500740/WeatherDataBroadcast/NowcastImageReqInsRead.
       rain_m:readData.rain_m,
       wbgt:readData.wbgt,
 
-      GetImageDay:readImage.GetImageDay,
+      GetImageDay:readImage.GetImageDay,s
       GetImageTime:readImage.GetImageTime,
       ImagePath:readImage.ImagePath
 
@@ -28,7 +28,7 @@ readImage = require("/home/s1500740/WeatherDataBroadcast/NowcastImageReqInsRead.
     res.render('index', data);
   });
 
-/*
+
   router.get("/graph", function (req, res) {
     var gdata = {
       items: [
@@ -59,6 +59,6 @@ readImage = require("/home/s1500740/WeatherDataBroadcast/NowcastImageReqInsRead.
     res.render('graph.ejs', gdata);
   });
 
-*/
+
 
 module.exports = router;
