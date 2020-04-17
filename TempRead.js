@@ -33,6 +33,7 @@ const cron = require('node-cron');
             var tempArray = new Array();
             for(i=0;i<items.length;i++){
               tempArray[i] = items[i].temp;
+              console.log(items[i]);
             }
 
 

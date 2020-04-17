@@ -59,7 +59,7 @@ var options =  {
 
   console.log('Image : Per minute execution');
   rp(options).then(function(body){
-        fs.writeFile('/home/s1500740/WeatherDataBroadcast/public/WeatherMapImage/'+format+'.png', body, 'binary', (err) => {
+        fs.writeFile('/home/a2011529/AreaBroadcast/public/WeatherMapImage/'+format+'.png', body, 'binary', (err) => {
           // 書き出しに失敗した場合
           if(err){
             console.log("エラーが発生しました。" + err)

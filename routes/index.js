@@ -1,9 +1,9 @@
 var express = require('express');
 var cron = require('node-cron');
 var router = express.Router();
-readData = require("/home/s1500740/AreaBroadcast/DataReqInsRead.js");
-readImage = require("/home/s1500740/AreaBroadcast/NowcastImageReqInsRead.js");
-TempRead = require("/home/s1500740/AreaBroadcast/TempRead.js");
+readData = require("/home/a2011529/AreaBroadcast/DataReqInsRead.js");
+readImage = require("/home/a2011529/AreaBroadcast/NowcastImageReqInsRead.js");
+TempRead = require("/home/a2011529/AreaBroadcast/TempRead.js");
 
   router.get("/", function (req, res) {
     var data = {
@@ -19,7 +19,7 @@ TempRead = require("/home/s1500740/AreaBroadcast/TempRead.js");
       rain_m:readData.rain_m,
       wbgt:readData.wbgt,
 
-      GetImageDay:readImage.GetImageDay,s
+      GetImageDay:readImage.GetImageDay,
       GetImageTime:readImage.GetImageTime,
       ImagePath:readImage.ImagePath
 
