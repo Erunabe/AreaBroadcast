@@ -3,7 +3,7 @@ var cron = require('node-cron');
 var router = express.Router();
 readData = require("/home/a2011529/AreaBroadcast/DataReqInsRead.js");
 readImage = require("/home/a2011529/AreaBroadcast/NowcastImageReqInsRead.js");
-TempRead = require("/home/a2011529/AreaBroadcast/TempRead.js");
+//TempRead = require("/home/a2011529/AreaBroadcast/TempRead.js");
 
   router.get("/", function (req, res) {
     var data = {
@@ -27,7 +27,7 @@ TempRead = require("/home/a2011529/AreaBroadcast/TempRead.js");
     // レンダリングを行う
     res.render('index', data);
   });
-
+/*
 
   router.get("/graph", function (req, res) {
     var gdata = {
@@ -59,6 +59,6 @@ TempRead = require("/home/a2011529/AreaBroadcast/TempRead.js");
     res.render('graph.ejs', gdata);
   });
 
-
+*/
 
 module.exports = router;
