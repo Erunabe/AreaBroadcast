@@ -7,6 +7,8 @@ import datetime
 from bs4 import BeautifulSoup
 from pymongo import MongoClient
 from pymongo import DESCENDING
+import locale
+locale.setlocale(locale.LC_ALL, '')
 
 #--対象URLの指定--#
 
@@ -57,11 +59,13 @@ now = datetime.datetime.now()
 
 year = now.strftime('%Y')
 
+print(year)
+
 datetime = "{0}{1}".format(year,sub)
 
 fmt_name = "ayashi{0}.jpg".format(datetime)
 
-with open('/home/a2011529/AreaBroadcast/roadTrafInfo/roadImage/'+fmt_name,'wb') as f:
+with open('/home/a2011529/AreaBroadcast/roadTrafInfo/roadImage/'+fmt_name,'wb',encoding='utf-8') as f:
  f.write(r.content)
 
 #--観測地テーブルの取得

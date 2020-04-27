@@ -18,7 +18,7 @@ dw_url = "http://road.thr.mlit.go.jp/jyohoban/048dw.html"
 up_html = requests.get(up_url)
 up_html.encoding = "Shift_JIS"
 
-dw_html = requests.get(dw_url,proxies=proxies)
+dw_html = requests.get(dw_url)
 dw_html.encoding = "Shift_JIS"
 
 up_soup = BeautifulSoup(up_html.text, 'html.parser')
