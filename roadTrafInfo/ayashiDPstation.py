@@ -35,7 +35,7 @@ date = cell.get_text()
 
 splitdata = date.splitlines()[0]
 
-phototime=re.sub('[撮影日時：]', '',splitdata)
+phototime=re.sub('[TakeTime：]', '',splitdata)
 
 #--観測日時の取得
 
