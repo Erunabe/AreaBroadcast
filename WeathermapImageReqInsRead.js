@@ -52,7 +52,7 @@ var DBformat1_Time =  nowTime.toFormat(HourFormat+":"+"00");
 var options =  {
   method: 'GET',
   url: "https://www.jma.go.jp/jp/g3/images/jp_c/"+format+".png",
-  proxy:'http://10.64.199.79:8080',
+  //proxy:'http://10.64.199.79:8080',
   encoding:null,
 }
 

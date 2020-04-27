@@ -15,7 +15,7 @@ var options = {
     url: 'http://api.potekanet.com/v1/point/real/ja/poteka?potekaId=555&element=temp,humi,wind_s,wind_d,wind_max_s,press_l,rain_i,rain_m,wbgt',
     method: 'GET',
     headers: headers,
-    proxy:'http://10.64.199.79:8080',
+    //proxy:'http://10.64.199.79:8080',
     json: false,
 }
 

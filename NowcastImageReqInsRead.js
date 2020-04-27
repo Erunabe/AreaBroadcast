@@ -41,7 +41,7 @@ console.log(format1);
 var options =  {
   method: 'GET',
   url: 'http://www.jma.go.jp/jp/radnowc/imgs/radar/205/'+format1+'-00.png',
-  proxy:'http://10.64.199.79:8080',
+  //proxy:'http://10.64.199.79:8080',
   encoding:null,
   json: true
 }
