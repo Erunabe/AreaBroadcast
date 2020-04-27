@@ -10,13 +10,14 @@ from pymongo import DESCENDING
 
 url = "http://www2.thr.mlit.go.jp/sendai/html/DR-74170.html"
 
-proxies = {
-"http":"http://10.64.199.79:8080",
-"https":"http://10.64.199.79:8080"
-}
+#proxies = {
+#"http":"http://10.64.199.79:8080",
+#"https":"http://10.64.199.79:8080"
+#}
 
-#--HTTPリクエストの送信--#
-html = requests.get(url,proxies=proxies)
+#--HTTPリクエストの送信--#]
+#プロキシ適用の場合　urlのあとに,proxies=proxies
+html = requests.get(url)
 html.encoding = html.apparent_encoding
 
 soup = BeautifulSoup(html.text, 'html.parser')

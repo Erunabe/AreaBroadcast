@@ -8,13 +8,13 @@ up_url = "http://road.thr.mlit.go.jp/jyohoban/048up.html"
 dw_url = "http://road.thr.mlit.go.jp/jyohoban/048dw.html"
 
 #--プロキシの設定
-proxies = {
-"http":"http://10.64.199.79:8080",
-"https":"http://10.64.199.79:8080"
-}
+#proxies = {
+#"http":"http://10.64.199.79:8080",
+#"https":"http://10.64.199.79:8080"
+#}
 
 #--対象のWebサイトの読み取り
-up_html = requests.get(up_url,proxies=proxies)
+up_html = requests.get(up_url)
 up_html.encoding = "Shift_JIS"
 
 dw_html = requests.get(dw_url,proxies=proxies)

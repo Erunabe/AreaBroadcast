@@ -7,7 +7,7 @@ import cgi
 import datetime
 import os
 
-os.environ["http_proxy"] = "http://10.64.199.79:8080"
+#os.environ["http_proxy"] = "http://10.64.199.79:8080"
 #認証ヘッダ
 headers = {'X-POTEKA-Authorization':'c2VuZGFpLW5jdDpmZzd6dm1wWQ=='}
 
