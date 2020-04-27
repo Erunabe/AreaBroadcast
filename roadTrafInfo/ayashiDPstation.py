@@ -7,6 +7,8 @@ import datetime
 from bs4 import BeautifulSoup
 from pymongo import MongoClient
 from pymongo import DESCENDING
+import io,sys
+sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8')
 
 #--対象URLの指定--#
 
