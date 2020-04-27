@@ -7,8 +7,13 @@ import datetime
 from bs4 import BeautifulSoup
 from pymongo import MongoClient
 from pymongo import DESCENDING
+<<<<<<< HEAD
 import locale
 locale.setlocale(locale.LC_ALL, '')
+=======
+import io,sys
+sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8')
+>>>>>>> 446a83b7069b56485acc46b9c4baad31299f41b8
 
 #--対象URLの指定--#
 
