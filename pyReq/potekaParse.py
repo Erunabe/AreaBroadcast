@@ -1,5 +1,6 @@
-#!/usr/bin/python　3
 # coding:utf-8
+#!/usr/bin/python　3
+
 
 import requests
 import json
