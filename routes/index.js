@@ -7,8 +7,8 @@ readImage = require("/home/a2011529/AreaBroadcast/NowcastImageReqInsRead.js");
 
   router.get("/", function (req, res) {
     var data = {
-      GetDay:readData.GetDay,
-      GetTime:readData.GetTime,
+      getDay:readData.getDay,
+      getTime:readData.getTime,
       temp:readData.temp,
       humi:readData.humi,
       wind_s:readData.wind_s,
@@ -19,8 +19,8 @@ readImage = require("/home/a2011529/AreaBroadcast/NowcastImageReqInsRead.js");
       rain_m:readData.rain_m,
       wbgt:readData.wbgt,
 
-      GetImageDay:readImage.GetImageDay,
-      GetImageTime:readImage.GetImageTime,
+      getDay:readImage.getDay,
+      getTime:readImage.getTime,
       ImagePath:readImage.ImagePath
 
     };
@@ -33,26 +33,26 @@ readImage = require("/home/a2011529/AreaBroadcast/NowcastImageReqInsRead.js");
     var gdata = {
       items: [
         ['Hour', '温度'],
-        [TempRead.GetTime8,  TempRead.Temp8],
-        [TempRead.GetTime7,  TempRead.Temp7],
-        [TempRead.GetTime7,  TempRead.Temp7],
-        [TempRead.GetTime6,  TempRead.Temp6],
-        [TempRead.GetTime5,  TempRead.Temp5],
-        [TempRead.GetTime4,  TempRead.Temp4],
-        [TempRead.GetTime3,  TempRead.Temp3],
-        [TempRead.GetTime2,  TempRead.Temp2],
-        [TempRead.GetTime1,  TempRead.Temp1]
+        [TempRead.getTime8,  TempRead.Temp8],
+        [TempRead.getTime7,  TempRead.Temp7],
+        [TempRead.getTime7,  TempRead.Temp7],
+        [TempRead.getTime6,  TempRead.Temp6],
+        [TempRead.getTime5,  TempRead.Temp5],
+        [TempRead.getTime4,  TempRead.Temp4],
+        [TempRead.getTime3,  TempRead.Temp3],
+        [TempRead.getTime2,  TempRead.Temp2],
+        [TempRead.getTime1,  TempRead.Temp1]
 
       ],
 
       max_temp:TempRead.max_temp,
-      max_GetDay:TempRead.max_GetDay,
+      max_getDay:TempRead.max_getDay,
       max_temp_Time:TempRead.max_temp_Time,
       min_temp:TempRead.min_temp,
-      min_GetDay:TempRead.min_GetDay,
+      min_getDay:TempRead.min_getDay,
       min_temp_Time:TempRead.min_temp_Time,
       latest_temp:readData.temp,
-      latest_temp_Time:readData.GetTime
+      latest_temp_Time:readData.getTime
 
     };
     // レンダリングを行う

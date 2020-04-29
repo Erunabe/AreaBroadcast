@@ -59,7 +59,7 @@ var options =  {
 
   console.log('Image : Per minute execution');
   rp(options).then(function(body){
-        fs.writeFile('/home/a2011529/AreaBroadcast/public/WeatherMapImage/'+format+'.png', body, 'binary', (err) => {
+        fs.writeFile('/home/a2011529/AreaBroadcast/public/WeathermapImage/'+format+'.png', body, 'binary', (err) => {
           // 書き出しに失敗した場合
           if(err){
             console.log("エラーが発生しました。" + err)
@@ -94,8 +94,8 @@ var options =  {
           // コレクションにドキュメントを挿入
           collection.insertOne(
           {
-            "GetDay":DBformat1_Day,
-            "GetTime":DBformat1_Time,
+            "getDay":DBformat1_Day,
+            "getTime":DBformat1_Time,
             "ImagePath":WeatherMapImage,
           }
       , (error, result) => {
@@ -117,8 +117,8 @@ var options =  {
                for(var item of items){
                 console.log(item);
 
-                exports.GetImageDay = item.GetImageDay;
-                exports.GetImageTime = item.GetImageTime;
+                exports.getDay = item.getDay;
+                exports.getTime = item.getTime;
                 exports.ImagePath = item.ImagePath;
 
              }, (error, result) => {

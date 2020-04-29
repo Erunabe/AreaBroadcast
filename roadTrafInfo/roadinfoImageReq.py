@@ -42,7 +42,7 @@ oritate_rows = oritate_table.findAll("tr")[3]
 
 oritate_cells = oritate_rows.findAll("td")[0]
 
-oritate_date = oritate_cells.get_text()
+oritate_date = oritate_cells.get_text().encode('utf-8')
 
 ##-表示切り替え時刻の取得(広瀬通)
 
@@ -52,7 +52,7 @@ hirose_rows = hirose_table.findAll("tr")[3]
 
 hirose_cells = hirose_rows.findAll("td")[0]
 
-hirose_date = hirose_cells.get_text()
+hirose_date = hirose_cells.get_text().encode('utf-8')
 
 ##-表示切り替え時刻の取得(作並)
 
@@ -62,13 +62,14 @@ sakunami_rows = sakunami_table.findAll("tr")[9]
 
 sakunami_cells = sakunami_rows.findAll("td")[0]
 
-sakunami_date = sakunami_cells.get_text()
+sakunami_date = sakunami_cells.get_text().encode('utf-8')
 
 ##-表示内容画像の取得(折立)
 picture = requests.get(oritate1_URL)
 picture2 = requests.get(oritate2_URL)
 
 sub = re.sub('[/: ]', '',oritate_date)
+
 
 fmt_name = "oritate1_{0}.png".format(sub)
 fmt_name2 ="oritate2_{0}.png".format(sub)
@@ -111,9 +112,9 @@ with open('/home/a2011529/AreaBroadcast/roadTrafInfo/roadInfoImage/'+fmt_name6,'
 
 ##-情報板名と切替時刻を画面に出力
 
-print("折立(仙台市):",oritate_date)
-print("広瀬通(仙台市):",hirose_date)
-print("作並(仙台市):",sakunami_date)
+print('折立(仙台市):' + oritate_date)
+print('広瀬通(仙台市):' + hirose_date)
+print('作並(仙台市):' + sakunami_date)
 
 data ={"path":oritate1_URL}
 

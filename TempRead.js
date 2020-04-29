@@ -25,7 +25,7 @@ const cron = require('node-cron');
          //最新の一件を取得
 
 
-          collection1.find({GetTime:/00:00/},{temp:1}).sort({_id:-1}).toArray(function(err, items) {
+          collection1.find({getTime:/00:00/},{temp:1}).sort({_id:-1}).toArray(function(err, items) {
            for(var item of items){
 
           }
@@ -37,21 +37,21 @@ const cron = require('node-cron');
             }
 
 
-            exports.GetTime1 = items[0].GetTime;
+            exports.getTime1 = items[0].getTime;
             exports.Temp1 = items[0].temp;
-            exports.GetTime2 = items[3].GetTime;
+            exports.getTime2 = items[3].getTime;
             exports.Temp2 = items[3].temp;
-            exports.GetTime3 = items[6].GetTime;
+            exports.getTime3 = items[6].getTime;
             exports.Temp3 = items[6].temp;
-            exports.GetTime4 = items[9].GetTime;
+            exports.getTime4 = items[9].getTime;
             exports.Temp4 = items[9].temp;
-            exports.GetTime5 = items[12].GetTime;
+            exports.getTime5 = items[12].getTime;
             exports.Temp5 = items[12].temp;
-            exports.GetTime6 = items[15].GetTime;
+            exports.getTime6 = items[15].getTime;
             exports.Temp6 = items[15].temp;
-            exports.GetTime7 = items[18].GetTime;
+            exports.getTime7 = items[18].getTime;
             exports.Temp7 = items[18].temp;
-            exports.GetTime8 = items[21].GetTime;
+            exports.getTime8 = items[21].getTime;
             exports.Temp8 = items[21].temp;
 
 
@@ -62,7 +62,7 @@ const cron = require('node-cron');
 
   collection2.find().sort({_id: -1}).limit(1).toArray(function(err, items) {
     for(var item of items){
-       exports.max_GetDay = item.max_GetDay;
+       exports.max_getDay = item.max_getDay;
        exports.max_temp_Time = item.max_temp_Time;
        exports.max_temp = item.max_temp;
      }
@@ -72,7 +72,7 @@ const cron = require('node-cron');
 
   collection3.find().sort({_id: -1}).limit(1).toArray(function(err, items) {
     for(var item of items){
-  exports.min_GetDay = item.min_GetDay;
+  exports.min_getDay = item.min_getDay;
   exports.min_temp_Time = item.min_temp_Time;
   exports.min_temp = item.min_temp;
     }

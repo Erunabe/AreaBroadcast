@@ -7,13 +7,11 @@ import datetime
 from bs4 import BeautifulSoup
 from pymongo import MongoClient
 from pymongo import DESCENDING
-<<<<<<< HEAD
+
 import locale
-locale.setlocale(locale.LC_ALL, '')
-=======
-import io,sys
-sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8')
->>>>>>> 446a83b7069b56485acc46b9c4baad31299f41b8
+locale.setlocale(locale.LC_ALL, 'ja_JP.utf-8')
+
+
 
 #--対象URLの指定--#
 
@@ -42,7 +40,7 @@ date = cell.get_text()
 
 splitdata = date.splitlines()[0]
 
-phototime=re.sub('[TakeTime：]', '',splitdata)
+phototime=re.sub('[一-龥]', "",splitdata.encode('utf-8'))
 
 #--観測日時の取得
 
@@ -58,45 +56,44 @@ URL = 'http://www2.thr.mlit.go.jp/sendai/html/image/DR-74170-l.jpg'
 
 r = requests.get(URL)
 
-sub = re.sub('[/: ]', '',phototime)
+subphototime = re.sub('[/:： ]','',phototime)
 
 now = datetime.datetime.now()
 
 year = now.strftime('%Y')
 
-print(year)
-
-datetime = "{0}{1}".format(year,sub)
+datetime = "{0}{1}".format(year,subphototime)
 
 fmt_name = "ayashi{0}.jpg".format(datetime)
 
-with open('/home/a2011529/AreaBroadcast/roadTrafInfo/roadImage/'+fmt_name,'wb',encoding='utf-8') as f:
+with open('/home/a2011529/AreaBroadcast/roadTrafInfo/roadCondPhoto/'+fmt_name,'wb') as f:
  f.write(r.content)
 
 #--観測地テーブルの取得
-rainfall = soup.find("td",text="累加雨量").find_next_sibling("td").text
-temp = soup.find("td",text="気温").find_next_sibling("td").text
-windspeed = soup.find("td",text="風速").find_next_sibling("td").text
-roadtemp = soup.find("td",text="路面温度").find_next_sibling("td").text
-roadsit = soup.find("td",text="路面状況").find_next_sibling("td").text
+rainfall = soup.find("td",text="累加雨量").find_next_sibling("td").text.encode('utf-8')
+temp = soup.find("td",text="気温").find_next_sibling("td").text.encode('utf-8')
+windspeed = soup.find("td",text="風速").find_next_sibling("td").text.encode('utf-8')
+roadtemp = soup.find("td",text="路面温度").find_next_sibling("td").text.encode('utf-8')
+roadsit = soup.find("td",text="路面状況").find_next_sibling("td").text.encode('utf-8')
+
 
 #--画面への出力--#
-print("撮影日時:",phototime)
+print('撮影日時:' + datetime)
 print(date2)
-print("累加雨量:",rainfall)
-print("気温:",temp)
-print("風速:",windspeed)
-print("路面温度:",roadtemp)
-print("路面状況:",roadsit)
+print('累加雨量:' + rainfall)
+print('気温:' + temp)
+print('風速:' + windspeed)
+print('路面温度:' + roadtemp)
+print('路面状況:' + roadsit)
 
-data ={"date":date2,
+data ={"getTime":date2,
        "rainfall":rainfall, "temp":temp,
        "windspeed":windspeed, "roadtemp":roadtemp,
        "roadsit":roadsit
        }
 
-photodata ={"datetime":datetime,
-"photopath":'/home/a2011529/AreaBroadcast/roadTrafInfo/roadPhoto/'+fmt_name}
+photodata ={"getTime":datetime,
+"photoPath":'/home/a2011529/AreaBroadcast/roadTrafInfo/roadCondPhoto/'+fmt_name}
 
 def save_data(data):
  client =MongoClient('localhost', 27017)
