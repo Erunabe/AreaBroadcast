@@ -42,5 +42,5 @@ URL = 'https://www.jma.go.jp/jp/g3/images/jp_c/'+format
 requestImage = requests.get(URL)
 
 
-with open('/home/a2011529/AreaBroadcast/pyReq/pyWeathermapImage/'+format,'wb') as f:
+with open('/home/a2011529/ImageSave/pyWeathermapImage/'+format,'wb') as f:
  f.write(requestImage.content)

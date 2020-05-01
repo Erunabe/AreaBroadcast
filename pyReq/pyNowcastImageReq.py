@@ -33,5 +33,5 @@ URL = 'http://www.jma.go.jp/jp/radnowc/imgs/radar/205/'+format1
 requestImage = requests.get(URL)
 
 
-with open('/home/a2011529/AreaBroadcast/pyReq/pyNowcastImage/'+format2,'wb') as f:
+with open('/home/a2011529/ImageSave/pyNowcastImage/'+format2,'wb') as f:
  f.write(requestImage.content)
