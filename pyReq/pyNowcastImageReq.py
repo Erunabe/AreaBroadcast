@@ -37,3 +37,30 @@ with open('/home/a2011529/AreaBroadcast/pyReq/pyNowcastImage/'+format2,'wb') as 
  f.write(requestImage.content)
 
 print(format1+" 降水分布図取得保存完了")
+
+
+
+
+#DB接続　格納
+client = MongoClient('localhost', 27017)
+db = client["AreaBroadcast"]
+collection = db["MeteorObserv"]
+
+
+data =    {
+            "TTLfield": now,
+            "GetDay":GetDay,
+            "GetTime":GetTime,
+            "temp":temp,
+            "humi":humi,
+            "wind_s":wind_s,
+            "wind_d":wind_d,
+            "wind_max_s":wind_max_s,
+            "press_l":press_l,
+            "rain_i":rain_i,
+            "rain_m":rain_m,
+            "wbgt":wbgt
+          }
+
+collection.insert_one(data)
+client.close()

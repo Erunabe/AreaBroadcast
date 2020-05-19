@@ -6,19 +6,12 @@ import requests
 import json
 import cgi
 import datetime
+import re
 import os
 import dateutil.parser
 from pymongo import MongoClient
 
 now = datetime.datetime.now()
-nowY = now.year
-nowM = now.month
-nowD = now.day
-nowH = now.hour
-nowMi = now.minute
-nowS = now.second
-
-
 
 #os.environ["http_proxy"] = "http://10.64.199.79:8080"
 #認証ヘッダ
@@ -49,7 +42,12 @@ Real_obj = json.loads(json_lr)
 
 #実測値の値をファイルからパースして代入
 datatime = Real_obj['poteka'][0]['element'][0]['dataList'][0]['datatime']
-dt = dateutil.parser.parse(datatime)
+dt = str(dateutil.parser.parse(datatime))
+subdt = re.sub('[：+ ]','',dt)
+print(subdt)
+GetDay = subdt[0:10]
+GetTime = subdt[10:18]
+print(GetDay,GetTime)
 temp = Real_obj['poteka'][0]['element'][0]['dataList'][0]['value']
 humi = Real_obj['poteka'][0]['element'][1]['dataList'][0]['value']
 wind_s = Real_obj['poteka'][0]['element'][2]['dataList'][0]['value']
@@ -64,22 +62,22 @@ print(temp,humi,wind_s,wind_d,wind_max_s,press_l,rain_i,rain_m,wbgt)
 
 
 #風向変換
- if 0<=wind_d && wind_d<=22.5 && 337.5 < wind_d && wind_d<=360:
-        wind_d = "北";
-    else if 22.5<wind_d && wind_d<=67.5:
-        wind_d = "北東";
-    else if 67.5<wind_d && wind_d<=112.5:
-        wind_d = "東";
-    else if 112.5<wind_d && wind_d<=157.5:
-        wind_d = "南東";
-    else if 157.5<wind_d && wind_d<=202.5:
-        wind_d = "南";
-    else if 202.5<wind_d && wind_d<=247.5:
-        wind_d = "南西";
-    else if 247.5<wind_d && wind_d<=292.5:
-        wind_d = "西";
-    else if 292.5<wind_d && wind_d<=337.5:
-        wind_d = "北西";
+if 0<=wind_d<=22.5 and 337.5 < wind_d<=360:
+  wind_d = "北"
+elif 22.5<wind_d and wind_d <=67.5 :
+  wind_d = "北東"
+elif 67.5<wind_d and wind_d <=112.5 :
+  wind_d = "東"
+elif 112.5<wind_d and wind_d <=157.5 :
+  wind_d = "南東"
+elif 157.5<wind_d and wind_d <=202.5 :
+  wind_d = "南"
+elif 202.5<wind_d and wind_d <=247.5 :
+  wind_d = "南西"
+elif 247.5<wind_d and wind_d <=292.5 :
+  wind_d = "西"
+elif 292.5<wind_d and wind_d <=337.5 :
+  wind_d = "北西"
 
 
 
@@ -93,8 +91,8 @@ collection = db["MeteorObserv"]
 
 data =    {
             "TTLfield": now,
-            "GetDay":ArrayDatatime[0],
-            "GetTime":ArrayDatatime[1],
+            "GetDay":GetDay,
+            "GetTime":GetTime,
             "temp":temp,
             "humi":humi,
             "wind_s":wind_s,
