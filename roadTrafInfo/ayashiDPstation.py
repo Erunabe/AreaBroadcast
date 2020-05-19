@@ -17,14 +17,14 @@ locale.setlocale(locale.LC_ALL, 'ja_JP.utf-8')
 
 url = "http://www2.thr.mlit.go.jp/sendai/html/DR-74170.html"
 
-#proxies = {
-#"http":"http://10.64.199.79:8080",
-#"https":"http://10.64.199.79:8080"
-#}
+proxies = {
+"http":"http://10.64.199.79:8080",
+"https":"http://10.64.199.79:8080"
+}
 
 #--HTTPリクエストの送信--#]
 #プロキシ適用の場合　urlのあとに,proxies=proxies
-html = requests.get(url)
+html = requests.get(url,proxies=proxies)
 html.encoding = html.apparent_encoding
 
 soup = BeautifulSoup(html.text, 'html.parser')
@@ -40,7 +40,7 @@ date = cell.get_text()
 
 splitdata = date.splitlines()[0]
 
-phototime=re.sub('[一-龥]', "",splitdata.encode('utf-8'))
+phototime=re.sub('[撮影日時：]', "",splitdata)
 
 #--観測日時の取得
 
@@ -58,17 +58,27 @@ r = requests.get(URL)
 
 subphototime = re.sub('[/:： ]','',phototime)
 
+photoDate = subphototime[0:4]
+photoTime = subphototime[5:8]
+
 now = datetime.datetime.now()
 
 year = now.strftime('%Y')
 
 nowDay = now.strftime('%m%d')
 
-if nowDay != 0101:
-    pass
+
+if nowDay != '0101':
+    print("Today is not 1/1")
 else :
+<<<<<<< HEAD
     if date2 != :
         Year = int(Year)-1
+=======
+    if photoDate == '1231':
+        year = int(year)-1
+        print("This photo was taken in "+str(year))
+>>>>>>> 8101202e3e0979e5d5ecf833e2b65ca256f98924
     else :
         pass
 
@@ -82,11 +92,11 @@ with open('/home/a2011529/AreaBroadcast/roadTrafInfo/roadCondPhoto/'+fmt_name,'w
  f.write(r.content)
 
 #--観測地テーブルの取得
-rainfall = soup.find("td",text="累加雨量").find_next_sibling("td").text.encode('utf-8')
-temp = soup.find("td",text="気温").find_next_sibling("td").text.encode('utf-8')
-windspeed = soup.find("td",text="風速").find_next_sibling("td").text.encode('utf-8')
-roadtemp = soup.find("td",text="路面温度").find_next_sibling("td").text.encode('utf-8')
-roadsit = soup.find("td",text="路面状況").find_next_sibling("td").text.encode('utf-8')
+rainfall = soup.find("td",text="累加雨量").find_next_sibling("td").text
+temp = soup.find("td",text="気温").find_next_sibling("td").text
+windspeed = soup.find("td",text="風速").find_next_sibling("td").text
+roadtemp = soup.find("td",text="路面温度").find_next_sibling("td").text
+roadsit = soup.find("td",text="路面状況").find_next_sibling("td").text
 
 
 #--画面への出力--#

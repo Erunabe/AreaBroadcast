@@ -8,14 +8,12 @@ import cgi
 import datetime
 import os
 
-#os.environ["http_proxy"] = "http://10.64.199.79:8080"
+os.environ["http_proxy"] = "http://10.64.199.79:8080"
 #認証ヘッダ
 headers = {'X-POTEKA-Authorization':'c2VuZGFpLW5jdDpmZzd6dm1wWQ=='}
 
 #POTEKA指定データ取得
 Poteka = requests.get('http://api.potekanet.com/v1/point/real/ja/poteka?potekaId=555&element=temp,humi,wind_s,wind_d,wind_max_s,press_l,rain_i,rain_m,wbgt',headers=headers)
-
-print(Poteka.text)
 
 #辞書型からJSON形式の文字列へ変換
 jPoteka=json.dumps((Poteka.json()))
