@@ -57,3 +57,24 @@ nowD = now.day
 nowH = now.hour
 nowMi = now.minute
 nowS = now.second
+
+def save_data(data):
+ client =MongoClient('localhost', 27017)
+ db = client.AreaBroadcast
+ collection = db.MeteorObserv
+
+save_data(MeteorObserv)
+
+
+class AreaBroadcast(object):
+
+ def __init__(self,dbName,collectionName):
+   self.client = MongoClient()
+   self.db = self.client[dbName]
+   self.collection = self.db.get_collection(collectionName)
+
+ def find_one(self,projection=None,filter=None,sort=None):
+   return self.collection.find_one(projection=projection,filter=filter,sort=sort)
+
+mongo = ayashi('AreaBroadcast','roadPhoto')
+findone = mongo.find_one(sort=[('datetime',DESCENDING)])

@@ -67,7 +67,7 @@ nowDay = now.strftime('%m%d')
 if nowDay != 0101:
     pass
 else :
-    if date2 == 1231:
+    if date2 != :
         Year = int(Year)-1
     else :
         pass
