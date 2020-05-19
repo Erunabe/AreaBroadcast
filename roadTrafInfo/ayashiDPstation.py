@@ -71,14 +71,9 @@ nowDay = now.strftime('%m%d')
 if nowDay != '0101':
     print("Today is not 1/1")
 else :
-<<<<<<< HEAD
-    if date2 != :
+    if date2 != '0101' :
         Year = int(Year)-1
-=======
-    if photoDate == '1231':
-        year = int(year)-1
-        print("This photo was taken in "+str(year))
->>>>>>> 8101202e3e0979e5d5ecf833e2b65ca256f98924
+
     else :
         pass
 
