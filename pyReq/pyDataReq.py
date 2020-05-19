@@ -20,14 +20,17 @@ nowS = now.second
 
 
 
-#os.environ["http_proxy"] = "http://10.64.199.79:8080"
+os.environ["http_proxy"] = "http://10.64.199.79:8080"
 #認証ヘッダ
 headers = {'X-POTEKA-Authorization':'c2VuZGFpLW5jdDpmZzd6dm1wWQ=='}
 
 #POTEKA指定データ取得
 Poteka = requests.get('http://api.potekanet.com/v1/point/real/ja/poteka?potekaId=555&element=temp,humi,wind_s,wind_d,wind_max_s,press_l,rain_i,rain_m,wbgt',headers=headers)
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 2576cac621f9c21c28dbc77a410822875cc4bb0e
 #辞書型からJSON形式の文字列へ変換
 jPoteka=json.dumps((Poteka.json()))
 
@@ -62,6 +65,7 @@ wbgt = Real_obj['poteka'][0]['element'][8]['dataList'][0]['value']
 
 print(temp,humi,wind_s,wind_d,wind_max_s,press_l,rain_i,rain_m,wbgt)
 
+<<<<<<< HEAD
 
 #風向変換
  if 0<=wind_d && wind_d<=22.5 && 337.5 < wind_d && wind_d<=360:
@@ -108,3 +112,34 @@ data =    {
 
 collection.insert_one(data)
 client.close()
+=======
+#現在の日付時間表示
+now = datetime.datetime.now()
+nowY = now.year
+nowM = now.month
+nowD = now.day
+nowH = now.hour
+nowMi = now.minute
+nowS = now.second
+
+def save_data(data):
+ client =MongoClient('localhost', 27017)
+ db = client.AreaBroadcast
+ collection = db.MeteorObserv
+
+save_data(MeteorObserv)
+
+
+class AreaBroadcast(object):
+
+ def __init__(self,dbName,collectionName):
+   self.client = MongoClient()
+   self.db = self.client[dbName]
+   self.collection = self.db.get_collection(collectionName)
+
+ def find_one(self,projection=None,filter=None,sort=None):
+   return self.collection.find_one(projection=projection,filter=filter,sort=sort)
+
+mongo = ayashi('AreaBroadcast','roadPhoto')
+findone = mongo.find_one(sort=[('datetime',DESCENDING)])
+>>>>>>> 2576cac621f9c21c28dbc77a410822875cc4bb0e

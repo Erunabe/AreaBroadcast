@@ -8,17 +8,17 @@ from pymongo import MongoClient
 up_url = "http://road.thr.mlit.go.jp/jyohoban/048up.html"
 dw_url = "http://road.thr.mlit.go.jp/jyohoban/048dw.html"
 
-#--プロキシの設定
-#proxies = {
-#"http":"http://10.64.199.79:8080",
-#"https":"http://10.64.199.79:8080"
-#}
+--プロキシの設定
+proxies = {
+"http":"http://10.64.199.79:8080",
+"https":"http://10.64.199.79:8080"
+}
 
 #--対象のWebサイトの読み取り
-up_html = requests.get(up_url)
+up_html = requests.get(up_url,proxies=proxies)
 up_html.encoding = "Shift_JIS"
 
-dw_html = requests.get(dw_url)
+dw_html = requests.get(dw_url,proxies=proxies)
 dw_html.encoding = "Shift_JIS"
 
 up_soup = BeautifulSoup(up_html.text, 'html.parser')
@@ -65,8 +65,8 @@ sakunami_cells = sakunami_rows.findAll("td")[0]
 sakunami_date = sakunami_cells.get_text().encode('utf-8')
 
 ##-表示内容画像の取得(折立)
-picture = requests.get(oritate1_URL)
-picture2 = requests.get(oritate2_URL)
+picture = requests.get(oritate1_URL,proxies=proxies)
+picture2 = requests.get(oritate2_URL,proxies=proxies)
 
 sub = re.sub('[/: ]', '',oritate_date)
 
