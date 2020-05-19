@@ -18,7 +18,7 @@ endMinutes = int(splitMinutes[1])
 
 if endMinutes % 5 == 0:
     pass
-elif 0<endMinutes<5:
+elif 0<= endMinutes <5:
     endMinutes=0;
 else:
     endMinutes=5;
@@ -33,5 +33,5 @@ URL = 'http://www.jma.go.jp/jp/radnowc/imgs/radar/205/'+format1
 requestImage = requests.get(URL)
 
 
-with open('/home/a2011529/ImageSave/pyNowcastImage/'+format2,'wb') as f:
+with open('/home/a2011529/AreaBroadcast/pyReq/pyNowcastImage/'+format2,'wb') as f:
  f.write(requestImage.content)
