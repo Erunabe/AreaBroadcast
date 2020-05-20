@@ -6,6 +6,7 @@ import requests
 import json
 import datetime
 import os
+from pymongo import MongoClient
 
 os.environ["http_proxy"] = "http://10.64.199.79:8080"
 os.environ["https_proxy"] = "http://10.64.199.79:8080"
@@ -13,7 +14,8 @@ now = datetime.datetime.now()
 
 year = now.strftime('%Y')
 splitYear=list(year)
-MD=now.strftime('%m%d')
+month=now.strftime('%m')
+day=now.strftime('%d')
 timeFormat=int(now.strftime('%H%M'))
 hourList = [3,6,9,12,15,18,21]
 
@@ -35,8 +37,9 @@ else:
 
 print(hourFormat)
 
-format = splitYear[2]+splitYear[3]+MD+hourFormat+'.png'
-
+format = splitYear[2]+splitYear[3]+month+day+hourFormat+'.png'
+DBformat_Day = year+'-'+month+'-'+day
+DBformat_Time = hourFormat+':'+'00'
 
 
 URL = 'https://www.jma.go.jp/jp/g3/images/jp_c/'+format
@@ -47,29 +50,21 @@ with open('/home/a2011529/AreaBroadcast/pyReq/pyWeathermapImage/'+format,'wb') a
  f.write(requestImage.content)
 print(format+" 最新天気図取得保存完了")
 
-
+WeathermapImage = '/WeathermapImage/'+format + ".png";
 
 
 
 #DB接続　格納
 client = MongoClient('localhost', 27017)
 db = client["AreaBroadcast"]
-collection = db["MeteorObserv"]
+collection = db["WeathermapImage"]
 
 
 data =    {
             "TTLfield": now,
-            "GetDay":GetDay,
-            "GetTime":GetTime,
-            "temp":temp,
-            "humi":humi,
-            "wind_s":wind_s,
-            "wind_d":wind_d,
-            "wind_max_s":wind_max_s,
-            "press_l":press_l,
-            "rain_i":rain_i,
-            "rain_m":rain_m,
-            "wbgt":wbgt
+            "getDay":DBformat_Day,
+            "getTime":DBformat_Time,
+            "ImagePath":WeathermapImage
           }
 
 collection.insert_one(data)

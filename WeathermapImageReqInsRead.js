@@ -87,16 +87,16 @@ var options =  {
         const db = client.db(dbName);
 
           // コレクションの取得
-          collection = db.collection("WeatherMapImage");
+          collection = db.collection("WeathermapImage");
 
 
-          WeatherMapImage = "/WeatherMapImage/"+format + ".png";
+          WeathermapImage = "/WeathermapImage/"+format + ".png";
           // コレクションにドキュメントを挿入
           collection.insertOne(
           {
             "getDay":DBformat1_Day,
             "getTime":DBformat1_Time,
-            "ImagePath":WeatherMapImage,
+            "ImagePath":WeathermapImage,
           }
       , (error, result) => {
               client.close();
@@ -110,7 +110,7 @@ var options =  {
 
             const db = client.db(dbName);
             // コレクションの取得
-            collection = db.collection("WeatherMapImage");
+            collection = db.collection("WeathermapImage");
 
             //最新の一件を取得
               collection.find().sort({_id: -1}).limit(1).toArray(function(err, items) {
@@ -142,7 +142,7 @@ var options =  {
     {method: 'GET', url: "https://www.jma.go.jp/jp/g3/images/jp_c/"+format2+".png",proxy:'http://10.64.199.79:8080', encoding: null},
     function (error, response, body){
       if(!error && response.statusCode === 200){
-        fs.writeFile('/home/s1500740/WeatherDataBroadcast/WeatherMapImage/'+format2+'.png', body, 'binary',(err) => {
+        fs.writeFile('/home/s1500740/WeatherDataBroadcast/WeathermapImage/'+format2+'.png', body, 'binary',(err) => {
           // 書き出しに失敗した場合
           if(err){
             console.log("エラーが発生しました。" + err)

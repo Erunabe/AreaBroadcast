@@ -6,12 +6,19 @@ import requests
 import json
 import datetime
 import os
+from pymongo import MongoClient
 
 os.environ["http_proxy"] = "http://10.64.199.79:8080"
 os.environ["https_proxy"] = "http://10.64.199.79:8080"
 now = datetime.datetime.now()
 
+
+now = datetime.datetime.now()
 nowTime = now.strftime('%Y%m%d%H')
+year = now.strftime('%Y')
+month = now.strftime('%m')
+day = now.strftime('%d')
+hour = now.strftime('%H')
 minutes=now.strftime('%M')
 splitMinutes=list(minutes)
 endMinutes = int(splitMinutes[1])
@@ -25,41 +32,35 @@ else:
     endMinutes=5;
 
 
-format1 = nowTime+splitMinutes[0]+str(endMinutes)+'-00.png'
-format2 = nowTime+splitMinutes[0]+str(endMinutes)+'.png'
+format = nowTime+splitMinutes[0]+str(endMinutes)+'-00.png'
+DBformat = nowTime+splitMinutes[0]+str(endMinutes)+'.png'
+DBformat_Day = year+'-'+month+'-'+day
+DBformat_Time = hour+':'+str(endMinutes)
 
 
-URL = 'http://www.jma.go.jp/jp/radnowc/imgs/radar/205/'+format1
+URL = 'http://www.jma.go.jp/jp/radnowc/imgs/radar/205/'+format
 requestImage = requests.get(URL)
 
 
-with open('/home/a2011529/AreaBroadcast/pyReq/pyNowcastImage/'+format2,'wb') as f:
+with open('/home/a2011529/AreaBroadcast/pyReq/pyNowcastImage/'+DBformat,'wb') as f:
  f.write(requestImage.content)
 
-print(format1+" 降水分布図取得保存完了")
+print(format+" 降水分布図取得保存完了")
 
-
+NowcastImage = "/NowcastImage/"+DBformat;
 
 
 #DB接続　格納
 client = MongoClient('localhost', 27017)
 db = client["AreaBroadcast"]
-collection = db["MeteorObserv"]
+collection = db["NowcastImage"]
 
 
 data =    {
             "TTLfield": now,
-            "GetDay":GetDay,
-            "GetTime":GetTime,
-            "temp":temp,
-            "humi":humi,
-            "wind_s":wind_s,
-            "wind_d":wind_d,
-            "wind_max_s":wind_max_s,
-            "press_l":press_l,
-            "rain_i":rain_i,
-            "rain_m":rain_m,
-            "wbgt":wbgt
+            "getDay":DBformat_Day,
+            "getTime":DBformat_Time,
+            "ImagePath":NowcastImage
           }
 
 collection.insert_one(data)

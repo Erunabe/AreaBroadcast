@@ -91,8 +91,8 @@ cron.schedule('* * * * *', () => {
           collection1.insertOne(
           {
             "TTLfield": new Date(),
-            "GetDay":ArrayDatatime[0],
-            "GetTime":ArrayDatatime[1],
+            "getDay":ArrayDatatime[0],
+            "getTime":ArrayDatatime[1],
             "temp":temp,
             "humi":humi,
             "wind_s":wind_s,
@@ -111,14 +111,14 @@ cron.schedule('* * * * *', () => {
 //coll2=1日の最大観測値
       collection2.find().sort({_id: -1}).limit(1).toArray(function(err, items) {
         for(var item of items){
-            max_GetDay = item.max_GetDay;
-            console.log(max_GetDay == Today);
-            if(max_GetDay != Today){
+            max_getDay = item.max_getDay;
+            console.log(max_getDay == Today);
+            if(max_getDay != Today){
               console.log("日付変更：最大要素格納更新");
                 collection2.insertOne(
                 {
                   "TTLfield": new Date(),
-                  "max_GetDay":ArrayDatatime[0],
+                  "max_getDay":ArrayDatatime[0],
                   "max_temp_Time":ArrayDatatime[1],
                   "max_temp":temp,
                   "max_humi_Time":ArrayDatatime[1],
@@ -149,14 +149,14 @@ cron.schedule('* * * * *', () => {
 
   collection3.find().sort({_id: -1}).limit(1).toArray(function(err, items) {
     for(var item of items){
-        min_GetDay = item.min_GetDay;
-        console.log(min_GetDay == Today);
-        if(min_GetDay != Today){
+        min_getDay = item.min_getDay;
+        console.log(min_getDay == Today);
+        if(min_getDay != Today){
           console.log("日付変更：最小要素格納更新");
             collection3.insertOne(
             {
               "TTLfield": new Date(),
-              "min_GetDay":ArrayDatatime[0],
+              "min_getDay":ArrayDatatime[0],
               "min_temp_Time":ArrayDatatime[1],
               "min_temp":temp,
               "min_humi_Time":ArrayDatatime[1],
@@ -203,8 +203,8 @@ cron.schedule('* * * * *', () => {
            for(var item of items){
             console.log(item);
 
-            exports.GetDay = item.GetDay;
-            exports.GetTime = item.GetTime;
+            exports.getDay = item.getDay;
+            exports.getTime = item.getTime;
             exports.temp = item.temp;
             exports.humi = item.humi;
             exports.wind_s = item.wind_s;
@@ -215,8 +215,8 @@ cron.schedule('* * * * *', () => {
             exports.rain_m = item.rain_m;
             exports.wbgt = item.wbgt;
 
-            /*exports.GetDay = GetDay;
-            exports.GetTime = GetTime;
+            /*exports.getDay = getDay;
+            exports.getTime = getTime;
             exports.temp = temp;
             exports.humi = humi;
             exports.wind_s = wind_s;
@@ -231,13 +231,13 @@ cron.schedule('* * * * *', () => {
            client.close();
        });
 
-       collection2.find({max_GetDay:Today}).limit(1).toArray(function(err, items) {
+       collection2.find({max_getDay:Today}).limit(1).toArray(function(err, items) {
         for(var item of items){
         console.log(item);
 
          if(item.max_temp < temp ){
            console.log("update_MAXtemp");
-           collection2.updateOne({max_GetDay:Today},{$set:{
+           collection2.updateOne({max_getDay:Today},{$set:{
              "max_temp_Time":ArrayDatatime[1],
              "max_temp":temp
            }}
@@ -247,7 +247,7 @@ cron.schedule('* * * * *', () => {
          }
          if(item.max_humi < humi){
            console.log("update_MAXhumi");
-           collection2.updateOne({max_GetDay:Today},{$set:{
+           collection2.updateOne({max_getDay:Today},{$set:{
              "max_humi_Time":ArrayDatatime[1],
              "max_humi":humi
            }}
@@ -257,7 +257,7 @@ cron.schedule('* * * * *', () => {
          }
          if(item.max_wind_s < wind_s){
            console.log("update_MAXwind_s");
-           collection2.updateOne({max_GetDay:Today},{$set:{
+           collection2.updateOne({max_getDay:Today},{$set:{
              "max_wind_s_Time":ArrayDatatime[1],
              "max_wind_s":wind_s
            }}
@@ -268,7 +268,7 @@ cron.schedule('* * * * *', () => {
 
          if(item.max_wind_max_s < wind_max_s){
            console.log("update_MAXwind_max_s");
-           collection2.updateOne({max_GetDay:Today},{$set:{
+           collection2.updateOne({max_getDay:Today},{$set:{
              "max_wind_max_s_Time":ArrayDatatime[1],
              "max_wind_max_s":wind_max_s,
              "max_wind_max_d":wind_d
@@ -279,7 +279,7 @@ cron.schedule('* * * * *', () => {
          }
          if(item.max_press_l < press_l){
            console.log("update_MAXpress_l");
-           collection2.updateOne({max_GetDay:Today},{$set:{
+           collection2.updateOne({max_getDay:Today},{$set:{
              "max_press_l_Time":ArrayDatatime[1],
              "max_press_l":press_l
            }}
@@ -289,7 +289,7 @@ cron.schedule('* * * * *', () => {
          }
          if(item.max_rain_i < rain_i){
            console.log("update_MAXrain_i");
-           collection2.updateOne({max_GetDay:Today},{$set:{
+           collection2.updateOne({max_getDay:Today},{$set:{
              "max_rain_i_Time":ArrayDatatime[1],
              "max_rain_i":rain_i
            }}
@@ -299,7 +299,7 @@ cron.schedule('* * * * *', () => {
          }
          if(item.max_rain_m < rain_m){
            console.log("update_MAXrain_m");
-           collection2.updateOne({max_GetDay:Today},{$set:{
+           collection2.updateOne({max_getDay:Today},{$set:{
              "max_rain_m_Time":ArrayDatatime[1],
              "max_rain_m":rain_m
            }}
@@ -309,7 +309,7 @@ cron.schedule('* * * * *', () => {
          }
          if(item.max_wbgt < wbgt){
            console.log("update_MAXwbgt");
-          collection2.updateOne({max_GetDay:Today},{$set:{
+          collection2.updateOne({max_getDay:Today},{$set:{
              "max_wbgt_Time":ArrayDatatime[1],
              "max_wbgt":wbgt
            }}
@@ -318,7 +318,7 @@ cron.schedule('* * * * *', () => {
            });
          }
 
-         exports.max_GetDay = item.max_GetDay;
+         exports.max_getDay = item.max_getDay;
          exports.max_temp_Time = item.max_temp_Time;
          exports.max_temp = item.max_temp;
          exports.max_humi_Time = item.max_humi_Time;
@@ -346,13 +346,13 @@ cron.schedule('* * * * *', () => {
 
 
        //最小要素検索
-       collection3.find({min_GetDay:Today}).limit(1).toArray(function(err, items) {
+       collection3.find({min_getDay:Today}).limit(1).toArray(function(err, items) {
         for(var item of items){
         console.log(item);
 
          if(temp < item.min_temp ){
            console.log("update_MINtemp");
-           collection3.updateOne({min_GetDay:Today},{$set:{
+           collection3.updateOne({min_getDay:Today},{$set:{
              "min_temp_Time":ArrayDatatime[1],
              "min_temp":temp
            }}
@@ -362,7 +362,7 @@ cron.schedule('* * * * *', () => {
          }
          if( humi < item.min_humi ){
            console.log("update_MINhumi");
-           collection3.updateOne({min_GetDay:Today},{$set:{
+           collection3.updateOne({min_getDay:Today},{$set:{
              "min_humi_Time":ArrayDatatime[1],
              "min_humi":humi
            }}
@@ -372,7 +372,7 @@ cron.schedule('* * * * *', () => {
          }
          if(wind_s < item.min_wind_s){
            console.log("update_MINwind_s");
-           collection3.updateOne({min_GetDay:Today},{$set:{
+           collection3.updateOne({min_getDay:Today},{$set:{
              "min_wind_s_Time":ArrayDatatime[1],
              "min_wind_s":wind_s
            }}
@@ -383,7 +383,7 @@ cron.schedule('* * * * *', () => {
 
          if(wind_max_s < item.min_wind_max_s ){
            console.log("update_MINwind_max_s");
-           collection3.updateOne({min_GetDay:Today},{$set:{
+           collection3.updateOne({min_getDay:Today},{$set:{
              "min_wind_max_s_Time":ArrayDatatime[1],
              "min_wind_max_s":wind_max_s
            }}
@@ -394,7 +394,7 @@ cron.schedule('* * * * *', () => {
 
          if(press_l < item.min_press_l){
            console.log("update_MINpress_l");
-           collection3.updateOne({min_GetDay:Today},{$set:{
+           collection3.updateOne({min_getDay:Today},{$set:{
              "min_press_l_Time":ArrayDatatime[1],
              "min_press_l":press_l
            }}
@@ -404,7 +404,7 @@ cron.schedule('* * * * *', () => {
          }
          if(rain_i < item.min_rain_i ){
            console.log("update_MINrain_i");
-           collection3.updateOne({min_GetDay:Today},{$set:{
+           collection3.updateOne({min_getDay:Today},{$set:{
              "min_rain_i_Time":ArrayDatatime[1],
              "min_rain_i":rain_i
            }}
@@ -414,7 +414,7 @@ cron.schedule('* * * * *', () => {
          }
          if(rain_m  < item.min_rain_m){
            console.log("update_MINrain_m");
-           collection3.updateOne({min_GetDay:Today},{$set:{
+           collection3.updateOne({min_getDay:Today},{$set:{
              "min_rain_m_Time":ArrayDatatime[1],
              "min_rain_m":rain_m
            }}
@@ -424,7 +424,7 @@ cron.schedule('* * * * *', () => {
          }
          if(wbgt < item.min_wbgt){
            console.log("update_MINwbgt");
-          collection3.updateOne({min_GetDay:Today},{$set:{
+          collection3.updateOne({min_getDay:Today},{$set:{
              "min_wbgt_Time":ArrayDatatime[1],
              "min_wbgt":wbgt
            }}
@@ -433,7 +433,7 @@ cron.schedule('* * * * *', () => {
            });
          }
 
-         exports.min_GetDay = item.min_GetDay;
+         exports.min_getDay = item.min_getDay;
          exports.min_temp_Time = item.min_temp_Time;
          exports.min_temp = item.min_temp;
          exports.min_humi_Time = item.min_humi_Time;

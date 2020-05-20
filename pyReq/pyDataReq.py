@@ -13,7 +13,7 @@ from pymongo import MongoClient
 
 now = datetime.datetime.now()
 
-#os.environ["http_proxy"] = "http://10.64.199.79:8080"
+os.environ["http_proxy"] = "http://10.64.199.79:8080"
 #認証ヘッダ
 headers = {'X-POTEKA-Authorization':'c2VuZGFpLW5jdDpmZzd6dm1wWQ=='}
 
@@ -44,10 +44,9 @@ Real_obj = json.loads(json_lr)
 datatime = Real_obj['poteka'][0]['element'][0]['dataList'][0]['datatime']
 dt = str(dateutil.parser.parse(datatime))
 subdt = re.sub('[：+ ]','',dt)
-print(subdt)
-GetDay = subdt[0:10]
-GetTime = subdt[10:18]
-print(GetDay,GetTime)
+getDay = subdt[0:10]
+getTime = subdt[10:18]
+
 temp = Real_obj['poteka'][0]['element'][0]['dataList'][0]['value']
 humi = Real_obj['poteka'][0]['element'][1]['dataList'][0]['value']
 wind_s = Real_obj['poteka'][0]['element'][2]['dataList'][0]['value']
@@ -91,8 +90,8 @@ collection = db["MeteorObserv"]
 
 data =    {
             "TTLfield": now,
-            "GetDay":GetDay,
-            "GetTime":GetTime,
+            "getDay":getDay,
+            "getTime":getTime,
             "temp":temp,
             "humi":humi,
             "wind_s":wind_s,
