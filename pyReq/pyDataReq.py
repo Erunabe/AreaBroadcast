@@ -45,7 +45,8 @@ datatime = Real_obj['poteka'][0]['element'][0]['dataList'][0]['datatime']
 dt = str(dateutil.parser.parse(datatime))
 subdt = re.sub('[：+ ]','',dt)
 getDay = subdt[0:10]
-getTime = subdt[10:18]
+getTime = subdt[10:16]
+print(getTime)
 
 temp = Real_obj['poteka'][0]['element'][0]['dataList'][0]['value']
 humi = Real_obj['poteka'][0]['element'][1]['dataList'][0]['value']
