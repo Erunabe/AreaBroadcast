@@ -50,7 +50,7 @@ with open('/home/a2011529/AreaBroadcast/pyReq/pyWeathermapImage/'+format,'wb') a
  f.write(requestImage.content)
 print(format+" 最新天気図取得保存完了")
 
-WeathermapImage = '/WeathermapImage/'+format + ".png";
+WeathermapImage = '/WeathermapImage/'+format;
 
 
 
