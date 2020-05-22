@@ -12,6 +12,15 @@ import dateutil.parser
 from pymongo import MongoClient
 
 now = datetime.datetime.now()
+utcnow = datetime.datetime.utcnow()
+
+def utc_to_jst(timestamp_utc):
+    datetime_utc = datetime.datetime.strptime(timestamp_utc + "+0000", "%Y-%m-%d"+"T"+"%H:%M:%S"+"00:00")
+    datetime_jst = datetime_utc.astimezone(datetime.timezone(datetime.timedelta(hours=+9)))
+    timestamp_jst = datetime.datetime.strftime(datetime_jst, '%Y-%m-%d %H:%M:%S')
+    return timestamp_jst
+
+
 
 os.environ["http_proxy"] = "http://10.64.199.79:8080"
 #認証ヘッダ
@@ -42,10 +51,13 @@ Real_obj = json.loads(json_lr)
 
 #実測値の値をファイルからパースして代入
 datatime = Real_obj['poteka'][0]['element'][0]['dataList'][0]['datatime']
-dt = str(dateutil.parser.parse(datatime))
-subdt = re.sub('[：+ ]','',dt)
+JST = datetime.timezone(datetime.timedelta(hours=+9), 'JST')
+dt = dateutil.parser.parse(datatime).astimezone(JST)
+strdt = str(dt)
+subdt = re.sub('[：+ ]','',strdt)
 getDay = subdt[0:10]
 getTime = subdt[10:18]
+
 
 temp = Real_obj['poteka'][0]['element'][0]['dataList'][0]['value']
 humi = Real_obj['poteka'][0]['element'][1]['dataList'][0]['value']
@@ -89,7 +101,7 @@ collection = db["MeteorObserv"]
 
 
 data =    {
-            "TTLfield": now,
+            "TTLfield": utcnow,
             "getDay":getDay,
             "getTime":getTime,
             "temp":temp,
@@ -104,4 +116,5 @@ data =    {
           }
 
 collection.insert_one(data)
+print("最新気象観測値格納完了")
 client.close()

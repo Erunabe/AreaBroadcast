@@ -35,7 +35,7 @@ else:
 format = nowTime+splitMinutes[0]+str(endMinutes)+'-00.png'
 DBformat = nowTime+splitMinutes[0]+str(endMinutes)+'.png'
 DBformat_Day = year+'-'+month+'-'+day
-DBformat_Time = hour+':'+str(endMinutes)
+DBformat_Time = hour+':'+str(minutes)
 
 
 URL = 'http://www.jma.go.jp/jp/radnowc/imgs/radar/205/'+format

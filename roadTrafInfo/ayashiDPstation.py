@@ -11,7 +11,18 @@ from pymongo import DESCENDING
 import locale
 locale.setlocale(locale.LC_ALL, 'ja_JP.utf-8')
 
+class ayashi(object):
 
+ def __init__(self,dbName,collectionName):
+   self.client = MongoClient()
+   self.db = self.client[dbName]
+   self.collection = self.db.get_collection(collectionName)
+
+ def find_one(self,projection=None,filter=None,sort=None):
+   return self.collection.find_one(projection=projection,filter=filter,sort=sort)
+
+   mongo = ayashi('AreaBroadcast','roadPhoto')
+   findone = mongo.find_one(sort=[('datetime',DESCENDING)])
 
 #--対象URLの指定--#
 
@@ -28,6 +39,8 @@ html = requests.get(url,proxies=proxies)
 html.encoding = html.apparent_encoding
 
 soup = BeautifulSoup(html.text, 'html.parser')
+
+
 
 #--撮影日時の取得
 table = soup.findAll("table")[2]
@@ -127,17 +140,3 @@ def save_data(photodata):
  result = collection.insert(photodata)
 
 save_data(photodata)
-
-
-class ayashi(object):
-
- def __init__(self,dbName,collectionName):
-   self.client = MongoClient()
-   self.db = self.client[dbName]
-   self.collection = self.db.get_collection(collectionName)
-
- def find_one(self,projection=None,filter=None,sort=None):
-   return self.collection.find_one(projection=projection,filter=filter,sort=sort)
-
-mongo = ayashi('AreaBroadcast','roadPhoto')
-findone = mongo.find_one(sort=[('datetime',DESCENDING)])
