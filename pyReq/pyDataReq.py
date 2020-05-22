@@ -56,7 +56,8 @@ dt = dateutil.parser.parse(datatime).astimezone(JST)
 strdt = str(dt)
 subdt = re.sub('[：+ ]','',strdt)
 getDay = subdt[0:10]
-getTime = subdt[10:18]
+getTime = subdt[10:16]
+print(getTime)
 
 
 temp = Real_obj['poteka'][0]['element'][0]['dataList'][0]['value']
