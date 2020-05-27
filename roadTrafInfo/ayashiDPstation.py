@@ -85,6 +85,7 @@ if latestPhotoTime != photoTime :
         else :
             pass
 
+    print("撮影日時:" + year + "-" + photoDate)
     photodata ={"getDay":year+photoDay,"getTime":photoTime,
     "photoPath":'/home/a2011529/AreaBroadcast/roadTrafInfo/roadCondPhoto/'+fmt_name}
 
@@ -100,7 +101,7 @@ if latestPhotoTime != photoTime :
 else :
     print("撮影日時更新なし")
 
-print("撮影日時:" + year + "-" + photoDate)
+
 
 
 
