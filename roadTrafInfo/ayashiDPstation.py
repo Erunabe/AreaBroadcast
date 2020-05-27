@@ -169,8 +169,8 @@ if latestObservTime != observTime :
     print('路面状況:' + roadsit)
 
     data ={"getDay":observDay,"getTime":observTime,
-           "rainfall":rainfall, "temp":temp,
-           "windspeed":windspeed, "roadtemp":roadtemp,
+           "rainfall":subRainfall, "temp":subTemp,
+           "windspeed":subWindspeed, "roadtemp":subRoadtemp,
            "roadsit":roadsit
            }
 
