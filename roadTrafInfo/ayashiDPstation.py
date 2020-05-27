@@ -7,25 +7,30 @@ import datetime
 from bs4 import BeautifulSoup
 from pymongo import MongoClient
 from pymongo import DESCENDING
+from pymongo import ASCENDING
+
+now = datetime.datetime.now()
+year = now.strftime('%Y')
+nowDay = now.strftime('%m%d')
 
 import locale
 locale.setlocale(locale.LC_ALL, 'ja_JP.utf-8')
 
-class ayashi(object):
 
- def __init__(self,dbName,collectionName):
-   self.client = MongoClient()
-   self.db = self.client[dbName]
-   self.collection = self.db.get_collection(collectionName)
+print("-------路面写真取得-------")
+#DBより直近の撮影日時を取得
+client = MongoClient('localhost', 27017)
+db = client.AreaBroadcast
+collection1 = db.roadImage
 
- def find_one(self,projection=None,filter=None,sort=None):
-   return self.collection.find_one(projection=projection,filter=filter,sort=sort)
+latestPhoto = list(collection1.find().sort('_id',DESCENDING).limit(1))
+latestPhotoTime = latestPhoto[0]['getTime']
+print("直近の撮影時間："+latestPhotoTime)
 
-   mongo = ayashi('AreaBroadcast','roadPhoto')
-   findone = mongo.find_one(sort=[('datetime',DESCENDING)])
+client.close()
 
-#--対象URLの指定--#
 
+#Webページから撮影時間を取得
 url = "http://www2.thr.mlit.go.jp/sendai/html/DR-74170.html"
 
 proxies = {
@@ -34,12 +39,10 @@ proxies = {
 }
 
 #--HTTPリクエストの送信--#]
-#プロキシ適用の場合　urlのあとに,proxies=proxies
 html = requests.get(url,proxies=proxies)
 html.encoding = html.apparent_encoding
 
 soup = BeautifulSoup(html.text, 'html.parser')
-
 
 
 #--撮影日時の取得
@@ -50,13 +53,74 @@ rows = table.findAll("tr")[0]
 cell = rows.findAll("td")[0]
 
 date = cell.get_text()
+splitdate = date.splitlines()[0]
 
-splitdata = date.splitlines()[0]
+photoDate =re.sub('[撮影日時：]', "",splitdate)
 
-phototime=re.sub('[撮影日時：]', "",splitdata)
+DBphotoDate = photoDate.replace('/','-')
+subphotoDate = re.sub('[/:： ]','',photoDate)
 
-#--観測日時の取得
+photoDay = DBphotoDate[0:5]
+photoTime = DBphotoDate[6:11]
 
+
+#更新されているかの確認処理
+if latestPhotoTime != photoTime :
+    print("撮影日時更新")
+    URL = 'http://www2.thr.mlit.go.jp/sendai/html/image/DR-74170-l.jpg'
+    r = requests.get(URL)
+    datetime = "{0}{1}".format(year,subphotoDate)
+    fmt_name = "ayashi{0}.jpg".format(datetime)
+    with open('/home/a2011529/AreaBroadcast/roadTrafInfo/roadCondPhoto/'+fmt_name,'wb') as f:
+     f.write(r.content)
+
+
+    #年替わり確認
+    if nowDay != '0101':
+        print("本日は1月1日ではありません")
+    else :
+        if photoTime != '0101' :
+            year = int(year)-1
+            print(Year)
+        else :
+            pass
+
+    photodata ={"getDay":year+photoDay,"getTime":photoTime,
+    "photoPath":'/home/a2011529/AreaBroadcast/roadTrafInfo/roadCondPhoto/'+fmt_name}
+
+    client = MongoClient('localhost', 27017)
+    db = client.AreaBroadcast
+    collection1 = db.roadImage
+
+    collection1.insert_one(photodata)
+    print("路面写真格納完了")
+
+    client.close()
+
+else :
+    print("撮影日時更新なし")
+
+print("撮影日時:" + year + "-" + photoDate)
+
+
+
+
+print("\n")
+print("-------観測値テーブル取得-------")
+#DBより直近の観測日時を取得
+client = MongoClient('localhost', 27017)
+db = client.AreaBroadcast
+collection2 = db.DPObserv
+
+
+latestObserv = list(collection2.find().sort('_id',DESCENDING).limit(1))
+latestObservTime = latestObserv[0]['getTime']
+print("直近の観測時間："+latestObservTime)
+
+client.close()
+
+
+#Webページから観測時間を取得
 table2 = soup.findAll("table")[3]
 
 rows2 = table2.findAll("tr")[0]
@@ -65,78 +129,56 @@ cell2 = rows2.findAll("td")[0]
 
 date2 = cell2.get_text()
 
-URL = 'http://www2.thr.mlit.go.jp/sendai/html/image/DR-74170-l.jpg'
+splitdate2 = date2.splitlines()[0]
 
-r = requests.get(URL)
+observDate =re.sub('[観測日時：]', "",splitdate2)
 
-subphototime = re.sub('[/:： ]','',phototime)
-
-photoDate = subphototime[0:4]
-photoTime = subphototime[5:8]
-
-now = datetime.datetime.now()
-
-year = now.strftime('%Y')
-
-nowDay = now.strftime('%m%d')
+print(observDate)
 
 
-if nowDay != '0101':
-    print("Today is not 1/1")
+observDay = observDate[0:10]
+observTime = observDate[11:16]
+
+
+
+#観測時間が更新されているかの確認処理
+if latestObservTime != observTime :
+    print("観測日時更新")
+
+    #--観測地テーブルの取得
+    rainfall = soup.find("td",text="累加雨量").find_next_sibling("td").text
+    subRainfall =  re.sub('[mm]','',rainfall)
+    temp = soup.find("td",text="気温").find_next_sibling("td").text
+    subTemp =  re.sub('[℃]','',temp)
+    windspeed = soup.find("td",text="風速").find_next_sibling("td").text
+    subWindspeed = re.sub('[m/s]','',windspeed)
+    roadtemp = soup.find("td",text="路面温度").find_next_sibling("td").text
+    subRoadtemp = re.sub('[℃]','',roadtemp)
+    roadsit = soup.find("td",text="路面状況").find_next_sibling("td").text
+
+    #--画面への出力--
+    print('観測日時' + observDate)
+    print('累加雨量:' + subRainfall + "mm")
+    print('気温:' + subTemp + "℃")
+    print('風速:' + subWindspeed + "m/s")
+    print('路面温度:' +subRoadtemp + "℃")
+    print('路面状況:' + roadsit)
+
+    data ={"getDay":observDay,"getTime":observTime,
+           "rainfall":rainfall, "temp":temp,
+           "windspeed":windspeed, "roadtemp":roadtemp,
+           "roadsit":roadsit
+           }
+
+    client = MongoClient('localhost', 27017)
+    db = client.AreaBroadcast
+    collection2 = db.DPObserv
+
+    collection2.insert_one(data)
+
+    print("観測値テーブル完了")
+
+    client.close()
+
 else :
-    if date2 != '0101' :
-        Year = int(Year)-1
-
-    else :
-        pass
-
-
-
-datetime = "{0}{1}".format(year,subphototime)
-
-fmt_name = "ayashi{0}.jpg".format(datetime)
-
-with open('/home/a2011529/AreaBroadcast/roadTrafInfo/roadCondPhoto/'+fmt_name,'wb') as f:
- f.write(r.content)
-
-#--観測地テーブルの取得
-rainfall = soup.find("td",text="累加雨量").find_next_sibling("td").text
-temp = soup.find("td",text="気温").find_next_sibling("td").text
-windspeed = soup.find("td",text="風速").find_next_sibling("td").text
-roadtemp = soup.find("td",text="路面温度").find_next_sibling("td").text
-roadsit = soup.find("td",text="路面状況").find_next_sibling("td").text
-
-
-#--画面への出力--#
-print('撮影日時:' + datetime)
-print(date2)
-print('累加雨量:' + rainfall)
-print('気温:' + temp)
-print('風速:' + windspeed)
-print('路面温度:' + roadtemp)
-print('路面状況:' + roadsit)
-
-data ={"getTime":date2,
-       "rainfall":rainfall, "temp":temp,
-       "windspeed":windspeed, "roadtemp":roadtemp,
-       "roadsit":roadsit
-       }
-
-photodata ={"getTime":datetime,
-"photoPath":'/home/a2011529/AreaBroadcast/roadTrafInfo/roadCondPhoto/'+fmt_name}
-
-def save_data(data):
- client =MongoClient('localhost', 27017)
- db = client.r48
- collection = db.meteorobserv
-
-save_data(data)
-
-def save_data(photodata):
- client =MongoClient('localhost', 27017)
- db = client.r48
- collection = db.roadimage
-
- result = collection.insert(photodata)
-
-save_data(photodata)
+    print("観測日時更新なし")
