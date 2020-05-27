@@ -17,11 +17,14 @@ import locale
 locale.setlocale(locale.LC_ALL, 'ja_JP.utf-8')
 
 
+print("現在時刻：" + str(now))
+print("\n")
+
 print("-------路面写真取得-------")
 #DBより直近の撮影日時を取得
 client = MongoClient('localhost', 27017)
 db = client.AreaBroadcast
-collection1 = db.roadImage
+collection1 = db.RoadImage
 
 latestPhoto = list(collection1.find().sort('_id',DESCENDING).limit(1))
 latestPhotoTime = latestPhoto[0]['getTime']
@@ -91,7 +94,7 @@ if latestPhotoTime != photoTime :
 
     client = MongoClient('localhost', 27017)
     db = client.AreaBroadcast
-    collection1 = db.roadImage
+    collection1 = db.RoadImage
 
     collection1.insert_one(photodata)
     print("路面写真格納完了")
@@ -111,7 +114,7 @@ print("-------観測値テーブル取得-------")
 #DBより直近の観測日時を取得
 client = MongoClient('localhost', 27017)
 db = client.AreaBroadcast
-collection2 = db.DPObserv
+collection2 = db.DPSObserv
 
 
 latestObserv = list(collection2.find().sort('_id',DESCENDING).limit(1))
@@ -173,7 +176,7 @@ if latestObservTime != observTime :
 
     client = MongoClient('localhost', 27017)
     db = client.AreaBroadcast
-    collection2 = db.DPObserv
+    collection2 = db.DPSObserv
 
     collection2.insert_one(data)
 

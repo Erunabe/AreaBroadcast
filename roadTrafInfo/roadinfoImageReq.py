@@ -121,7 +121,7 @@ data ={"path":oritate1_URL}
 def save_data(data):
  client =MongoClient('localhost', 27017)
  db = client.AreaBroadcast
- collection = db.roadInfoImage
+ collection = db.RoadInfoImage
 
  result = collection.insert(data)
 
