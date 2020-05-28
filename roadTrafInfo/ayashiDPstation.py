@@ -138,9 +138,6 @@ splitdate2 = date2.splitlines()[0]
 
 observDate =re.sub('[観測日時：]', "",splitdate2)
 
-print(observDate)
-
-
 observDay = observDate[0:10]
 observTime = observDate[11:16]
 
@@ -181,7 +178,7 @@ if latestObservTime != observTime :
 
     collection2.insert_one(data)
 
-    print("観測値テーブル完了")
+    print("観測値テーブル格納完了")
 
     client.close()
 
