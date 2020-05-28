@@ -1,8 +1,11 @@
 # -*- coding: utf-8 -*-
 import requests
 import re
+import datetime
 from bs4 import BeautifulSoup
 from pymongo import MongoClient
+
+utcnow = datetime.datetime.utcnow()
 
 #--スクレイピングするURLの指定
 up_url = "http://road.thr.mlit.go.jp/jyohoban/048up.html"
@@ -116,7 +119,7 @@ print('折立(仙台市):' + oritate_date)
 print('広瀬通(仙台市):' + hirose_date)
 print('作並(仙台市):' + sakunami_date)
 
-data ={"path":oritate1_URL}
+data ={"TTLfield": utcnow,"path":oritate1_URL}
 
 def save_data(data):
  client =MongoClient('localhost', 27017)

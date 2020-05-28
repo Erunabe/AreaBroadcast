@@ -10,6 +10,7 @@ from pymongo import DESCENDING
 from pymongo import ASCENDING
 
 now = datetime.datetime.now()
+utcnow = datetime.datetime.utcnow()
 year = now.strftime('%Y')
 nowDay = now.strftime('%m%d')
 
@@ -89,8 +90,8 @@ if latestPhotoTime != photoTime :
             pass
 
     print("撮影日時:" + year + "-" + photoDate)
-    photodata ={"getDay":year+photoDay,"getTime":photoTime,
-    "photoPath":'/home/a2011529/AreaBroadcast/roadTrafInfo/roadCondPhoto/'+fmt_name}
+    photodata ={"TTLfield": utcnow,"getDay":year+photoDay,"getTime":photoTime,
+    "imagePath":'/home/a2011529/AreaBroadcast/roadTrafInfo/roadCondPhoto/'+fmt_name}
 
     client = MongoClient('localhost', 27017)
     db = client.AreaBroadcast
@@ -168,7 +169,7 @@ if latestObservTime != observTime :
     print('路面温度:' +subRoadtemp + "℃")
     print('路面状況:' + roadsit)
 
-    data ={"getDay":observDay,"getTime":observTime,
+    data ={"TTLfield": utcnow,"getDay":observDay,"getTime":observTime,
            "rainfall":subRainfall, "temp":subTemp,
            "windspeed":subWindspeed, "roadtemp":subRoadtemp,
            "roadsit":roadsit

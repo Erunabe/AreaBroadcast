@@ -11,6 +11,7 @@ from pymongo import MongoClient
 os.environ["http_proxy"] = "http://10.64.199.79:8080"
 os.environ["https_proxy"] = "http://10.64.199.79:8080"
 now = datetime.datetime.now()
+utcnow = datetime.datetime.utcnow()
 
 year = now.strftime('%Y')
 splitYear=list(year)
@@ -61,10 +62,10 @@ collection = db["WeathermapImage"]
 
 
 data =    {
-            "TTLfield": now,
+            "TTLfield": utcnow,
             "getDay":DBformat_Day,
             "getTime":DBformat_Time,
-            "ImagePath":WeathermapImage
+            "imagePath":WeathermapImage
           }
 
 collection.insert_one(data)

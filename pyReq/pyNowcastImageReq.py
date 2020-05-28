@@ -14,6 +14,7 @@ now = datetime.datetime.now()
 
 
 now = datetime.datetime.now()
+utcnow = datetime.datetime.utcnow()
 nowTime = now.strftime('%Y%m%d%H')
 year = now.strftime('%Y')
 month = now.strftime('%m')
@@ -57,10 +58,10 @@ collection = db["NowcastImage"]
 
 
 data =    {
-            "TTLfield": now,
+            "TTLfield": utcnow,
             "getDay":DBformat_Day,
             "getTime":DBformat_Time,
-            "ImagePath":NowcastImage
+            "imagePath":NowcastImage
           }
 
 collection.insert_one(data)
