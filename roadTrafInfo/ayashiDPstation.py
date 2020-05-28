@@ -90,7 +90,7 @@ if latestPhotoTime != photoTime :
             pass
 
     print("撮影日時:" + year + "-" + photoDate)
-    photodata ={"TTLfield": utcnow,"getDay":year+photoDay,"getTime":photoTime,
+    photodata ={"TTLfield": utcnow,"getDay":year+"-"+photoDay,"getTime":photoTime,
     "imagePath":'/home/a2011529/AreaBroadcast/roadTrafInfo/roadCondPhoto/'+fmt_name}
 
     client = MongoClient('localhost', 27017)
