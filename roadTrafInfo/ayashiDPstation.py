@@ -89,7 +89,7 @@ if latestPhotoTime != photoTime :
         else :
             pass
 
-    print("撮影日時:" + year + "-" + photoDate)
+    print("撮影日時:" + year + "-" + photoTime)
     photodata ={"TTLfield": utcnow,"getDay":year+"-"+photoDay,"getTime":photoTime,
     "imagePath":'/home/a2011529/AreaBroadcast/roadTrafInfo/roadCondPhoto/'+fmt_name}
 
