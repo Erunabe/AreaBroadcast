@@ -159,7 +159,7 @@ if latestObservTime != observTime :
     roadsit = soup.find("td",text="路面状況").find_next_sibling("td").text
 
     #--画面への出力--
-    print('観測日時' + observDate)
+    print('観測日時:' + observDate)
     print('累加雨量:' + subRainfall + "mm")
     print('気温:' + subTemp + "℃")
     print('風速:' + subWindspeed + "m/s")
