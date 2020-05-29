@@ -13,6 +13,7 @@ now = datetime.datetime.now()
 utcnow = datetime.datetime.utcnow()
 year = now.strftime('%Y')
 nowDay = now.strftime('%m%d')
+nowMonth = now.strftime('%m')
 
 import locale
 locale.setlocale(locale.LC_ALL, 'ja_JP.utf-8')
@@ -28,8 +29,10 @@ db = client.AreaBroadcast
 collection1 = db.RoadImage
 
 latestPhoto = list(collection1.find().sort('_id',DESCENDING).limit(1))
+latestPhotoDay = latestPhoto[0]['getDay']
+latestYear = latestPhotoDay[0:4]
 latestPhotoTime = latestPhoto[0]['getTime']
-print("直近の撮影時間："+latestPhotoTime)
+print("直近の撮影時間："+latestPhotoDay+" "+latestPhotoTime)
 
 client.close()
 
@@ -67,6 +70,18 @@ subphotoDate = re.sub('[/:： ]','',photoDate)
 photoDay = DBphotoDate[0:5]
 photoTime = DBphotoDate[6:11]
 
+subphotoDay = subphotoDate[0:4]
+subphotoMonth = subphotoDay[0:2]
+
+#年替わり確認
+if latestYear != str(year):
+    print("最後に格納された日時から年が変わっています")
+else :
+    if subphotoMonth != str(nowMonth) :
+        year = int(year)-1
+        print("この画像は"+str(Year)+"年に撮影されました")
+    else :
+        pass
 
 #更新されているかの確認処理
 if latestPhotoTime != photoTime :
@@ -79,17 +94,8 @@ if latestPhotoTime != photoTime :
      f.write(r.content)
 
 
-    #年替わり確認
-    if nowDay != '0101':
-        print("本日は1月1日ではありません")
-    else :
-        if photoTime != '0101' :
-            year = int(year)-1
-            print(Year)
-        else :
-            pass
 
-    print("撮影日時:" + year + "-" + photoTime)
+    print("撮影日時:" + year + "-" + photoDay + " " + photoTime)
     photodata ={"TTLfield": utcnow,"getDay":year+"-"+photoDay,"getTime":photoTime,
     "imagePath":'/home/a2011529/AreaBroadcast/roadTrafInfo/roadCondPhoto/'+fmt_name}
 
@@ -119,8 +125,9 @@ collection2 = db.DPSObserv
 
 
 latestObserv = list(collection2.find().sort('_id',DESCENDING).limit(1))
+latestObservDay = latestPhoto[0]['getDay']
 latestObservTime = latestObserv[0]['getTime']
-print("直近の観測時間："+latestObservTime)
+print("直近の観測時間："+latestObservDay+" "+latestObservTime)
 
 client.close()
 
