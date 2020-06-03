@@ -4,14 +4,20 @@ import re
 import datetime
 from bs4 import BeautifulSoup
 from pymongo import MongoClient
+from pymongo import DESCENDING
+from pymongo import ASCENDING
 
 utcnow = datetime.datetime.utcnow()
+now = datetime.datetime.now()
+year = now.strftime('%Y')
+nowDay = now.strftime('%m%d')
+nowMonth = now.strftime('%m')
 
 #--スクレイピングするURLの指定
 up_url = "http://road.thr.mlit.go.jp/jyohoban/048up.html"
 dw_url = "http://road.thr.mlit.go.jp/jyohoban/048dw.html"
 
---プロキシの設定
+#--プロキシの設定
 proxies = {
 "http":"http://10.64.199.79:8080",
 "https":"http://10.64.199.79:8080"
@@ -37,6 +43,31 @@ hirose2_URL = "http://road.thr.mlit.go.jp/jyohoban/banimg/630010351_2.png"
 
 sakunami1_URL = "http://road.thr.mlit.go.jp/jyohoban/banimg/630010301_1.png"
 sakunami2_URL = "http://road.thr.mlit.go.jp/jyohoban/banimg/630010301_2.png"
+
+
+
+
+
+print("現在時刻：" + str(now))
+print("\n")
+
+
+
+
+print("-------折立道路情報板取得-------")
+#DBより直近の撮影日時を取得
+client = MongoClient('localhost', 27017)
+db = client.AreaBroadcast
+collection = db.RoadInfoImage
+
+latestImage = list(collection.find({"imageName":"折立"}).sort('_id',DESCENDING).limit(1))
+latestImageDay = latestImage[0]['getDay']
+latestYear = latestImageDay[0:4]
+latestImageTime = latestImage[0]['getTime']
+print("直近の表示切り替え時間："+latestImageDay+" "+latestImageTime)
+
+client.close()
+
 #--表示切り替え時刻の取得(折立)
 
 oritate_table = up_soup.findAll("table")[4]
@@ -45,9 +76,71 @@ oritate_rows = oritate_table.findAll("tr")[3]
 
 oritate_cells = oritate_rows.findAll("td")[0]
 
-oritate_date = oritate_cells.get_text().encode('utf-8')
+oritate_date = oritate_cells.get_text()
 
-##-表示切り替え時刻の取得(広瀬通)
+DBoritate_Date = oritate_date.replace('/','-')
+oritate_Day=DBoritate_Date[0:5]
+oritate_Month=DBoritate_Date[0:2]
+oritate_Time=DBoritate_Date[6:11]
+sub = re.sub('[/:： ]','',oritate_date)
+
+#年替わり確認
+if latestYear != str(year):
+    print("最後に格納された日時から年が変わっています")
+else :
+    if oritate_Month != str(nowMonth) :
+        year = int(year)-1
+        print("この画像は"+str(Year)+"年に撮影されました")
+    else :
+        pass
+
+if latestImageTime != oritate_Time :
+
+    picture = requests.get(oritate1_URL,proxies=proxies)
+    picture2 = requests.get(oritate2_URL,proxies=proxies)
+
+    fmt_name1 = "oritate1_{0}.png".format(sub)
+    fmt_name2 ="oritate2_{0}.png".format(sub)
+
+    with open('/home/a2011529/AreaBroadcast/roadTrafInfo/roadInfoImage/'+fmt_name1,'wb') as f:
+     f.write(picture.content)
+
+    with open('/home/a2011529/AreaBroadcast/roadTrafInfo/roadInfoImage/'+fmt_name2,'wb') as f:
+     f.write(picture2.content)
+
+    data = { "TTLfield":utcnow,"imageName":'折立',"getDay":year+'-'+oritate_Day,"getTime":oritate_Time,
+    "imagePath1":'/home/a2011529/AreaBroadcast/roadTrafInfo/roadInfoImage/'+fmt_name1,
+    "imagePath2":'/home/a2011529/AreaBroadcast/roadTrafInfo/roadInfoImage/'+fmt_name2}
+
+    client = MongoClient('localhost', 27017)
+    db = client.AreaBroadcast
+    collection = db.RoadInfoImage
+
+    collection.insert_one(data)
+    print("折立情報板格納完了")
+
+    client.close()
+
+else :
+    print("折立情報板更新なし")
+
+
+
+
+
+print("-------広瀬通道路情報板取得-------")
+#DBより直近の撮影日時を取得
+client = MongoClient('localhost', 27017)
+db = client.AreaBroadcast
+collection = db.RoadInfoImage
+
+latestImage = list(collection.find({"imageName":"広瀬通"}).sort('_id',DESCENDING).limit(1))
+latestImageDay = latestImage[0]['getDay']
+latestYear = latestImageDay[0:4]
+latestImageTime = latestImage[0]['getTime']
+print("直近の表示切り替え時間："+latestImageDay+" "+latestImageTime)
+
+client.close()
 
 hirose_table = dw_soup.findAll("table")[1]
 
@@ -55,9 +148,73 @@ hirose_rows = hirose_table.findAll("tr")[3]
 
 hirose_cells = hirose_rows.findAll("td")[0]
 
-hirose_date = hirose_cells.get_text().encode('utf-8')
+hirose_date = hirose_cells.get_text()
 
-##-表示切り替え時刻の取得(作並)
+DBhirose_Date = hirose_date.replace('/','-')
+hirose_Day=DBhirose_Date[0:5]
+hirose_Month=DBhirose_Date[0:2]
+hirose_Time=DBhirose_Date[6:11]
+sub = re.sub('[/: ]', '',hirose_date)
+
+#年替わり確認
+if latestYear != str(year):
+    print("最後に格納された日時から年が変わっています")
+else :
+    if hirose_Month != str(nowMonth) :
+        year = int(year)-1
+        print("この画像は"+str(Year)+"年に撮影されました")
+    else :
+        pass
+
+if latestImageTime != hirose_Time :
+    ##-表示内容画像の取得(広瀬通)
+    picture3 = requests.get(hirose1_URL)
+    picture4 = requests.get(hirose2_URL)
+
+    fmt_name3 = "hirose1_{0}.png".format(sub)
+    fmt_name4 ="hirose2_{0}.png".format(sub)
+
+    with open('/home/a2011529/AreaBroadcast/roadTrafInfo/roadInfoImage/'+fmt_name3,'wb') as f:
+     f.write(picture3.content)
+
+    with open('/home/a2011529/AreaBroadcast/roadTrafInfo/roadInfoImage/'+fmt_name4,'wb') as f:
+     f.write(picture4.content)
+
+    data = { "TTLfield":utcnow,"imageName":'広瀬通',"getDay":year+'-'+hirose_Day,"getTime":hirose_Time,
+    "imagePath1":'/home/a2011529/AreaBroadcast/roadTrafInfo/roadInfoImage/'+fmt_name3,
+    "imagePath2":'/home/a2011529/AreaBroadcast/roadTrafInfo/roadInfoImage/'+fmt_name4}
+
+    client = MongoClient('localhost', 27017)
+    db = client.AreaBroadcast
+    collection = db.RoadInfoImage
+
+    collection.insert_one(data)
+    print("広瀬通情報板格納完了")
+
+    client.close()
+
+else :
+    print("広瀬通情報板更新なし")
+
+
+
+
+
+
+print("-------作並道路情報板取得-------")
+#DBより直近の撮影日時を取得
+client = MongoClient('localhost', 27017)
+db = client.AreaBroadcast
+collection = db.RoadInfoImage
+
+latestImage = list(collection.find({"imageName":"作並"}).sort('_id',DESCENDING).limit(1))
+latestImageDay = latestImage[0]['getDay']
+latestYear = latestImageDay[0:4]
+latestImageTime = latestImage[0]['getTime']
+print("直近の表示切り替え時間："+latestImageDay+" "+latestImageTime)
+
+client.close()
+
 
 sakunami_table = dw_soup.findAll("table")[1]
 
@@ -65,67 +222,51 @@ sakunami_rows = sakunami_table.findAll("tr")[9]
 
 sakunami_cells = sakunami_rows.findAll("td")[0]
 
-sakunami_date = sakunami_cells.get_text().encode('utf-8')
+sakunami_date = sakunami_cells.get_text()
 
-##-表示内容画像の取得(折立)
-picture = requests.get(oritate1_URL,proxies=proxies)
-picture2 = requests.get(oritate2_URL,proxies=proxies)
-
-sub = re.sub('[/: ]', '',oritate_date)
-
-
-fmt_name = "oritate1_{0}.png".format(sub)
-fmt_name2 ="oritate2_{0}.png".format(sub)
-
-with open('/home/a2011529/AreaBroadcast/roadTrafInfo/roadInfoImage/'+fmt_name,'wb') as f:
- f.write(picture.content)
-
-with open('/home/a2011529/AreaBroadcast/roadTrafInfo/roadInfoImage/'+fmt_name2,'wb') as f:
- f.write(picture2.content)
-
-##-表示内容画像の取得(広瀬通)
-picture3 = requests.get(hirose1_URL)
-picture4 = requests.get(hirose2_URL)
-
-sub = re.sub('[/: ]', '',hirose_date)
-
-fmt_name3 = "hirose1_{0}.png".format(sub)
-fmt_name4 ="hirose2_{0}.png".format(sub)
-
-with open('/home/a2011529/AreaBroadcast/roadTrafInfo/roadInfoImage/'+fmt_name3,'wb') as f:
- f.write(picture3.content)
-
-with open('/home/a2011529/AreaBroadcast/roadTrafInfo/roadInfoImage/'+fmt_name4,'wb') as f:
- f.write(picture4.content)
-
-##-表示内容画像の取得(作並)
-picture5 = requests.get(sakunami1_URL)
-picture6 = requests.get(sakunami2_URL)
-
+DBsakunami_Date = sakunami_date.replace('/','-')
+sakunami_Day=DBsakunami_Date[0:5]
+sakunami_Month=DBsakunami_Date[0:2]
+sakunami_Time=DBsakunami_Date[6:11]
 sub = re.sub('[/: ]', '',sakunami_date)
 
-fmt_name5 = "sakunami1_{0}.png".format(sub)
-fmt_name6 = "sakunami2_{0}.png".format(sub)
 
-with open('/home/a2011529/AreaBroadcast/roadTrafInfo/roadInfoImage/'+fmt_name5,'wb') as f:
- f.write(picture5.content)
+#年替わり確認
+if latestYear != str(year):
+    print("最後に格納された日時から年が変わっています")
+else :
+    if sakunami_Month != str(nowMonth) :
+        year = int(year)-1
+        print("この画像は"+str(Year)+"年に撮影されました")
+    else :
+        pass
 
-with open('/home/a2011529/AreaBroadcast/roadTrafInfo/roadInfoImage/'+fmt_name6,'wb') as f:
- f.write(picture6.content)
+if latestImageTime != sakunami_Time :
+    ##-表示内容画像の取得(作並)
+    picture5 = requests.get(sakunami1_URL)
+    picture6 = requests.get(sakunami2_URL)
 
-##-情報板名と切替時刻を画面に出力
+    fmt_name5 = "sakunami1_{0}.png".format(sub)
+    fmt_name6 = "sakunami2_{0}.png".format(sub)
 
-print('折立(仙台市):' + oritate_date)
-print('広瀬通(仙台市):' + hirose_date)
-print('作並(仙台市):' + sakunami_date)
+    with open('/home/a2011529/AreaBroadcast/roadTrafInfo/roadInfoImage/'+fmt_name5,'wb') as f:
+     f.write(picture5.content)
 
-data ={"TTLfield": utcnow,"path":oritate1_URL}
+    with open('/home/a2011529/AreaBroadcast/roadTrafInfo/roadInfoImage/'+fmt_name6,'wb') as f:
+     f.write(picture6.content)
 
-def save_data(data):
- client =MongoClient('localhost', 27017)
- db = client.AreaBroadcast
- collection = db.RoadInfoImage
+    data = {"TTLfield":utcnow,"imageName":'作並',"getDay":year+'-'+sakunami_Day,"getTime":sakunami_Time,
+    "imagePath1":'/home/a2011529/AreaBroadcast/roadTrafInfo/roadInfoImage/'+fmt_name5,
+    "imagePath2":'/home/a2011529/AreaBroadcast/roadTrafInfo/roadInfoImage/'+fmt_name6}
 
- result = collection.insert(data)
+    client = MongoClient('localhost', 27017)
+    db = client.AreaBroadcast
+    collection = db.RoadInfoImage
 
-save_data(data)
+    collection.insert_one(data)
+    print("作並情報板格納完了")
+
+    client.close()
+
+else :
+    print("作並情報板更新なし")
