@@ -6,6 +6,7 @@ import requests
 import json
 import datetime
 import os
+from pathlib import Path
 from pymongo import MongoClient
 
 os.environ["http_proxy"] = "http://10.64.199.79:8080"
@@ -47,6 +48,41 @@ with open('/home/a2011529/AreaBroadcast/pyReq/pyNowcastImage/'+DBformat,'wb') as
  f.write(requestImage.content)
 
 print(format+" 降水分布図取得保存完了")
+
+
+
+
+
+#gif画像フォルダ操作
+islist=bool(os.listdir('/home/a2011529/AreaBroadcast/pyReq/nowcastGif/'))
+
+if islist:
+    p = Path("/home/a2011529/AreaBroadcast/pyReq/nowcastGif/")
+    files = list(p.glob("*"))
+    file_updates = {file_path: os.stat(file_path).st_mtime for file_path in files}
+    newst_file_path = max(file_updates, key=file_updates.get)
+    print("最新のファイルパス：")
+    print(newst_file_path)
+    #最新のファイルから番号を抽出
+    strNewst=str(newst_file_path)
+    latestNumber=int(strNewst[46:49])
+
+
+    number=latestNumber+1
+    strNumber=str(number)
+    number_z=strNumber.zfill(3)
+    #書き込み
+    with open('/home/a2011529/AreaBroadcast/pyReq/nowcastGif/'+number_z+".png",'wb') as f:
+     f.write(requestImage.content)
+
+else:
+    #日付が変わりリセットされた場合
+    with open('/home/a2011529/AreaBroadcast/pyReq/nowcastGif/'+"001.png",'wb') as f:
+     f.write(requestImage.content)
+
+
+
+
 
 NowcastImage = "/NowcastImage/"+DBformat;
 
