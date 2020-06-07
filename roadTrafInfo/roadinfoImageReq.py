@@ -58,7 +58,7 @@ print("-------折立道路情報板取得-------")
 #DBより直近の撮影日時を取得
 client = MongoClient('localhost', 27017)
 db = client.AreaBroadcast
-collection = db.RoadInfoImage_oritate
+collection = db.RoadInfoImage
 
 latestImage = list(collection.find({"imageName":"折立"}).sort('_id',DESCENDING).limit(1))
 latestImageDay = latestImage[0]['getDay']
@@ -114,7 +114,7 @@ if latestImageTime != oritate_Time :
 
     client = MongoClient('localhost', 27017)
     db = client.AreaBroadcast
-    collection = db.RoadInfoImage_oritate
+    collection = db.RoadInfoImage
 
     collection.insert_one(data)
     print("折立情報板格納完了")
@@ -132,7 +132,7 @@ print("-------広瀬通道路情報板取得-------")
 #DBより直近の撮影日時を取得
 client = MongoClient('localhost', 27017)
 db = client.AreaBroadcast
-collection = db.RoadInfoImage_hirose
+collection = db.RoadInfoImage
 
 latestImage = list(collection.find({"imageName":"広瀬通"}).sort('_id',DESCENDING).limit(1))
 latestImageDay = latestImage[0]['getDay']
@@ -186,7 +186,7 @@ if latestImageTime != hirose_Time :
 
     client = MongoClient('localhost', 27017)
     db = client.AreaBroadcast
-    collection = db.RoadInfoImage_hirose
+    collection = db.RoadInfoImage
 
     collection.insert_one(data)
     print("広瀬通情報板格納完了")
@@ -205,7 +205,7 @@ print("-------作並道路情報板取得-------")
 #DBより直近の撮影日時を取得
 client = MongoClient('localhost', 27017)
 db = client.AreaBroadcast
-collection = db.RoadInfoImage_sakunami
+collection = db.RoadInfoImage
 
 latestImage = list(collection.find({"imageName":"作並"}).sort('_id',DESCENDING).limit(1))
 latestImageDay = latestImage[0]['getDay']
@@ -261,7 +261,7 @@ if latestImageTime != sakunami_Time :
 
     client = MongoClient('localhost', 27017)
     db = client.AreaBroadcast
-    collection = db.RoadInfoImage_sakunami
+    collection = db.RoadInfoImage
 
     collection.insert_one(data)
     print("作並情報板格納完了")
