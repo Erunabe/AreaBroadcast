@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>気象情報FP1</title>
+    <meta charset="utf-8">
+    <link href="graph.css" rel="stylesheet">
+    <script>
+        setTimeout("location.reload()",1000*60);
+
+        function set2fig(num) {
+          // 桁数が1桁だったら先頭に0を加えて2桁に調整する
+          var ret;
+          if( num < 10 ) { ret = "0" + num; }
+          else { ret = num; }
+            return ret;
+          }
+
+          function showClock2() {
+            var nowTime = new Date();
+            var Year = nowTime.getFullYear();
+            var Month = nowTime.getMonth()+1;
+            var nowDate = nowTime.getDate();
+            var week = nowTime.getDay();
+            var weekArray = new Array("日","月","火","水","木","金","土");
+            var nowHour = set2fig( nowTime.getHours() );
+            var nowMin  = set2fig( nowTime.getMinutes() );
+
+            var msg = Year +　"年"　+ Month +　"月"　+ nowDate + "日" + "(" + weekArray[week] + ")" + "&nbsp;" + nowHour + ":" + nowMin;
+            document.getElementById("date").innerHTML = msg;
+            }
+            setInterval('showClock2()',1000);
+    </script>
+  </head>
+
+  <body>
+    <img src="title.jpg" alt="タイトル"></p>
+    <p id="date"></p>
+    <p id="info">現在までの気温変化・特徴</p>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+      google.charts.load('current', {'packages':['corechart']});
+      google.charts.setOnLoadCallback(drawChart);
+
+      function drawChart() {
+        var gdata = google.visualization.arrayToDataTable(<%- JSON.stringify(items) %>);
+
+        var options = {
+          title: '過去24時間の気温変化',
+          titleTextStyle: { fontName: 'Meiryo UI', fontSize: '50'},
+          fontSize:'25',
+          legend: { position: 'bottom' },
+          chartArea:{width:'85%',height:'85%'},
+          pointsize: '10',
+          lineWidth:'15'
+        };
+
+        var chart = new google.visualization.LineChart(document.getElementById('curvechart'));
+
+        chart.draw(gdata, options);
+      }
+    </script>
+    <div class="Label" id="maxTemp_U">最高</br>気温</p></div>
+    <div class="element" id="Max">
+      <p  id="maxTemp"> <%= max_temp %> ℃ </p>
+      <p id="maxTempTime"> <%= max_temp_Time %> 観測</p>
+    </div>
+
+      <div class="Label" id="minTemp_U">最低</br>気温</p></div>
+      <div class="element" id="Min">
+        <p  id="minTemp"><%= min_temp %>℃</p>
+        <p id="minTempTime"><%= min_temp_Time %> 観測</p>
+      </div>
+
+      <div class="Label" id="latestTemp_U">現在</br>気温</p></div>
+      <div class="element" id="latest">
+        <p  id="latestTemp"><%= latest_temp %>℃</p>
+        <p id="latestTempTime"><%= latest_temp_Time %> 観測</p>
+      </div>
+  </head>
+  <body>
+    <div id="curvechart" style="width:1400px; height:1000px">
+      <div id="chart_div" style="position:absolute;top:200px;"></div>
+    </div>
+  </body>
+</html>

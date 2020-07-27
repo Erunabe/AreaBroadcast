@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>気象情報FP1</title>
+    <meta charset="utf-8">
+    <link href="flamepattern1.css" rel="stylesheet">
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+    <script>
+    const socket = io();
+    $(function(){
+        socket.on('element_data', function(data) {
+          $("#E1credit1").html("気象データ観測値 "+data.getDay+" "+data.getTime+" 時点");
+          $("#tempD").html(data.temp);
+          $("#humiD").html(data.humi);
+          $("#wind_sD").html(data.wind_s);
+          $("#wind_dD").html(data.wind_d);
+          $("#wind_max_sD").html(data.wind_max_s);
+          $("#press_lD").html(data.press_l);
+          $("#rain_iD").html(data.rain_i);
+          $("#rain_mD").html(data.rain_m);
+        });
+
+        socket.on('element_image', function(Image) {
+          $("#E2credit1").html("降水ナウキャスト(5分更新)</br>"+Image.getImageDay+" "+Image.getImageTime+" 時点");
+          $('img[src="a"]').attr("src",Image.imagePath);
+        });
+
+     });
+    </script>
+
+
+    <script>
+        function set2fig(num) {
+          // 桁数が1桁だったら先頭に0を加えて2桁に調整する
+          var ret;
+          if( num < 10 ) { ret = "0" + num; }
+          else { ret = num; }
+            return ret;
+          }
+          function showClock2() {
+            var nowTime = new Date();
+            var Year = nowTime.getFullYear();
+            var Month = nowTime.getMonth()+1;
+            var nowDate = nowTime.getDate();
+            var week = nowTime.getDay();
+            var weekArray = new Array("日","月","火","水","木","金","土");
+            var nowHour = set2fig( nowTime.getHours() );
+            var nowMin  = set2fig( nowTime.getMinutes() );
+            var msg = Year +　"年"　+ Month +　"月"　+ nowDate + "日" + "(" + weekArray[week] + ")" + "&nbsp;" + nowHour + ":" + nowMin;
+            document.getElementById("date").innerHTML = msg;
+            }
+            setInterval('showClock2()',1000);
+    </script>
+  </head>
+
+  <body>
+    <img src="title.jpg" alt="タイトル"></p>
+    <p id="date"></p>
+    <p id="info">雨雲の動き</p>
+    <p id="E1credit1"></p>
+
+      <div class="element" id="temp">
+        <p id="tempL">気温</p>
+        <p class="side" id="tempD">1</p>
+        <p class="side" id="tempU">℃</p>
+      </div>
+
+      <div class="element" id="humi">
+        <p id="humiL">湿度</p>
+        <p class="side" id="humiD">1</p>
+        <p class="side" id="humiU">%</p>
+      </div>
+
+      <div class="element" id="wind_s">
+        <p id="wind_sL">風速</p>
+        <p class="side" id="wind_sD">1</p>
+        <p class="side" id="wind_sU">m/s</p>
+      </div>
+
+      <div class="element" id="wind_d">
+        <p id="wind_dL">風向</p>
+        <p class="side" id="wind_dD">1</p>
+      </div>
+
+      <div class="element" id="wind_max_s">
+        <p id="wind_max_sL">最大瞬間風速</p>
+        <p class="side" id="wind_max_sD">1</p>
+        <p class="side" id="wind_max_sU">m/s</p>
+      </div>
+
+      <div class="element" id="press_l">
+        <p id="press_lL">気圧</p>
+        <p class="side" id="press_lD">1</p>
+        <p class="side" id="press_lU">hPa</p>
+      </div>
+
+      <div class="element" id="rain_i">
+        <p id="rain_iL">降水強度</p>
+        <p class="side" id="rain_iD">1</p>
+        <p class="side" id="rain_iU">mm/h</p>
+      </div>
+
+      <div class="element" id="rain_m">
+        <p id="rain_mL">1時間降水量</p>
+        <p class="side" id="rain_mD">1</p>
+        <p class="side" id="rain_mU">mm/h</p>
+      </div>
+
+
+    <p id="E1credit2">※風向・降水強度は参考値です</p>
+
+    <img id="E2" src="a"></img>
+    <p id="E2credit1"></p>
+    <p id="E2credit2">出典：気象庁ホームページ(https://www.jma.go.jp/))</p>
+  </body>
+</html>

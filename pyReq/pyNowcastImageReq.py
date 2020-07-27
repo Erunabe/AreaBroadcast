@@ -16,14 +16,20 @@ now = datetime.datetime.now()
 
 now = datetime.datetime.now()
 utcnow = datetime.datetime.utcnow()
+deltaNow = now - datetime.timedelta(minutes=5)
+print(deltaNow)
 nowTime = now.strftime('%Y%m%d%H')
 year = now.strftime('%Y')
 month = now.strftime('%m')
 day = now.strftime('%d')
 hour = now.strftime('%H')
+deltaHour = deltaNow.strftime('%H')
 minutes=now.strftime('%M')
+deltaMinutes = deltaNow.strftime('%M')
 splitMinutes=list(minutes)
+deltaSplitMinutes=list(deltaMinutes)
 endMinutes = int(splitMinutes[1])
+deltaEndMinutes = int(deltaSplitMinutes[1])
 
 
 if endMinutes % 5 == 0:
@@ -33,24 +39,42 @@ elif 0<= endMinutes <5:
 else:
     endMinutes=5;
 
+if deltaEndMinutes % 5 == 0:
+    pass
+elif 0<= deltaEndMinutes <5:
+    deltaEndMinutes=0;
+else:
+    deltaEndMinutes=5;
 
-format = nowTime+splitMinutes[0]+str(endMinutes)+'-00.png'
-DBformat = nowTime+splitMinutes[0]+str(endMinutes)+'.png'
-DBformat_Day = year+'-'+month+'-'+day
-DBformat_Time = hour+':'+str(minutes)
 
+format = nowTime+splitMinutes[0]+str(endMinutes)
+delay_fmt = year+month+day+deltaHour+deltaSplitMinutes[0]+str(deltaEndMinutes)
+format_Day = year+'-'+month+'-'+day
+format_Time = hour+':'+str(minutes)
 
-URL = 'http://www.jma.go.jp/jp/radnowc/imgs/radar/205/'+format
+print(format)
+print(delay_fmt)
+
+URL = 'http://www.jma.go.jp/jp/radnowc/imgs/radar/205/'+format+'-00.png'
 requestImage = requests.get(URL)
 
 
-with open('/home/a2011529/AreaBroadcast/pyReq/pyNowcastImage/'+DBformat,'wb') as f:
+with open('/home/a2011529/AreaBroadcast/pyReq/pyNowcastImage/'+format+'.png','wb') as f:
  f.write(requestImage.content)
+ with open('/home/a2011529/AreaBroadcast/public/NowcastImage/'+format+'.png','wb') as f:
+  f.write(requestImage.content)
 
-print(format+" 降水分布図取得保存完了")
+print(format+" 最新降水分布図取得保存完了")
 
+#1時間後までの予報降水分布図取得
+for val in range(2,13):
+  z_val = "{0:02d}".format(val)
+  URL = 'https://www.jma.go.jp/jp/radnowc/imgs/nowcast/205/'+delay_fmt+'-'+z_val+'.png'
+  requestImage = requests.get(URL)
+  print(str(val*5)+"分後の予報降水分布図取得保存完了")
 
-
+  with open('/home/a2011529/AreaBroadcast/pyReq/pyForecastImage/'+delay_fmt+'-'+z_val+'.png','wb') as f:
+    f.write(requestImage.content)
 
 
 #gif画像フォルダ操作
@@ -86,7 +110,7 @@ else:
 
 
 
-NowcastImage = "/NowcastImage/"+DBformat;
+NowcastImage = "/NowcastImage/"+format+'.png';
 
 
 #DB接続　格納
@@ -97,8 +121,8 @@ collection = db["NowcastImage"]
 
 data =    {
             "TTLfield": utcnow,
-            "getDay":DBformat_Day,
-            "getTime":DBformat_Time,
+            "getDay":format_Day,
+            "getTime":format_Time,
             "imagePath":NowcastImage
           }
 
