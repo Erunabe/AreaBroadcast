@@ -23,7 +23,7 @@
 
         socket.on('element_image', function(Image) {
           $("#E2credit1").html("降水ナウキャスト(5分更新)</br>"+Image.getImageDay+" "+Image.getImageTime+" 時点");
-          $('img[src="a"]').attr("src",Image.imagePath);
+          $('#E2').attr("src",Image.imagePath);
         });
 
      });
@@ -110,7 +110,7 @@
 
     <p id="E1credit2">※風向・降水強度は参考値です</p>
 
-    <img id="E2" src="a"></img>
+    <img id="E2" src=" "></img>
     <p id="E2credit1"></p>
     <p id="E2credit2">出典：気象庁ホームページ(https://www.jma.go.jp/))</p>
   </body>
