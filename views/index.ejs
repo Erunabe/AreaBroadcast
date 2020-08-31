@@ -7,7 +7,7 @@
     <script src="/socket.io/socket.io.js"></script>
     <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
     <script>
-      var socket =io();
+      var socket = io();
     </script>
 
 
@@ -91,8 +91,8 @@
 
     <p id="E1credit2">※風向・降水強度は参考値です</p>
 
-    <img id="E2" src="<%= ImagePath %>"></img>
-    <p id="E2credit1">降水ナウキャスト(5分更新)</br><%= getDay %> <%= getTime %>時点</p>
-    <p id="E2credit2">出典：気象庁ホームページ(https://www.jma.go.jp/))</p>
+    <img id="E2" src="<%= imagePath %>"></img>
+    <p id="E2credit1">降水ナウキャスト(5分更新)</br><%= getImageDay %> <%= getImageTime %>時点</p>
+    <p id="E2credit2">出典：気象庁ホームページ(https://www.jma.go.jp/)</p>
   </body>
 </html>

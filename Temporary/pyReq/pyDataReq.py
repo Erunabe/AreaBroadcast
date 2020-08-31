@@ -22,7 +22,8 @@ def utc_to_jst(timestamp_utc):
 
 
 
-os.environ["http_proxy"] = "http://10.64.199.79:8080"
+os.environ["http_proxy"] = "http://10.65.129.131"
+os.environ["https_proxy"] = "http://10.65.129.131"
 #認証ヘッダ
 headers = {'X-POTEKA-Authorization':'c2VuZGFpLW5jdDpmZzd6dm1wWQ=='}
 

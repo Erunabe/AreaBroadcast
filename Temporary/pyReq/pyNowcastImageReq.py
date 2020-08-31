@@ -9,8 +9,8 @@ import os
 from pathlib import Path
 from pymongo import MongoClient
 
-os.environ["http_proxy"] = "http://10.64.199.79:8080"
-os.environ["https_proxy"] = "http://10.64.199.79:8080"
+os.environ["http_proxy"] = "http://10.65.129.131:8080"
+os.environ["https_proxy"] = "http://10.65.129.131:8080"
 now = datetime.datetime.now()
 
 

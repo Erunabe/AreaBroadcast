@@ -9,8 +9,8 @@ import os
 from pathlib import Path
 from pymongo import MongoClient
 
-os.environ["http_proxy"] = "http://10.64.199.79:8080"
-os.environ["https_proxy"] = "http://10.64.199.79:8080"
+os.environ["http_proxy"] = "http://10.65.129.131:8080"
+os.environ["https_proxy"] = "http://10.65.129.131:8080"
 now = datetime.datetime.now()
 
 
@@ -61,8 +61,6 @@ requestImage = requests.get(URL)
 
 with open('/home/a2011529/AreaBroadcast/pyReq/pyNowcastImage/'+format+'.png','wb') as f:
  f.write(requestImage.content)
- with open('/home/a2011529/AreaBroadcast/public/NowcastImage/'+format+'.png','wb') as f:
-  f.write(requestImage.content)
 
 print(format+" 最新降水分布図取得保存完了")
 

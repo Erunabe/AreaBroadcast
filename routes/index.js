@@ -1,54 +1,41 @@
 
-/*
 var express = require('express');
 var app = express();
 var cron = require('node-cron');
 var router = express.Router();
 const http = require('http');
 var socketio = require('socket.io')
-readData = require("/home/a2011529/AreaBroadcast/socketiotest/DataRead.js");
-readImage = require("/home/a2011529/AreaBroadcast/socketiotest/NowcastImageRead.js");
+readData = require("/home/a2011529/AreaBroadcast/DataRead.js");
+readImage = require("/home/a2011529/AreaBroadcast/NowcastImageRead.js");
+const MongoClient = require('mongodb').MongoClient;
+const assert = require('assert');
 
 
-
-
-setTimeout(route, 1000);
-
-
-function route(){
-
-  console.log(readData.temp)
-
-
-    app.get("/", function (req, res) {
-      var data = {
-        getDay:readData.getDay,
-        getTime:readData.getTime,
-        temp:readData.temp,
-        humi:readData.humi,
-        wind_s:readData.wind_s,
-        wind_d:readData.wind_d,
-        wind_max_s:readData.wind_max_s,
-        press_l:readData.press_l,
-        rain_i:readData.rain_i,
-        rain_m:readData.rain_m,
-        wbgt:readData.wbgt,
-
-        getDay:readImage.getDay,
-        getTime:readImage.getTime,
-        ImagePath:readImage.ImagePath
+router.get("/", function (req, res) {
+     //送信するデータをJSON形式で格納
+       data = {
+         "getDay":readData.getDay,
+         "getTime":readData.getTime,
+         "temp":readData.temp,
+         "humi":readData.humi,
+         "wind_s":readData.wind_s,
+         "wind_d":readData.wind_d,
+         "wind_max_s":readData.wind_max_s,
+         "press_l":readData.press_l,
+         "rain_i":readData.rain_i,
+         "rain_m":readData.rain_m,
+         "wbgt":readData.wbgt,
+         "getImageDay":readImage.getImageDay,
+         "getImageTime":readImage.getImageTime,
+         "imagePath":readImage.imagePath
       }
 
-      io.on('connection', function(socket) {
-        socket.on('socket1',function(data){
-          io.emit('socket1', data);
-        });
-      });
-      res.render('index.ejs', data);
-    });
+    res.render('../views/index.ejs', data);
+});
 
 
 
+/*
     router.get("/graph", function (req, res) {
       var gdata = {
         items: [
@@ -79,8 +66,5 @@ function route(){
       res.render('graph.ejs', gdata);
     });
 
-
-};
+*/
   module.exports = app;
-
-  */

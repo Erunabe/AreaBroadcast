@@ -24,8 +24,8 @@ MongoClient.connect(url, { useNewUrlParser: true ,useUnifiedTopology: true},func
      for(var item of items){
       console.log(item);
 
-      exports.getDay = item.getDay;
-      exports.getTime = item.getTime;
+      exports.getImageDay = item.getDay;
+      exports.getImageTime = item.getTime;
       exports.imagePath = item.imagePath;
 
      }
