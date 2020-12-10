@@ -3,7 +3,7 @@
   <head>
     <title>気象情報FP1</title>
     <meta charset="utf-8">
-    <link href="graph.css" rel="stylesheet">
+    <link href="../WeatherGraph.css" rel="stylesheet">
     <script src="../socket.io/socket.io.js"></script>
     <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
@@ -59,8 +59,7 @@
         });
 
         socket.on('switch_flame', function() {
-          location.href = "http://10.65.129.139:3000/";
-
+          location.href = "http://10.65.129.139:3000/Weather/observ";
         });
 
      });
@@ -95,7 +94,7 @@
   </head>
 
   <body>
-    <img src="title.jpg" alt="タイトル"></img>
+    <img src="weather_title.jpg" alt="タイトル"></img>
     <p id="date"></p>
     <p id="info">現在までの気温変化・特徴</p>
 

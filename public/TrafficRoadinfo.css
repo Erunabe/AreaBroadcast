@@ -13,11 +13,11 @@ p#date {
   width: 270px;
   padding: 10px;
   text-align: center;
-  position: fixed;
-  top: 135px;
-  left:1250px ;
-  z-index: 30;
+  position: absolute;
+  top: 130px;
+  left:1370px ;
 }
+
 
 /*道路情報板の概略図*/
 img#road {
@@ -28,14 +28,14 @@ img#road {
 
 /*道路情報板クラス ブロック・ラベル等*/
 .roadInfoImage {
-  font-size: 25px;
+  font-size: 27px;
   display: inline-block;
   background: #ffffff;
   text-align: center;
-  border: 1px solid #cccccc;
+  border: 7px solid #cccccc;
   position: fixed;
   width: 400px;
-  height: 200px;
+  height: 190px;
 }
 
     /*道路情報板画像自動切り替え部分*/
@@ -69,16 +69,29 @@ img#road {
     	left: 15%;
     }
 
+    .switch .img1_s {
+      display: block;
+      margin: 0 auto;
+    }
+
+    .switch .img2_s {
+      animation-delay:10s;
+      -webkit-animation-delay:10s;
+      position: absolute;
+      top: 0;
+      left: 5%;
+    }
+
     @keyframes switch {
     	0% {
     		opacity: 0;
     	}
 
-    	10.5% {
+    	2% {
     		opacity: 1;
     	}
 
-    	45.5% {
+    	48% {
     		opacity: 1;
     	}
     	50% {
@@ -91,11 +104,11 @@ img#road {
     		opacity: 0;
     	}
 
-    	12.5% {
+    	2% {
     		opacity: 1;
     	}
 
-    	37.5% {
+    	48% {
     		opacity: 1;
     	}
     	50% {
@@ -110,10 +123,11 @@ div#oritate {
 }
 
 div#oritate_label {
-
+  padding: 3px;
 }
 
 div#oritate_image {
+  padding: 3px;
 }
 
 div#oritate_getTime {
@@ -123,23 +137,35 @@ div#oritate_getTime {
 
 
 div#sakunami {
-  font-size: 25px;
+  font-size: 27px;
   display: inline-block;
   background: #ffffff;
   text-align: center;
-  border: 1px solid #cccccc;
+  border: 7px solid #cccccc;
+  padding: 2px;
   position: fixed;
-  width: 430px;
-  height: 170px;
-  top: 510px;
-  left:50px ;
+  width: 460px;
+  height: 175px;
+  top: 515px;
+  left:90px ;
 }
 
 div#sakunami_label {
+  padding: 5px;
 }
 
 div#sakunami_image {
+  padding: 5px;
 }
+
+  img#sakunami1{
+    width: 410px;
+  }
+  img#sakunami2{
+    width: 410px;
+  }
+
+
 
 div#sakunami_getTime {
 }
@@ -152,9 +178,11 @@ div#hirose {
 }
 
 div#hirose_label {
+  padding: 3px;
 }
 
 div#hirose_image {
+  padding: 3px;
 }
 
 div#hirose_getTime {
@@ -169,14 +197,14 @@ div#camera_label{
   text-align: center;
   border: 1px solid #cccccc;
   position: fixed;
-  top: 710px;
+  top: 720px;
   left:170px ;
 }
 
 img#camera{
   position: fixed;
   width: 600px;
-  top: 790px;
+  top: 800px;
   left:30px ;
 }
 
@@ -189,47 +217,48 @@ div#roadImage_label{
   padding: 5px;
   text-align: center;
   position: fixed;
-  top: 525px;
-  left:705px ;
+  top: 520px;
+  left:710px ;
 }
 
 p#roadImage_getTime{
   font-size: 30px;
   position:fixed;
-  top: 525px;
-  left:1090px ;
+  top: 520px;
+  left:1130px ;
 
 }
 
 img#roadImage{
   position:fixed;
   width: 830px;
-  top: 630px;
-  left:760px ;
+  top: 600px;
+  left:745px ;
 }
 
 
 /*観測値(愛子防災ステーション)*/
 p#DPS_getTime{
-  font-size: 40px;
+  font-size: 35px;
   color:#dcdcdc;
   background: #ff0000;
+  padding: 4px;
   text-align: center;
-  padding: 5px;
   position: fixed;
-  top: 710px;
-  left:1650px ;
+  top: 695px;
+  left:1710px ;
 }
 
 table#DPSObserv_table{
   position: fixed;
   font-size: 30px;
-  top: 840px;
+  top: 850px;
   left:1670px ;
   width: 400px;
 }
-
-
+table#DPSObserv_table  tr:nth-child(even){
+  background-color: #87ceeb
+}
 
 
 /*使うかわからんクラス*/

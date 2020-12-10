@@ -3,14 +3,14 @@
   <head>
     <title>気象情報FP1</title>
     <meta charset="utf-8">
-    <link href="road_info.css" rel="stylesheet">
+    <link href="../TrafficRoadinfo.css" rel="stylesheet">
     <script src="../socket.io/socket.io.js"></script>
     <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
     <script>
     const socket = io.connect();
     $(function(){
         socket.on('dpsobserv', function(dpsobserv) {
-          $("#DPS_getTime").html("観測日時</br>"+dpsobserv.DPS_getDay+" "+dpsobserv.DPS_getTime);
+          $("#DPS_getTime").html(" 観測日時</br>"+dpsobserv.DPS_getDay+" "+dpsobserv.DPS_getTime+" ");
           $("#rainfall").html(dpsobserv.rainfall+"mm");
           $("#temp").html(dpsobserv.temp+"℃");
           $("#windspeed").html(dpsobserv.windspeed+"m/s");
@@ -34,6 +34,10 @@
         socket.on('roadImage', function(roadImage) {
           $("#roadImage_getTime").html("撮影日時："+roadImage.roadImage_getDay+" "+roadImage.roadImage_getTime);
           $("#roadImage").attr("src",roadImage.roadImage_imagePath);
+        });
+
+        socket.on('switch_flame', function() {
+          location.href = "http://10.65.129.139:3000/weather/observ";
         });
 
      });
@@ -68,44 +72,44 @@
   </head>
 
   <body>
-    <img src="road_title.png" alt="タイトル"></img>
+    <img src="../traffic_road_title.png" alt="タイトル"></img>
     <p id="date"></p>
 
 <!-- 道路情報板 -->
-　　<img id="road" src="road_image.png" alt="道路概略図"></img>
+　　<img id="road" src="../road_image.png" alt="道路概略図"></img>
 
     <div class="roadInfoImage" id="oritate">
-      <div  id="oritate_label"> 折立(仙台市) </p>
+      <div  id="oritate_label"> 折立(仙台市) </div>
       <div id="oritate_image" class="switch">
         <img id="oritate1" class="img1" src="" alt="折立1"></img>
         <img id="oritate2" class="img2" src="" alt="折立2"></img>
       </div>
-      <div id="oritate_getTime"></p>
+      <div id="oritate_getTime"></div>
     </div>
 
     <div  id="sakunami">
-      <div  id="sakunami_label"> 作並(仙台市) </p>
+      <div  id="sakunami_label"> 作並(仙台市) </div>
       <div id="sakunami_image" class="switch">
-        <img id="sakunami1" class="img1" src="" alt="作並1"></img>
-        <img id="sakunami2" class="img2" src="" alt="作並2"></img>
+        <img id="sakunami1" class="img1_s" src="" alt="作並1"></img>
+        <img id="sakunami2" class="img2_s" src="" alt="作並2"></img>
       </div>
-      <p id="sakunami_getTime"></p>
+      <div id="sakunami_getTime"></div>
     </div>
 
     <div class="roadInfoImage" id="hirose">
-      <div  id="hirose_label"> 広瀬通(仙台市) </p>
+      <div  id="hirose_label"> 広瀬通(仙台市) </div>
       <div id="hirose_image" class="switch">
         <img id="hirose1" class="img1" src="" alt="広瀬通1"></img>
         <img id="hirose2" class="img2"src="" alt="広瀬通2"></img>
       </div>
-      <div id="hirose_getTime"></p>
+      <div id="hirose_getTime"></div>
     </div>
 
 <!-- 全天カメラ -->
-    <div id="camera_label">愛子の空模様</div>
-    <img id="camera" src="http://guest:guest@10.64.199.7/axis-cgi/mjpg/video.cgi?camera=1&1607409907723" alt="全天カメラ"></img>
+    <div id="camera_label"> 愛子の空模様 </div>
+    <img id="camera" src="http://10.64.199.7/axis-cgi/mjpg/video.cgi?camera=1&1607409907723" alt="全天カメラ"></img>
 <!-- 路面状況写真 -->
-      <div id="roadImage_label">愛子防災ステーション</div>
+      <div id="roadImage_label"> 愛子防災ステーション </div>
       <p  id="roadImage_getTime"></p>
       <img id="roadImage" src="" ></img>
 
