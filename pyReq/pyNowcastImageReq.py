@@ -59,7 +59,7 @@ URL = 'http://www.jma.go.jp/jp/radnowc/imgs/radar/205/'+format+'-00.png'
 requestImage = requests.get(URL)
 
 
-with open('/home/a2011529/AreaBroadcast/pyReq/pyNowcastImage/'+format+'.png','wb') as f:
+with open('/home/a2011529/AreaBroadcast/public/NowcastImage/'+format+'.png','wb') as f:
  f.write(requestImage.content)
 
 print(format+" 最新降水分布図取得保存完了")

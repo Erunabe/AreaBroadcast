@@ -25,7 +25,7 @@ const cron = require('node-cron');
          //最新の一件を取得
 
 
-          collection1.find({getTime:/00:00/},{temp:1}).sort({_id:-1}).toArray(function(err, items) {
+          collection1.find({getTime:/:00/},{temp:1}).sort({_id:-1}).toArray(function(err, items) {
            for(var item of items){
 
           }

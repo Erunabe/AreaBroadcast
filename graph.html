@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>気象情報FP1</title>
+    <meta charset="utf-8">
+    <link href="graph.css" rel="stylesheet">
+    <script src="../socket.io/socket.io.js"></script>
+    <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script>
+    const socket = io.connect();
+    $(function(){
+        socket.on('gdata', function(gdata) {
+
+          google.charts.load('current', {'packages':['corechart']});
+          google.charts.setOnLoadCallback(drawChart);
+
+          function drawChart() {
+            var gdata = google.visualization.arrayToDataTable([
+                    ['Hour', '温度'],
+                    [gdata.getTime8,  gdata.Temp8],
+                    [gdata.getTime7,  gdata.Temp7],
+                    [gdata.getTime6,  gdata.Temp6],
+                    [gdata.getTime5,  gdata.Temp5],
+                    [gdata.getTime4,  gdata.Temp4],
+                    [gdata.getTime3,  gdata.Temp3],
+                    [gdata.getTime2,  gdata.Temp2],
+                    [gdata.getTime1,  gdata.Temp1]
+
+                  ]);
+
+            var options = {
+              title: '過去24時間の気温変化',
+              titleTextStyle: { fontName: 'Meiryo UI', fontSize: '50'},
+              fontSize:'25',
+              legend: { position: 'bottom' },
+              chartArea:{width:'85%',height:'85%'},
+              pointsize: '10',
+              lineWidth:'15'
+            };
+
+            var chart = new google.visualization.LineChart(document.getElementById('curvechart'));
+
+            chart.draw(gdata, options);
+          }
+        });
+
+
+        socket.on('MElement', function(MElement) {
+          $("#maxTemp").html(MElement.max_temp+" ℃");
+          $("#maxTempTime").html(MElement.max_temp_Time+" 時点");
+          $("#minTemp").html(MElement.min_temp+" ℃");
+          $("#minTempTime").html(MElement.min_temp_Time+" 時点");
+        });
+
+        socket.on('element_data', function(latest) {
+          $("#latestTemp").html(latest.temp+" ℃");
+          $("#latestTempTime").html(latest.getTime+" 時点");
+        });
+
+        socket.on('switch_flame', function() {
+          location.href = "http://10.65.129.139:3000/";
+
+        });
+
+     });
+    </script>
+
+
+
+    <script>
+        function set2fig(num) {
+          // 桁数が1桁だったら先頭に0を加えて2桁に調整する
+          var ret;
+          if( num < 10 ) { ret = "0" + num; }
+          else { ret = num; }
+            return ret;
+          }
+
+          function showClock2() {
+            var nowTime = new Date();
+            var Year = nowTime.getFullYear();
+            var Month = nowTime.getMonth()+1;
+            var nowDate = nowTime.getDate();
+            var week = nowTime.getDay();
+            var weekArray = new Array("日","月","火","水","木","金","土");
+            var nowHour = set2fig( nowTime.getHours() );
+            var nowMin  = set2fig( nowTime.getMinutes() );
+
+            var msg = Year +　"年"　+ Month +　"月"　+ nowDate + "日" + "(" + weekArray[week] + ")" + "&nbsp;" + nowHour + ":" + nowMin;
+            document.getElementById("date").innerHTML = msg;
+            }
+            setInterval('showClock2()',1000);
+    </script>
+  </head>
+
+  <body>
+    <img src="title.jpg" alt="タイトル"></img>
+    <p id="date"></p>
+    <p id="info">現在までの気温変化・特徴</p>
+
+
+
+    <div class="Label" id="maxTemp_U">最高</br>気温</p></div>
+    <div class="element" id="Max">
+      <p  id="maxTemp"> 1℃ </p>
+      <p id="maxTempTime">観測</p>
+    </div>
+
+      <div class="Label" id="minTemp_U">最低</br>気温</div>
+      <div class="element" id="Min">
+        <p  id="minTemp">1℃</p>
+        <p id="minTempTime">観測</p>
+      </div>
+
+      <div class="Label" id="latestTemp_U">現在</br>気温</div>
+      <div class="element" id="latest">
+        <p  id="latestTemp">1℃</p>
+        <p id="latestTempTime"> 観測</p>
+      </div>
+
+    <div id="curvechart" style="width:1400px; height:1000px">
+      <div id="chart_div" style="position:absolute;top:200px;"></div>
+    </div>
+  </body>
+</html>

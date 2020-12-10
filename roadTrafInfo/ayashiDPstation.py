@@ -28,10 +28,10 @@ client = MongoClient('localhost', 27017)
 db = client.AreaBroadcast
 collection1 = db.RoadImage
 
-latestPhoto = list(collection1.find().sort('_id',DESCENDING).limit(1))
-latestPhotoDay = latestPhoto[0]['getDay']
+latestPhoto = collection1.find_one(sort=[('_id',-1)])
+latestPhotoDay = latestPhoto['getDay']
 latestYear = latestPhotoDay[0:4]
-latestPhotoTime = latestPhoto[0]['getTime']
+latestPhotoTime = latestPhoto['getTime']
 print("直近の撮影時間："+latestPhotoDay+" "+latestPhotoTime)
 
 client.close()
@@ -41,8 +41,8 @@ client.close()
 url = "http://www2.thr.mlit.go.jp/sendai/html/DR-74170.html"
 
 proxies = {
-"http":"http://10.64.199.79:8080",
-"https":"http://10.64.199.79:8080"
+"http":"http://10.65.129.131:8080",
+"https":"https://10.65.129.131:8080"
 }
 
 #--HTTPリクエストの送信--#]
@@ -90,14 +90,14 @@ if latestPhotoTime != photoTime :
     r = requests.get(URL)
     datetime = "{0}{1}".format(year,subphotoDate)
     fmt_name = "ayashi{0}.jpg".format(datetime)
-    with open('/home/a2011529/AreaBroadcast/roadTrafInfo/roadCondPhoto/'+fmt_name,'wb') as f:
+    with open('/home/a2011529/AreaBroadcast/public/roadCondPhoto/'+fmt_name,'wb') as f:
      f.write(r.content)
 
 
 
     print("撮影日時:" + year + "-" + photoDay + " " + photoTime)
     photodata ={"TTLfield": utcnow,"getDay":year+"-"+photoDay,"getTime":photoTime,
-    "imagePath":'/home/a2011529/AreaBroadcast/roadTrafInfo/roadCondPhoto/'+fmt_name}
+    "imagePath":'/roadCondPhoto/'+fmt_name}
 
     client = MongoClient('localhost', 27017)
     db = client.AreaBroadcast
@@ -124,9 +124,9 @@ db = client.AreaBroadcast
 collection2 = db.DPSObserv
 
 
-latestObserv = list(collection2.find().sort('_id',DESCENDING).limit(1))
-latestObservDay = latestPhoto[0]['getDay']
-latestObservTime = latestObserv[0]['getTime']
+latestObserv = collection2.find_one(sort=[('_id',-1)])
+latestObservDay = latestPhoto['getDay']
+latestObservTime = latestObserv['getTime']
 print("直近の観測時間："+latestObservDay+" "+latestObservTime)
 
 client.close()

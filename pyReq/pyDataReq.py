@@ -10,6 +10,9 @@ import re
 import os
 import dateutil.parser
 from pymongo import MongoClient
+from pymongo import DESCENDING
+from pymongo import ASCENDING
+from bson.json_util import dumps,loads
 
 now = datetime.datetime.now()
 utcnow = datetime.datetime.utcnow()
@@ -58,7 +61,7 @@ strdt = str(dt)
 subdt = re.sub('[：+ ]','',strdt)
 getDay = subdt[0:10]
 getTime = subdt[10:15]
-print(getTime)
+print(getDay,getTime)
 
 
 temp = Real_obj['poteka'][0]['element'][0]['dataList'][0]['value']
@@ -99,10 +102,12 @@ elif 292.5<wind_d and wind_d <=337.5 :
 #DB接続　格納
 client = MongoClient('localhost', 27017)
 db = client["AreaBroadcast"]
-collection = db["MeteorObserv"]
+collection1 = db["MeteorObserv"]
+collection2 = db["MaxElement"]
+collection3 = db["MinElement"]
 
 
-data =    {
+data1 =    {
             "TTLfield": utcnow,
             "getDay":getDay,
             "getTime":getTime,
@@ -117,6 +122,191 @@ data =    {
             "wbgt":wbgt
           }
 
-collection.insert_one(data)
+collection1.insert_one(data1)
 print("最新気象観測値格納完了")
+
+
+
+
+#最大値
+max = collection2.find_one(sort=[('_id',-1)])
+print(max)
+print("----------")
+if max["max_getDay"] != getDay:
+  print("日付変更：最大要素格納更新")
+  data2 = {
+            "TTLfield": utcnow,
+            "max_getDay":getDay,
+            "max_temp_Time":getTime,
+            "max_temp":temp,
+            "max_humi_Time":getTime,
+            "max_humi":humi,
+            "max_wind_s_Time":getTime,
+            "max_wind_s":wind_s,
+            "max_wind_max_s_Time":getTime,
+            "max_wind_max_s":wind_max_s,
+            "max_press_l_Time":getTime,
+            "max_press_l":press_l,
+            "max_rain_i_Time":getTime,
+            "max_rain_i":rain_i,
+            "max_rain_m_Time":getTime,
+            "max_rain_m":rain_m,
+            "max_wbgt_Time":getTime,
+            "max_wbgt":wbgt
+          }
+
+  collection2.insert_one(data2)
+
+else:
+     if max["max_temp"] < temp :
+         collection2.update_one({'max_getDay':getDay},{'$set':{
+          "max_temp_Time":getTime,
+          "max_temp":temp
+         }})
+         print("最高温度更新")
+
+     if max["max_humi"] < humi :
+         print("最高湿度更新")
+         collection2.update_one({'max_getDay':getDay},{'$set':{
+          "max_humi_Time":getTime,
+          "max_humi":humi
+         }})
+
+     if max["max_wind_s"] < wind_s :
+         print("最高風速更新")
+         collection2.update_one({'max_getDay':getDay},{'$set':{
+          "max_wind_s_Time":getTime,
+          "max_wind_s":wind_s
+         }})
+
+     if max["max_wind_max_s"] < wind_max_s :
+         print("最高最大瞬間風速更新")
+         collection2.update_one({'max_getDay':getDay},{'$set':{
+          "max_wind_max_s_Time":getTime,
+          "max_wind_max_s":wind_max_s
+         }})
+
+     if max["max_press_l"] < press_l :
+         print("最高気圧更新")
+         collection2.update_one({'max_getDay':getDay},{'$set':{
+          "max_press_l_Time":getTime,
+          "max_press_l":press_l
+         }})
+
+     if max["max_rain_i"] < rain_i :
+         print("最高1時間降水量更新")
+         collection2.update_one({'max_getDay':getDay},{'$set':{
+          "max_rain_i_Time":getTime,
+          "max_rain_i":rain_i
+         }})
+
+     if max["max_rain_m"] < rain_m :
+         print("最高降水強度更新")
+         collection2.update_one({'max_getDay':getDay},{'$set':{
+          "max_rain_m_Time":getTime,
+          "max_rain_m":rain_m
+         }})
+
+     if max["max_wbgt"] < wbgt :
+         print("最高暑さ指数更新")
+         collection2.update_one({'max_getDay':getDay},{'$set':{
+          "max_wbgt_Time":getTime,
+          "max_wbgt":wbgt
+         }})
+
+
+
+#最低値
+min = collection3.find_one(sort=[('_id',-1)])
+print(min)
+print("----------")
+if min["min_getDay"] != getDay:
+  print("日付変更：最小要素格納更新")
+  data3 = {
+            "TTLfield": utcnow,
+            "min_getDay":getDay,
+            "min_temp_Time":getTime,
+            "min_temp":temp,
+            "min_humi_Time":getTime,
+            "min_humi":humi,
+            "min_wind_s_Time":getTime,
+            "min_wind_s":wind_s,
+            "min_wind_max_s_Time":getTime,
+            "min_wind_max_s":wind_max_s,
+            "min_press_l_Time":getTime,
+            "min_press_l":press_l,
+            "min_rain_i_Time":getTime,
+            "min_rain_i":rain_i,
+            "min_rain_m_Time":getTime,
+            "min_rain_m":rain_m,
+            "min_wbgt_Time":getTime,
+            "min_wbgt":wbgt
+          }
+
+  collection3.insert_one(data3)
+
+else:
+     if min["min_temp"] > temp :
+         collection3.update_one({'min_getDay':getDay},{'$set':{
+          "min_temp_Time":getTime,
+          "min_temp":temp
+         }})
+         print("最低温度更新")
+
+     if min["min_humi"] > humi :
+         print("最低湿度更新")
+         collection3.update_one({'min_getDay':getDay},{'$set':{
+          "min_humi_Time":getTime,
+          "min_humi":humi
+         }})
+
+     if min["min_wind_s"] > wind_s :
+         print("最低風速更新")
+         collection3.update_one({'min_getDay':getDay},{'$set':{
+          "min_wind_s_Time":getTime,
+          "min_wind_s":wind_s
+         }})
+
+     if min["min_wind_max_s"] > wind_max_s :
+         print("最低最大瞬間風速更新")
+         collection3.update_one({'min_getDay':getDay},{'$set':{
+          "min_wind_max_s_Time":getTime,
+          "min_wind_max_s":wind_max_s
+         }})
+
+     if min["min_press_l"] > press_l :
+         print("最低気圧更新")
+         collection3.update_one({'min_getDay':getDay},{'$set':{
+          "min_press_l_Time":getTime,
+          "min_press_l":press_l
+         }})
+
+     if min["min_rain_i"] > rain_i :
+         print("最低1時間降水量更新")
+         collection3.update_one({'min_getDay':getDay},{'$set':{
+          "min_rain_i_Time":getTime,
+          "min_rain_i":rain_i
+         }})
+
+     if min["min_rain_m"] > rain_m :
+         print("最低降水強度更新")
+         collection3.update_one({'min_getDay':getDay},{'$set':{
+          "min_rain_m_Time":getTime,
+          "min_rain_m":rain_m
+         }})
+
+     if min["min_wbgt"] > wbgt :
+         print("最低暑さ指数更新")
+         collection3.update_one({'min_getDay':getDay},{'$set':{
+          "min_wbgt_Time":getTime,
+          "min_wbgt":wbgt
+         }})
+
+
+
+
+
+
+
+
 client.close()

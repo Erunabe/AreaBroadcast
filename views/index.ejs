@@ -4,10 +4,16 @@
     <title>気象情報FP1</title>
     <meta charset="utf-8">
     <link href="flamepattern1.css" rel="stylesheet">
-    <script src="/socket.io/socket.io.js"></script>
+    <script src="http://localhost:3000/socket.io/socket.io.js"></script>
     <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
     <script>
-      var socket = io();
+    const socket = io();
+    $(function(){
+        socket.on('element_data', function(data) {
+
+        });
+
+     });
     </script>
 
 

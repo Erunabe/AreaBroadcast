@@ -4,10 +4,10 @@
     <title>気象情報FP1</title>
     <meta charset="utf-8">
     <link href="flamepattern1.css" rel="stylesheet">
-    <script src="/socket.io/socket.io.js"></script>
+    <script src="../socket.io/socket.io.js"></script>
     <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
     <script>
-    const socket = io();
+    const socket = io.connect();
     $(function(){
         socket.on('element_data', function(data) {
           $("#E1credit1").html("気象データ観測値 "+data.getDay+" "+data.getTime+" 時点");
@@ -24,6 +24,11 @@
         socket.on('element_image', function(Image) {
           $("#E2credit1").html("降水ナウキャスト(5分更新)</br>"+Image.getImageDay+" "+Image.getImageTime+" 時点");
           $('#E2').attr("src",Image.imagePath);
+        });
+
+        socket.on('switch_flame', function() {
+          location.href = "http://10.65.129.139:3000/graph";
+
         });
 
      });

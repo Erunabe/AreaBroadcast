@@ -19,8 +19,8 @@ dw_url = "http://road.thr.mlit.go.jp/jyohoban/048dw.html"
 
 #--プロキシの設定
 proxies = {
-"http":"http://10.64.199.79:8080",
-"https":"http://10.64.199.79:8080"
+"http":"http://10.65.129.131:8080",
+"https":"https://10.65.129.131:8080"
 }
 
 #--対象のWebサイトの読み取り
@@ -59,11 +59,11 @@ print("-------折立道路情報板取得-------")
 client = MongoClient('localhost', 27017)
 db = client.AreaBroadcast
 collection = db.RoadInfoImage
-
-latestImage = list(collection.find({"location":"折立"}).sort('_id',DESCENDING).limit(1))
-latestImageDay = latestImage[0]['getDay']
+filter = {'location':'折立'}
+latestImage = collection.find_one(filter,sort=[('_id',-1)])
+latestImageDay = latestImage['getDay']
 latestYear = latestImageDay[0:4]
-latestImageTime = latestImage[0]['getTime']
+latestImageTime = latestImage['getTime']
 print("直近の表示切り替え時間："+latestImageDay+" "+latestImageTime)
 
 client.close()
@@ -102,15 +102,15 @@ if latestImageTime != oritate_Time :
     fmt_name1 = "oritate1_{0}.png".format(sub)
     fmt_name2 = "oritate2_{0}.png".format(sub)
 
-    with open('/home/a2011529/AreaBroadcast/roadTrafInfo/roadInfoImage/'+fmt_name1,'wb') as f:
+    with open('/home/a2011529/AreaBroadcast/public/roadInfoImage/'+fmt_name1,'wb') as f:
      f.write(picture.content)
 
-    with open('/home/a2011529/AreaBroadcast/roadTrafInfo/roadInfoImage/'+fmt_name2,'wb') as f:
+    with open('/home/a2011529/AreaBroadcast/public/roadInfoImage/'+fmt_name2,'wb') as f:
      f.write(picture2.content)
 
-    data = { "TTLfield":utcnow,"bound":'上り',"location":'折立',,"getDay":year+'-'+oritate_Day,"getTime":oritate_Time,
-    "imagePath1":'/home/a2011529/AreaBroadcast/roadTrafInfo/roadInfoImage/'+fmt_name1,
-    "imagePath2":'/home/a2011529/AreaBroadcast/roadTrafInfo/roadInfoImage/'+fmt_name2}
+    data = { "TTLfield":utcnow,"bound":'上り',"location":'折立',"getDay":year+'-'+oritate_Day,"getTime":oritate_Time,
+    "imagePath1":'/roadInfoImage/'+fmt_name1,
+    "imagePath2":'/roadInfoImage/'+fmt_name2}
 
     client = MongoClient('localhost', 27017)
     db = client.AreaBroadcast
@@ -134,10 +134,11 @@ client = MongoClient('localhost', 27017)
 db = client.AreaBroadcast
 collection = db.RoadInfoImage
 
-latestImage = list(collection.find({"location":"広瀬通"}).sort('_id',DESCENDING).limit(1))
-latestImageDay = latestImage[0]['getDay']
+filter = {'location':'広瀬通'}
+latestImage = collection.find_one(filter,sort=[('_id',-1)])
+latestImageDay = latestImage['getDay']
 latestYear = latestImageDay[0:4]
-latestImageTime = latestImage[0]['getTime']
+latestImageTime = latestImage['getTime']
 print("直近の表示切り替え時間："+latestImageDay+" "+latestImageTime)
 
 client.close()
@@ -174,15 +175,15 @@ if latestImageTime != hirose_Time :
     fmt_name3 = "hirose1_{0}.png".format(sub)
     fmt_name4 ="hirose2_{0}.png".format(sub)
 
-    with open('/home/a2011529/AreaBroadcast/roadTrafInfo/roadInfoImage/'+fmt_name3,'wb') as f:
+    with open('/home/a2011529/AreaBroadcast/public/roadInfoImage/'+fmt_name3,'wb') as f:
      f.write(picture3.content)
 
-    with open('/home/a2011529/AreaBroadcast/roadTrafInfo/roadInfoImage/'+fmt_name4,'wb') as f:
+    with open('/home/a2011529/AreaBroadcast/public/roadInfoImage/'+fmt_name4,'wb') as f:
      f.write(picture4.content)
 
     data = { "TTLfield":utcnow,"bound":'下り',"location":'広瀬通',"getDay":year+'-'+hirose_Day,"getTime":hirose_Time,
-    "imagePath1":'/home/a2011529/AreaBroadcast/roadTrafInfo/roadInfoImage/'+fmt_name3,
-    "imagePath2":'/home/a2011529/AreaBroadcast/roadTrafInfo/roadInfoImage/'+fmt_name4}
+    "imagePath1":'/roadInfoImage/'+fmt_name3,
+    "imagePath2":'/roadInfoImage/'+fmt_name4}
 
     client = MongoClient('localhost', 27017)
     db = client.AreaBroadcast
@@ -207,10 +208,11 @@ client = MongoClient('localhost', 27017)
 db = client.AreaBroadcast
 collection = db.RoadInfoImage
 
-latestImage = list(collection.find({"location":"作並"}).sort('_id',DESCENDING).limit(1))
-latestImageDay = latestImage[0]['getDay']
+filter = {'location':'作並'}
+latestImage = collection.find_one(filter,sort=[('_id',-1)])
+latestImageDay = latestImage['getDay']
 latestYear = latestImageDay[0:4]
-latestImageTime = latestImage[0]['getTime']
+latestImageTime = latestImage['getTime']
 print("直近の表示切り替え時間："+latestImageDay+" "+latestImageTime)
 
 client.close()
@@ -249,15 +251,15 @@ if latestImageTime != sakunami_Time :
     fmt_name5 = "sakunami1_{0}.png".format(sub)
     fmt_name6 = "sakunami2_{0}.png".format(sub)
 
-    with open('/home/a2011529/AreaBroadcast/roadTrafInfo/roadInfoImage/'+fmt_name5,'wb') as f:
+    with open('/home/a2011529/AreaBroadcast/public/roadInfoImage/'+fmt_name5,'wb') as f:
      f.write(picture5.content)
 
-    with open('/home/a2011529/AreaBroadcast/roadTrafInfo/roadInfoImage/'+fmt_name6,'wb') as f:
+    with open('/home/a2011529/AreaBroadcast/public/roadInfoImage/'+fmt_name6,'wb') as f:
      f.write(picture6.content)
 
-    data = {"TTLfield":utcnow,"bound":'下り',"location":'作並',,"getDay":year+'-'+sakunami_Day,"getTime":sakunami_Time,
-    "imagePath1":'/home/a2011529/AreaBroadcast/roadTrafInfo/roadInfoImage/'+fmt_name5,
-    "imagePath2":'/home/a2011529/AreaBroadcast/roadTrafInfo/roadInfoImage/'+fmt_name6}
+    data = {"TTLfield":utcnow,"bound":'下り',"location":'作並',"getDay":year+'-'+sakunami_Day,"getTime":sakunami_Time,
+    "imagePath1":'/roadInfoImage/'+fmt_name5,
+    "imagePath2":'/roadInfoImage/'+fmt_name6}
 
     client = MongoClient('localhost', 27017)
     db = client.AreaBroadcast
