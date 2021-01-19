@@ -14,9 +14,15 @@ router.get("/", function (req, res) {
 
   var io = req.app.get('io');
   res.sendFile('/home/a2011529/AreaBroadcast/views/WeatherObserv.html');
-  //初回接続時
-  setTimeout(function(){
 
+  //フレームパターン切り替え
+  setTimeout(function(){
+    io.emit('switch_flame',{value:true});
+    console.log("フレームパターン切り替え依頼(FP1→FP3)");
+  },60000);
+
+
+  //初回接続時
     console.log("初回接続時情報送信")
 
     MongoClient.connect(url, { useNewUrlParser: true ,useUnifiedTopology: true},function(err, client) {
@@ -31,7 +37,6 @@ router.get("/", function (req, res) {
 
         collection1.find().sort({_id: -1}).limit(1).toArray(function(err, items) {
            for(var item of items){
-            console.log(item);
 
             getDay = item.getDay;
             getTime = item.getTime;
@@ -75,7 +80,7 @@ router.get("/", function (req, res) {
          collection2 = db.collection("NowcastImage");
          collection2.find().sort({_id: -1}).limit(1).toArray(function(err, items) {
           for(var item of items){
-             console.log(item);
+
              getImageDay = item.getDay;
              getImageTime = item.getTime;
              imagePath = item.imagePath;
@@ -93,30 +98,64 @@ router.get("/", function (req, res) {
            }
 
       //クライアント側へ送信
-       io.emit('element_image',Image);
-         console.log("FP1 画像送信")
+       io.emit('element_nowcastimage',Image);
+         console.log("FP1 降水分布図送信")
        },2000);
+
+       setTimeout(function(){
+         // コレクションの取得
+         collection3 = db.collection("WeathermapImage");
+        //最新の一件を取得
+         collection3.find().sort({_id: -1}).limit(1).toArray(function(err, items) {
+          for(var item of items){
+
+           getImageDay = item.getDay;
+           getImageTime = item.getTime;
+           imagePath = item.imagePath;
+
+          }
+          }, (error, result) => {
+            client.close();
+          });
+
+          setTimeout(function(){
+           var Image = {
+               "getImageDay":getImageDay,
+               "getImageTime":getImageTime,
+               "imagePath":imagePath
+             }
+
+          //クライアント側へ送信
+           io.emit('element_weathermapimage',Image);
+           console.log("FP1 天気図送信")
+          },3000);
+
+        },30000);
+
+
+
+
     });
-  },1000);
+
+
 
 
 
 
 
 //ここからは繰り返し
+MongoClient.connect(url, { useNewUrlParser: true ,useUnifiedTopology: true},function(err, client) {
+  assert.equal(null, err);
+
+  // 接続先URL
+  url = 'mongodb://localhost:27017';
+  //データベース名
+  dbName = 'AreaBroadcast';
+
+  const db = client.db(dbName);
+
 
     cron.schedule(' * * * * *', () => {
-
-    MongoClient.connect(url, { useNewUrlParser: true ,useUnifiedTopology: true},function(err, client) {
-      assert.equal(null, err);
-
-      // 接続先URL
-      url = 'mongodb://localhost:27017';
-      //データベース名
-      dbName = 'AreaBroadcast';
-
-      const db = client.db(dbName);
-
 
         // コレクションの取得
         collection1 = db.collection("MeteorObserv");
@@ -124,7 +163,6 @@ router.get("/", function (req, res) {
 
         collection1.find().sort({_id: -1}).limit(1).toArray(function(err, items) {
          for(var item of items){
-          console.log(item);
 
           getDay = item.getDay;
           getTime = item.getTime;
@@ -143,8 +181,6 @@ router.get("/", function (req, res) {
          client.close();
      });
 
-    });
-
       setTimeout(function(){
         var data = {
           "getDay":getDay,
@@ -160,61 +196,81 @@ router.get("/", function (req, res) {
           "rain_m":rain_m,
           "wbgt":wbgt
        }
-            //クライアント側へ送信
-             io.emit('element_data',data);
-             console.log("FP1 データ送信");
+        //クライアント側へ送信
+         io.emit('element_data',data);
+         console.log("FP1 データ送信");
        },3000);
 
     });
 
 
 
-    cron.schedule('*/5 * * * *', () => {
+    cron.schedule('* * * * *', () => {
 
-    MongoClient.connect(url, { useNewUrlParser: true ,useUnifiedTopology: true},function(err, client) {
-     assert.equal(null, err);
-
-     const db = client.db(dbName);
      // コレクションの取得
-     collection = db.collection("NowcastImage");
+     collection2 = db.collection("NowcastImage");
+    //最新の一件を取得
+     collection2.find().sort({_id: -1}).limit(1).toArray(function(err, items) {
+      for(var item of items){
 
-     //最新の一件を取得
-       collection.find().sort({_id: -1}).limit(1).toArray(function(err, items) {
-        for(var item of items){
-         console.log(item);
+       getImageDay = item.getDay;
+       getImageTime = item.getTime;
+       imagePath = item.imagePath;
 
-         getImageDay = item.getDay;
-         getImageTime = item.getTime;
-         imagePath = item.imagePath;
-
-        }
+      }
       }, (error, result) => {
         client.close();
-    });
-    })
+      });
 
-    setTimeout(function(){
-     var Image = {
-         "getImageDay":getImageDay,
-         "getImageTime":getImageTime,
-         "imagePath":imagePath
-       }
+      setTimeout(function(){
+       var Image = {
+           "getImageDay":getImageDay,
+           "getImageTime":getImageTime,
+           "imagePath":imagePath
+         }
 
-          //クライアント側へ送信
-           io.emit('element_image',Image);
-           console.log("FP1 画像送信")
-    },3000);
-
-    });
+      //クライアント側へ送信
+       io.emit('element_nowcastimage',Image);
+       console.log("FP1 降水分布図送信")
+      },3000);
 
 
 
+      setTimeout(function(){
+        // コレクションの取得
+        collection3 = db.collection("WeathermapImage");
+       //最新の一件を取得
+        collection3.find().sort({_id: -1}).limit(1).toArray(function(err, items) {
+         for(var item of items){
 
-  //フレームパターン切り替え
-  setTimeout(function(){
-    io.emit('switch_flame',{value:true});
-    console.log("フレームパターン切り替え依頼(FP1→FP3)");
-  },300000);
+          getImageDay = item.getDay;
+          getImageTime = item.getTime;
+          imagePath = item.imagePath;
+
+         }
+         }, (error, result) => {
+           client.close();
+         });
+
+         setTimeout(function(){
+          var Image = {
+              "getImageDay":getImageDay,
+              "getImageTime":getImageTime,
+              "imagePath":imagePath
+            }
+
+         //クライアント側へ送信
+          io.emit('element_weathermapimage',Image);
+          console.log("FP1 天気図送信")
+         },3000);
+
+       },30000);
+
+
+
+  })
+
+});
 
 
 });

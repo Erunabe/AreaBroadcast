@@ -3,6 +3,8 @@ import requests
 import re
 import datetime
 from bs4 import BeautifulSoup
+from PIL import Image
+import glob
 from pymongo import MongoClient
 from pymongo import DESCENDING
 from pymongo import ASCENDING
@@ -99,18 +101,19 @@ if latestImageTime != oritate_Time :
     picture = requests.get(oritate1_URL,proxies=proxies)
     picture2 = requests.get(oritate2_URL,proxies=proxies)
 
-    fmt_name1 = "oritate1_{0}.png".format(sub)
-    fmt_name2 = "oritate2_{0}.png".format(sub)
+    fmt_name1 = "oritate1_{0}".format(sub)
+    fmt_name2 = "oritate2_{0}".format(sub)
 
-    with open('/home/a2011529/AreaBroadcast/public/roadInfoImage/'+fmt_name1,'wb') as f:
+    fmt_name_Gif = "oritate_{0}".format(sub)
+
+    with open('/home/a2011529/AreaBroadcast/public/roadInfoImage/'+fmt_name1+'.png','wb') as f:
      f.write(picture.content)
 
-    with open('/home/a2011529/AreaBroadcast/public/roadInfoImage/'+fmt_name2,'wb') as f:
+    with open('/home/a2011529/AreaBroadcast/public/roadInfoImage/'+fmt_name2+'.png','wb') as f:
      f.write(picture2.content)
 
     data = { "TTLfield":utcnow,"bound":'上り',"location":'折立',"getDay":year+'-'+oritate_Day,"getTime":oritate_Time,
-    "imagePath1":'/roadInfoImage/'+fmt_name1,
-    "imagePath2":'/roadInfoImage/'+fmt_name2}
+    "imagePath":'/roadInfoImage/'+fmt_name_Gif+'.gif'}
 
     client = MongoClient('localhost', 27017)
     db = client.AreaBroadcast
@@ -120,6 +123,13 @@ if latestImageTime != oritate_Time :
     print("折立情報板格納完了")
 
     client.close()
+
+    #GIF画像生成
+    files = sorted(glob.glob('/home/a2011529/AreaBroadcast/public/roadInfoImage/oritate*_'+sub+'.png'))
+    images = list(map(lambda file: Image.open(file), files))
+
+    images[0].save('/home/a2011529/AreaBroadcast/public/roadInfoImage/oritate_'+sub+'.gif', save_all=True, append_images=images[1:], duration=10000, loop=0)
+
 
 else :
     print("折立情報板更新なし")
@@ -175,6 +185,8 @@ if latestImageTime != hirose_Time :
     fmt_name3 = "hirose1_{0}.png".format(sub)
     fmt_name4 ="hirose2_{0}.png".format(sub)
 
+    fmt_name_Gif = "hirose_{0}".format(sub)
+
     with open('/home/a2011529/AreaBroadcast/public/roadInfoImage/'+fmt_name3,'wb') as f:
      f.write(picture3.content)
 
@@ -182,8 +194,7 @@ if latestImageTime != hirose_Time :
      f.write(picture4.content)
 
     data = { "TTLfield":utcnow,"bound":'下り',"location":'広瀬通',"getDay":year+'-'+hirose_Day,"getTime":hirose_Time,
-    "imagePath1":'/roadInfoImage/'+fmt_name3,
-    "imagePath2":'/roadInfoImage/'+fmt_name4}
+    "imagePath":'/roadInfoImage/'+fmt_name_Gif+'.gif'}
 
     client = MongoClient('localhost', 27017)
     db = client.AreaBroadcast
@@ -193,6 +204,12 @@ if latestImageTime != hirose_Time :
     print("広瀬通情報板格納完了")
 
     client.close()
+
+    #GIF画像生成
+    files = sorted(glob.glob('/home/a2011529/AreaBroadcast/public/roadInfoImage/hirose*_'+sub+'.png'))
+    images = list(map(lambda file: Image.open(file), files))
+
+    images[0].save('/home/a2011529/AreaBroadcast/public/roadInfoImage/hirose_'+sub+'.gif', save_all=True, append_images=images[1:], duration=10000, loop=0)
 
 else :
     print("広瀬通情報板更新なし")
@@ -251,6 +268,8 @@ if latestImageTime != sakunami_Time :
     fmt_name5 = "sakunami1_{0}.png".format(sub)
     fmt_name6 = "sakunami2_{0}.png".format(sub)
 
+    fmt_name_Gif = "sakunami_{0}".format(sub)
+
     with open('/home/a2011529/AreaBroadcast/public/roadInfoImage/'+fmt_name5,'wb') as f:
      f.write(picture5.content)
 
@@ -258,8 +277,7 @@ if latestImageTime != sakunami_Time :
      f.write(picture6.content)
 
     data = {"TTLfield":utcnow,"bound":'下り',"location":'作並',"getDay":year+'-'+sakunami_Day,"getTime":sakunami_Time,
-    "imagePath1":'/roadInfoImage/'+fmt_name5,
-    "imagePath2":'/roadInfoImage/'+fmt_name6}
+    "imagePath":'/roadInfoImage/'+fmt_name_Gif+'.gif'}
 
     client = MongoClient('localhost', 27017)
     db = client.AreaBroadcast
@@ -269,6 +287,15 @@ if latestImageTime != sakunami_Time :
     print("作並情報板格納完了")
 
     client.close()
+
+    #GIF画像生成
+    files = sorted(glob.glob('/home/a2011529/AreaBroadcast/public/roadInfoImage/sakunami*_'+sub+'.png'))
+    images = list(map(lambda file: Image.open(file), files))
+
+    images[0].save('/home/a2011529/AreaBroadcast/public/roadInfoImage/sakunami_'+sub+'.gif', save_all=True, append_images=images[1:], duration=10000, loop=0)
+
+
+
 
 else :
     print("作並情報板更新なし")

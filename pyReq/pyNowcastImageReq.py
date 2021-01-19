@@ -16,6 +16,7 @@ now = datetime.datetime.now()
 
 now = datetime.datetime.now()
 utcnow = datetime.datetime.utcnow()
+#timedelta = 時間の加減算に利用する　今回は5分引いた時間
 deltaNow = now - datetime.timedelta(minutes=5)
 print(deltaNow)
 nowTime = now.strftime('%Y%m%d%H')
@@ -31,7 +32,7 @@ deltaSplitMinutes=list(deltaMinutes)
 endMinutes = int(splitMinutes[1])
 deltaEndMinutes = int(deltaSplitMinutes[1])
 
-
+#分を5分刻みに合わせる
 if endMinutes % 5 == 0:
     pass
 elif 0<= endMinutes <5:
@@ -50,10 +51,8 @@ else:
 format = nowTime+splitMinutes[0]+str(endMinutes)
 delay_fmt = year+month+day+deltaHour+deltaSplitMinutes[0]+str(deltaEndMinutes)
 format_Day = year+'-'+month+'-'+day
-format_Time = hour+':'+str(minutes)
+format_Time = hour+':'+str(splitMinutes[0])+str(endMinutes)
 
-print(format)
-print(delay_fmt)
 
 URL = 'http://www.jma.go.jp/jp/radnowc/imgs/radar/205/'+format+'-00.png'
 requestImage = requests.get(URL)
@@ -71,15 +70,15 @@ for val in range(2,13):
   requestImage = requests.get(URL)
   print(str(val*5)+"分後の予報降水分布図取得保存完了")
 
-  with open('/home/a2011529/AreaBroadcast/pyReq/pyForecastImage/'+delay_fmt+'-'+z_val+'.png','wb') as f:
+  with open('/home/a2011529/AreaBroadcast/public/ForecastImage/'+delay_fmt+'-'+z_val+'.png','wb') as f:
     f.write(requestImage.content)
 
 
 #gif画像フォルダ操作
-islist=bool(os.listdir('/home/a2011529/AreaBroadcast/pyReq/nowcastGifImage/'))
+islist=bool(os.listdir('/home/a2011529/AreaBroadcast/public/NowcastGifImage/'))
 
 if islist:
-    p = Path("/home/a2011529/AreaBroadcast/pyReq/nowcastGifImage/")
+    p = Path("/home/a2011529/AreaBroadcast/public/NowcastGifImage/")
     files = list(p.glob("*"))
     file_updates = {file_path: os.stat(file_path).st_mtime for file_path in files}
     newst_file_path = max(file_updates, key=file_updates.get)
@@ -87,7 +86,8 @@ if islist:
     print(newst_file_path)
     #最新のファイルから番号を抽出
     strNewst=str(newst_file_path)
-    splitNewst = strNewst[51:54]
+    splitNewst = strNewst[52:55]
+    print(splitNewst)
     latestNumber=int(splitNewst)
 
 
@@ -95,13 +95,13 @@ if islist:
     strNumber=str(number)
     number_z=strNumber.zfill(3)
     #書き込み
-    with open('/home/a2011529/AreaBroadcast/pyReq/nowcastGifImage/'+number_z+".png",'wb') as f:
+    with open('/home/a2011529/AreaBroadcast/public/NowcastGifImage/'+number_z+".png",'wb') as f:
      f.write(requestImage.content)
 
 else:
     #日付が変わりリセットされた場合
     print("日付変更：リセット この画像が1番目です")
-    with open('/home/a2011529/AreaBroadcast/pyReq/nowcastGifImage/'+"001.png",'wb') as f:
+    with open('/home/a2011529/AreaBroadcast/public/NowcastGifImage/'+"001.png",'wb') as f:
      f.write(requestImage.content)
 
 

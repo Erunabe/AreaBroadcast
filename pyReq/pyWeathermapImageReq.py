@@ -8,8 +8,8 @@ import datetime
 import os
 from pymongo import MongoClient
 
-os.environ["http_proxy"] = "http://10.64.199.79:8080"
-os.environ["https_proxy"] = "http://10.64.199.79:8080"
+os.environ["http_proxy"] = "http://10.65.129.131:8080"
+os.environ["https_proxy"] = "http://10.65.129.131:8080"
 now = datetime.datetime.now()
 utcnow = datetime.datetime.utcnow()
 
@@ -36,18 +36,18 @@ elif 2010<= timeFormat <2310:
 else:
   hourFormat = str(hourList[6]);
 
-print(hourFormat)
 
 format = splitYear[2]+splitYear[3]+month+day+hourFormat+'.png'
 DBformat_Day = year+'-'+month+'-'+day
 DBformat_Time = hourFormat+':'+'00'
 
+print(format)
 
 URL = 'https://www.jma.go.jp/jp/g3/images/jp_c/'+format
 requestImage = requests.get(URL)
 
 
-with open('/home/a2011529/AreaBroadcast/pyReq/pyWeathermapImage/'+format,'wb') as f:
+with open('/home/a2011529/AreaBroadcast/public/WeathermapImage/'+format,'wb') as f:
  f.write(requestImage.content)
 print(format+" 最新天気図取得保存完了")
 

@@ -17,9 +17,13 @@ router.get("/", function (req, res) {
   var io = req.app.get('io');
   res.sendFile('/home/a2011529/AreaBroadcast/views/TrafficRoadinfo.html');
 
-  //初回接続時
+  //フレームパターン切り替え
   setTimeout(function(){
+    io.emit('switch_flame',{value:true});
+    console.log("フレームパターン切り替え依頼(FP3→FP1)");
+  },60000);
 
+  //初回接続時
     console.log("初回接続時情報送信")
 
     MongoClient.connect(url, { useNewUrlParser: true ,useUnifiedTopology: true},function(err, client) {
@@ -74,8 +78,7 @@ router.get("/", function (req, res) {
         }
             oritate_getDay = item2_1.getDay;
             oritate_getTime = item2_1.getTime;
-            oritate_imagePath1 = item2_1.imagePath1;
-            oritate_imagePath2 = item2_1.imagePath2;
+            oritate_imagePath = item2_1.imagePath;
         }, (error, result) => {
         client.close();
         });
@@ -85,8 +88,7 @@ router.get("/", function (req, res) {
         }
           sakunami_getDay = item2_2.getDay;
           sakunami_getTime = item2_2.getTime;
-          sakunami_imagePath1 = item2_2.imagePath1;
-          sakunami_imagePath2 = item2_2.imagePath2;
+          sakunami_imagePath = item2_2.imagePath;
         }, (error, result) => {
         client.close();
         });
@@ -96,8 +98,7 @@ router.get("/", function (req, res) {
         }
           hirose_getDay = item2_3.getDay;
           hirose_getTime = item2_3.getTime;
-          hirose_imagePath1 = item2_3.imagePath1;
-          hirose_imagePath2 = item2_3.imagePath2;
+          hirose_imagePath = item2_3.imagePath;
         }, (error, result) => {
         client.close();
         });
@@ -107,16 +108,13 @@ router.get("/", function (req, res) {
             roadInfoImage = {
               "oritate_getDay":oritate_getDay,
               "oritate_getTime":oritate_getTime,
-              "oritate_imagePath1":oritate_imagePath1,
-              "oritate_imagePath2":oritate_imagePath2,
+              "oritate_imagePath":oritate_imagePath,
               "sakunami_getDay":sakunami_getDay,
               "sakunami_getTime":sakunami_getTime,
-              "sakunami_imagePath1":sakunami_imagePath1,
-              "sakunami_imagePath2":sakunami_imagePath2,
+              "sakunami_imagePath":sakunami_imagePath,
               "hirose_getDay":hirose_getDay,
               "hirose_getTime":hirose_getTime,
-              "hirose_imagePath1":hirose_imagePath1,
-              "hirose_imagePath2":hirose_imagePath2
+              "hirose_imagePath":hirose_imagePath
 
            }
             //クライアント側へ送信
@@ -151,14 +149,6 @@ router.get("/", function (req, res) {
         },2000);
 
     });
-
-  },1000);
-
-
-
-
-
-
 
 
 
@@ -217,11 +207,11 @@ router.get("/", function (req, res) {
       //col2.道路情報板
       collection2.find({location:"折立"}).sort({_id: -1}).limit(1).toArray(function(err, items2_1) {
       for(var item2_1 of items2_1){
+        console.log(item2_1)
       }
           oritate_getDay = item2_1.getDay;
           oritate_getTime = item2_1.getTime;
-          oritate_imagePath1 = item2_1.imagePath1;
-          oritate_imagePath2 = item2_1.imagePath2;
+          oritate_imagePath = item2_1.imagePath;
       }, (error, result) => {
       client.close();
       });
@@ -231,8 +221,7 @@ router.get("/", function (req, res) {
       }
         sakunami_getDay = item2_2.getDay;
         sakunami_getTime = item2_2.getTime;
-        sakunami_imagePath1 = item2_2.imagePath1;
-        sakunami_imagePath2 = item2_2.imagePath2;
+        sakunami_imagePath = item2_2.imagePath;
       }, (error, result) => {
       client.close();
       });
@@ -242,8 +231,7 @@ router.get("/", function (req, res) {
       }
         hirose_getDay = item2_3.getDay;
         hirose_getTime = item2_3.getTime;
-        hirose_imagePath1 = item2_3.imagePath1;
-        hirose_imagePath2 = item2_3.imagePath2;
+        hirose_imagePath = item2_3.imagePath;
       }, (error, result) => {
       client.close();
       });
@@ -253,16 +241,13 @@ router.get("/", function (req, res) {
         roadInfoImage = {
           "oritate_getDay":oritate_getDay,
           "oritate_getTime":oritate_getTime,
-          "oritate_imagePath1":oritate_imagePath1,
-          "oritate_imagePath2":oritate_imagePath2,
+          "oritate_imagePath":oritate_imagePath,
           "sakunami_getDay":sakunami_getDay,
           "sakunami_getTime":sakunami_getTime,
-          "sakunami_imagePath1":sakunami_imagePath1,
-          "sakunami_imagePath2":sakunami_imagePath2,
+          "sakunami_imagePath":sakunami_imagePath,
           "hirose_getDay":hirose_getDay,
           "hirose_getTime":hirose_getTime,
-          "hirose_imagePath1":hirose_imagePath1,
-          "hirose_imagePath2":hirose_imagePath2
+          "hirose_imagePath":hirose_imagePath
 
        }
         //クライアント側へ送信
@@ -299,12 +284,5 @@ router.get("/", function (req, res) {
     });
   });
 
-
-
-  //フレームパターン切り替え
-  setTimeout(function(){
-    io.emit('switch_flame',{value:true});
-    console.log("フレームパターン切り替え依頼(FP3→FP1)");
-  },300000);
 
 });

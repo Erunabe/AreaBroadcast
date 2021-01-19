@@ -38,83 +38,7 @@ img#road {
   height: 190px;
 }
 
-    /*道路情報板画像自動切り替え部分*/
-    .switch {
-    	margin: auto;
-    	background-color: white;
-    	position: relative;
-    }
 
-    .switch img {
-    	width: 72%;
-    	animation-name: album;
-    	-webkit-animation-name: album;
-    	animation-duration: 20s;
-    	-webkit-animation-duration: 20s;
-    	animation-iteration-count: infinite;
-    	-webkit-animation-iteration-count: infinite;
-    	opacity: 0;
-    }
-
-    .switch .img1 {
-    	display: block;
-    	margin: 0 auto;
-    }
-
-    .switch .img2 {
-    	animation-delay:10s;
-    	-webkit-animation-delay:10s;
-    	position: absolute;
-    	top: 0;
-    	left: 15%;
-    }
-
-    .switch .img1_s {
-      display: block;
-      margin: 0 auto;
-    }
-
-    .switch .img2_s {
-      animation-delay:10s;
-      -webkit-animation-delay:10s;
-      position: absolute;
-      top: 0;
-      left: 5%;
-    }
-
-    @keyframes switch {
-    	0% {
-    		opacity: 0;
-    	}
-
-    	2% {
-    		opacity: 1;
-    	}
-
-    	48% {
-    		opacity: 1;
-    	}
-    	50% {
-    		opacity: 0;
-    	}
-    }
-
-    @-webkit-keyframes album {
-    	0% {
-    		opacity: 0;
-    	}
-
-    	2% {
-    		opacity: 1;
-    	}
-
-    	48% {
-    		opacity: 1;
-    	}
-    	50% {
-    		opacity: 0;
-    	}
-    }
 
 div#oritate {
   position: fixed;
@@ -122,17 +46,17 @@ div#oritate {
   left:730px ;
 }
 
-div#oritate_label {
-  padding: 3px;
-}
+  div#oritate_label {
+    padding: 3px;
+  }
 
-div#oritate_image {
-  padding: 3px;
-}
+  img#oritate_img {
+    width: 300px;
+  }
 
-div#oritate_getTime {
+  div#oritate_getTime {
 
-}
+  }
 
 
 
@@ -154,18 +78,9 @@ div#sakunami_label {
   padding: 5px;
 }
 
-div#sakunami_image {
-  padding: 5px;
+img#sakunami_img {
+  width: 400px;
 }
-
-  img#sakunami1{
-    width: 410px;
-  }
-  img#sakunami2{
-    width: 410px;
-  }
-
-
 
 div#sakunami_getTime {
 }
@@ -181,12 +96,14 @@ div#hirose_label {
   padding: 3px;
 }
 
-div#hirose_image {
-  padding: 3px;
+img#hirose_img {
+  width: 300px;
 }
 
 div#hirose_getTime {
 }
+
+
 
 /*全天カメラ*/
 div#camera_label{

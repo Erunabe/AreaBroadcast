@@ -21,14 +21,22 @@
           $("#rain_mD").html(data.rain_m);
         });
 
-        socket.on('element_image', function(Image) {
+        socket.on('element_nowcastimage', function(Image) {
           $("#E2credit1").html("降水ナウキャスト(5分更新)</br>"+Image.getImageDay+" "+Image.getImageTime+" 時点");
           $('#E2').attr("src",Image.imagePath);
         });
 
-        socket.on('switch_flame', function() {
-          location.href = "http://10.65.129.139:3000/traffic/roadinfo";
+        socket.on('element_weathermapimage', function(Image) {
+          $("#E2credit1").html("天気図</br>"+Image.getImageDay+" "+Image.getImageTime+" 時点");
+          $('#E2').attr("src",Image.imagePath);
         });
+
+        setTimeout(function(){
+          socket.on('switch_flame', function() {
+            location.href = "http://10.65.129.139:3000/traffic/roadinfo";
+            console.log("交通情報フレームパターンへ")
+          });
+        },1000);
 
      });
     </script>
