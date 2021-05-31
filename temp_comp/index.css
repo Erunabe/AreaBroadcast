@@ -1,0 +1,100 @@
+
+
+.side{
+  display: inline;
+}
+
+
+.canvas-container {
+    position: relative;
+    width:  calc(100% - 40px);
+    overflow: hidden;
+    margin:10px;
+}
+
+.inline-block {
+    display: inline-block;      /* インラインブロック要素にする */
+    vertical-align:top;
+    height: 300px;
+    width: 450px;
+    text-align: center;
+	  border: 1px solid rgba(0,0,0,.1);
+    background-color:  #f0ffff;    /* 背景色指定 */
+    padding: 5px;              /* 余白指定 */
+
+}
+
+
+p#title {
+  font-size: 70px;
+  text-align: left;
+}
+
+
+
+p#date {
+  font-size: 40px;
+  text-align: right;
+
+}
+
+
+p#poteka_label {
+  background-color:  #ff8c00;
+  font-size: 35px;
+  text-align: center;
+}
+div#poteka_time {
+  font-size: 35px;
+}
+p#poteka_tempD {
+  font-size: 60px;
+}
+
+
+
+
+p#rasp_ins_label {
+  background-color:  #ff8c00;
+  font-size: 35px;
+  text-align: center;
+}
+
+div#rasp_ins_time {
+  font-size: 30px;
+}
+
+p#rasp_ins_tempD {
+  font-size: 60px;
+}
+
+
+
+p#rasp_avg_label {
+  background-color:  #ff8c00;
+  font-size: 35px;
+  text-align: center;
+}
+
+div#rasp_avg_time {
+  font-size: 30px;
+}
+
+p#rasp_avg_tempD {
+  font-size: 60px;
+}
+
+
+p#davis_label {
+  background-color:  #ff8c00;
+  font-size: 35px;
+  text-align: center;
+}
+
+div#davis_time {
+  font-size: 30px;
+}
+
+p#davis_tempD {
+  font-size: 60px;
+}

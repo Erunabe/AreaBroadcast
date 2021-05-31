@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>気温比較</title>
+    <meta charset="utf-8">
+    <link type="text/css" href="../index.css" rel="stylesheet">
+    <script src="../socket.io/socket.io.js"></script>
+    <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.min.js"></script>
+
+    <script type="text/javascript">
+      function set2fig(num) {
+        // 桁数が1桁だったら先頭に0を加えて2桁に調整する
+        var ret;
+        if( num < 10 ) { ret = "0" + num; }
+        else { ret = num; }
+          return ret;
+        }
+        function showClock2() {
+          var nowTime = new Date();
+          var Year = nowTime.getFullYear();
+          var Month = nowTime.getMonth()+1;
+          var nowDate = nowTime.getDate();
+          var week = nowTime.getDay();
+          var weekArray = new Array("日","月","火","水","木","金","土");
+          var nowHour = set2fig( nowTime.getHours() );
+          var nowMin  = set2fig( nowTime.getMinutes() );
+          var msg = Year +　"年"　+ Month +　"月"　+ nowDate + "日" + "(" + weekArray[week] + ")" + "&nbsp;" + nowHour + ":" + nowMin;
+          document.getElementById("date").innerHTML = msg;
+        }
+        setInterval('showClock2()',1000);
+    </script>
+
+
+  </head>
+
+
+  <body>
+
+    <p id="title">観測値(温度) 比較</p>
+
+    <p id="date"></p>
+
+    <div id="E1" class="inline-block">
+      <p id="poteka_label">POTEKA</p>
+      <div id="poteka_time"></div>
+      <div class="element" id="poteka_temp">
+        <p class="side" id="poteka_tempD"></p>
+        <p class="side" id="poteka_tempU">℃</p>
+      </div>
+    </div>
+
+    <div id="E2" class="inline-block">
+      <p id="rasp_ins_label">RaspberryPi 瞬間値</p>
+      <div id="rasp_ins_time"></div>
+      <div class="element" id="rasp_ins_temp">
+        <p class="side" id="rasp_ins_tempD"></p>
+        <p class="side" id="rasp_ins_tempU">℃</p>
+      </div>
+    </div>
+
+    <div id="E3" class="inline-block">
+      <p id="rasp_avg_label">RaspberryPi 平均値</p>
+      <div id="rasp_avg_time"></div>
+      <div class="element" id="rasp_avg_temp">
+        <p class="side" id="rasp_avg_tempD"></p>
+        <p class="side" id="rasp_avg_tempU">℃</p>
+      </div>
+    </div>
+
+    <div id="E4" class="inline-block">
+      <p id="davis_label">Davis観測装置</p>
+      <div id="davis_time"></div>
+      <div class="element" id="davis_temp">
+        <p class="side" id="davis_tempD"></p>
+        <p class="side" id="davis_tempU">℃</p>
+      </div>
+    </div>
+
+
+
+      <div class="canvas-container">
+          <canvas id="tempChart"></canvas>
+      </div>
+
+
+
+      <script type="text/javascript">
+
+          $(function () {
+              var container = $('.canvas-container');
+              var ctx = $('#chart');
+              ctx.attr('width', container.width());
+              ctx.attr('height', 150);
+          });
+
+         var ctx = document.getElementById('tempChart').getContext('2d');
+
+          var tempChart = new Chart(ctx, {
+              type: 'bar',
+              data: {
+                  labels: [],
+                  datasets: [{
+                      label: 'RaspberryPi_Ins',
+                      type: "line",
+                      fill: false,
+                      data: [],
+                      borderColor: "rgb(0, 255, 0)",
+                      borderWidth: 1.5,
+                      yAxisID: "y-axis-1",
+                  }, {
+                      label: 'RaspberryPi_Avg',
+                      type: "line",
+                      fill: false,
+                      data: [],
+                      borderColor: "rgb(0, 0, 255)",
+                      borderWidth: 1.5,
+                      yAxisID: "y-axis-1",
+                  }, {
+                      label: 'Davis',
+                      type: "line",
+                      fill: false,
+                      data: [],
+                      borderColor: "rgb(167, 87, 168)",
+                      borderWidth: 1.5,
+                      yAxisID: "y-axis-1",
+                  }]
+              },
+              options: {
+                  tooltips: {
+                      mode: 'nearest',
+                      intersect: false,
+                  },
+                  responsive: true,
+                  scales: {
+                    xAxes: [{
+                          ticks: {
+                            minRotation: 0,   // ┐表示角度水平
+                            maxRotation: 0,   // ┘
+                            // autoSkip: true,  なくてもよい
+                            maxTicksLimit: 15  // 最大表示数
+                          }
+                        }],
+                      yAxes: [{
+                          id: "y-axis-1",
+                          type: "linear",
+                          position: "left",
+                          ticks: {
+                              max: 20,
+                              min: 0,
+                              autoSkip:true,
+                              stepSize: 0.1,
+
+                          },
+                      }],
+                  },
+              }
+          });
+
+          const socket = io.connect();
+          $(function(){
+
+              socket.on('rasp_data', function(rasp_data) {
+                $("#rasp_ins_time").html(rasp_data.getDay+" "+rasp_data.getTime+" 時点");
+                $("#rasp_ins_tempD").html(rasp_data.temp_ins);
+                tempChart.data.datasets[0].data.push(rasp_data.temp_ins);
+
+                $("#rasp_avg_time").html(rasp_data.getDay+" "+rasp_data.getTime+" 時点");
+                $("#rasp_avg_tempD").html(rasp_data.temp_avg);
+                tempChart.data.datasets[1].data.push(rasp_data.temp_avg);
+
+                tempChart.data.labels.push(rasp_data.getTime);
+              });
+
+              socket.on('davis_data', function(davis_data) {
+                $("#davis_time").html(davis_data.getDay+" "+davis_data.getTime+" 時点");
+                $("#davis_tempD").html(davis_data.davis_temp);
+                tempChart.data.datasets[2].data.push(davis_data.davis_temp);
+
+              });
+
+           });
+
+      </script>
+
+
+
+  </body>
+</html>

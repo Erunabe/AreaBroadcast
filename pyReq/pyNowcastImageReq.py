@@ -56,6 +56,7 @@ format_Time = hour+':'+str(splitMinutes[0])+str(endMinutes)
 
 URL = 'http://www.jma.go.jp/jp/radnowc/imgs/radar/205/'+format+'-00.png'
 requestImage = requests.get(URL)
+print(requestImage.content)
 
 
 with open('/home/a2011529/AreaBroadcast/public/NowcastImage/'+format+'.png','wb') as f:

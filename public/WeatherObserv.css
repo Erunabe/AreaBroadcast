@@ -104,8 +104,54 @@ div#humi {
 
 
 
-div#wind_s {
+div#press {
   top: 510px;
+  left:80px ;
+}
+
+    p#pressL {
+      white-space: nowrap;
+      font-size: 35px;
+      line-height: 0em;
+    }
+
+    p#pressD {
+      white-space: nowrap;
+      font-size: 85px;
+      line-height: 1em;
+    }
+
+    p#pressU {
+      font-size: 35px;
+      line-height: 1em;
+    }
+
+
+div#rainrate {
+  top: 510px;
+  left:500px ;
+}
+
+    p#rainrateL {
+      white-space: nowrap;
+      font-size: 35px;
+      line-height: 0em;
+    }
+
+    p#rainrateD {
+      white-space: nowrap;
+      font-size: 80px;
+      line-height: 1em;
+    }
+
+    p#rainrateU {
+      font-size: 30px;
+      line-height: 1em;
+    }
+
+
+div#wind_s {
+  top: 730px;
   left:80px ;
 }
 
@@ -128,7 +174,7 @@ div#wind_s {
 
 
 div#wind_d {
-  top: 510px;
+  top: 730px;
   left:500px ;
 }
 
@@ -145,92 +191,47 @@ div#wind_d {
     }
 
 
-div#wind_max_s {
-  top: 730px;
+div#windchill {
+  top: 950px;
   left:80px ;
 }
 
-    p#wind_max_sL {
+    p#windchillL {
       white-space: nowrap;
       font-size: 35px;
       line-height: 0em;
     }
 
-    p#wind_max_sD {
+    p#windchillD {
       white-space: nowrap;
       font-size: 85px;
       line-height: 1em;
     }
 
-    p#wind_max_sU {
+    p#windchillU {
       font-size: 35px;
       line-height: 1em;
     }
 
 
-div#press_l {
-  top: 730px;
-  left:500px ;
-}
-
-    p#press_lL {
-      white-space: nowrap;
-      font-size: 35px;
-      line-height: 0em;
-    }
-
-    p#press_lD {
-      white-space: nowrap;
-      font-size: 80px;
-      line-height: 1em;
-    }
-
-    p#pless_lU {
-      font-size: 30px;
-      line-height: 1em;
-    }
-
-div#rain_i {
-  top: 950px;
-  left:80px ;
-}
-
-    p#rain_iL {
-      white-space: nowrap;
-      font-size: 35px;
-      line-height: 0em;
-    }
-
-    p#rain_iD {
-      white-space: nowrap;
-      font-size: 85px;
-      line-height: 1em;
-    }
-
-    p#rain_iU {
-      font-size: 35px;
-      line-height: 1em;
-    }
-
-
-div#rain_m {
+div#heatindex {
   top: 950px;
   left:500px ;
 }
 
-    p#rain_mL {
+    p#heatindexL {
       white-space: nowrap;
       font-size: 35px;
       line-height: 0em;
     }
 
-    p#rain_mD {
+    p#heatindexD {
       white-space: nowrap;
       font-size: 75px;
       line-height: 1em;
     }
 
-    p#rain_mU {
+    p#heatindexU {
       font-size: 35px;
       line-height: 1em;
     }

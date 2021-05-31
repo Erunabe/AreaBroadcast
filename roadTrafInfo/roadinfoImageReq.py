@@ -68,8 +68,6 @@ latestYear = latestImageDay[0:4]
 latestImageTime = latestImage['getTime']
 print("直近の表示切り替え時間："+latestImageDay+" "+latestImageTime)
 
-client.close()
-
 #--表示切り替え時刻の取得(折立)
 
 oritate_table = up_soup.findAll("table")[4]
@@ -115,8 +113,6 @@ if latestImageTime != oritate_Time :
     data = { "TTLfield":utcnow,"bound":'上り',"location":'折立',"getDay":year+'-'+oritate_Day,"getTime":oritate_Time,
     "imagePath":'/roadInfoImage/'+fmt_name_Gif+'.gif'}
 
-    client = MongoClient('localhost', 27017)
-    db = client.AreaBroadcast
     collection = db.RoadInfoImage
 
     collection.insert_one(data)
@@ -128,11 +124,13 @@ if latestImageTime != oritate_Time :
     files = sorted(glob.glob('/home/a2011529/AreaBroadcast/public/roadInfoImage/oritate*_'+sub+'.png'))
     images = list(map(lambda file: Image.open(file), files))
 
-    images[0].save('/home/a2011529/AreaBroadcast/public/roadInfoImage/oritate_'+sub+'.gif', save_all=True, append_images=images[1:], duration=10000, loop=0)
+    images[0].save('/home/a2011529/AreaBroadcast/public/roadInfoImage/oritate_'+sub+'.gif', save_all=True, append_images=images[1:], duration=6000, loop=0)
 
 
 else :
     print("折立情報板更新なし")
+    client.close()
+
 
 
 
@@ -151,7 +149,6 @@ latestYear = latestImageDay[0:4]
 latestImageTime = latestImage['getTime']
 print("直近の表示切り替え時間："+latestImageDay+" "+latestImageTime)
 
-client.close()
 
 hirose_table = dw_soup.findAll("table")[1]
 
@@ -196,10 +193,7 @@ if latestImageTime != hirose_Time :
     data = { "TTLfield":utcnow,"bound":'下り',"location":'広瀬通',"getDay":year+'-'+hirose_Day,"getTime":hirose_Time,
     "imagePath":'/roadInfoImage/'+fmt_name_Gif+'.gif'}
 
-    client = MongoClient('localhost', 27017)
-    db = client.AreaBroadcast
     collection = db.RoadInfoImage
-
     collection.insert_one(data)
     print("広瀬通情報板格納完了")
 
@@ -209,10 +203,12 @@ if latestImageTime != hirose_Time :
     files = sorted(glob.glob('/home/a2011529/AreaBroadcast/public/roadInfoImage/hirose*_'+sub+'.png'))
     images = list(map(lambda file: Image.open(file), files))
 
-    images[0].save('/home/a2011529/AreaBroadcast/public/roadInfoImage/hirose_'+sub+'.gif', save_all=True, append_images=images[1:], duration=10000, loop=0)
+    images[0].save('/home/a2011529/AreaBroadcast/public/roadInfoImage/hirose_'+sub+'.gif', save_all=True, append_images=images[1:], duration=6000, loop=0)
 
 else :
     print("広瀬通情報板更新なし")
+    client.close()
+
 
 
 
@@ -231,8 +227,6 @@ latestImageDay = latestImage['getDay']
 latestYear = latestImageDay[0:4]
 latestImageTime = latestImage['getTime']
 print("直近の表示切り替え時間："+latestImageDay+" "+latestImageTime)
-
-client.close()
 
 
 sakunami_table = dw_soup.findAll("table")[1]
@@ -279,8 +273,6 @@ if latestImageTime != sakunami_Time :
     data = {"TTLfield":utcnow,"bound":'下り',"location":'作並',"getDay":year+'-'+sakunami_Day,"getTime":sakunami_Time,
     "imagePath":'/roadInfoImage/'+fmt_name_Gif+'.gif'}
 
-    client = MongoClient('localhost', 27017)
-    db = client.AreaBroadcast
     collection = db.RoadInfoImage
 
     collection.insert_one(data)
@@ -292,10 +284,11 @@ if latestImageTime != sakunami_Time :
     files = sorted(glob.glob('/home/a2011529/AreaBroadcast/public/roadInfoImage/sakunami*_'+sub+'.png'))
     images = list(map(lambda file: Image.open(file), files))
 
-    images[0].save('/home/a2011529/AreaBroadcast/public/roadInfoImage/sakunami_'+sub+'.gif', save_all=True, append_images=images[1:], duration=10000, loop=0)
+    images[0].save('/home/a2011529/AreaBroadcast/public/roadInfoImage/sakunami_'+sub+'.gif', save_all=True, append_images=images[1:], duration=6000, loop=0)
 
 
 
 
 else :
     print("作並情報板更新なし")
+    client.close()

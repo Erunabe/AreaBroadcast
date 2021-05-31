@@ -34,12 +34,13 @@
           $("#roadImage").attr("src",roadImage.roadImage_imagePath);
         });
 
-        setTimeout(function(){
           socket.on('switch_flame', function() {
-            location.href = "http://10.65.129.139:3000/weather/observ";
-            console.log("気象情報フレームパターンへ")
+            setTimeout(function(){
+              location.href = "http://10.65.129.139:3000/weather/observ";
+              console.log("気象情報フレームパターンへ");
+            },50000);
           });
-        },1000);
+
      });
     </script>
 
@@ -98,7 +99,7 @@
 
 <!-- 全天カメラ -->
     <div id="camera_label"> 愛子の空模様 </div>
-    <img id="camera" src="http://10.64.199.7/axis-cgi/mjpg/video.cgi?camera=1&1607409907723" alt="全天カメラ"></img>
+    <img id="camera" src="http://wakilab:owl3f3311@10.64.199.7/axis-cgi/mjpg/video.cgi?camera=1&1607409907723" alt="全天カメラ"></img>
 <!-- 路面状況写真 -->
       <div id="roadImage_label"> 愛子防災ステーション </div>
       <p  id="roadImage_getTime"></p>

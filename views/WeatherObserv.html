@@ -13,12 +13,13 @@
           $("#E1credit1").html("気象データ観測値 "+data.getDay+" "+data.getTime+" 時点");
           $("#tempD").html(data.temp);
           $("#humiD").html(data.humi);
+          $("#pressD").html(data.press);
+          $("#rainrateD").html(data.rainrate);
           $("#wind_sD").html(data.wind_s);
           $("#wind_dD").html(data.wind_d);
-          $("#wind_max_sD").html(data.wind_max_s);
-          $("#press_lD").html(data.press_l);
-          $("#rain_iD").html(data.rain_i);
-          $("#rain_mD").html(data.rain_m);
+          $("#windchillD").html(data.windchill);
+          $("#heatindexD").html(data.heatindex);
+
         });
 
         socket.on('element_nowcastimage', function(Image) {
@@ -28,15 +29,15 @@
 
         socket.on('element_weathermapimage', function(Image) {
           $("#E2credit1").html("天気図</br>"+Image.getImageDay+" "+Image.getImageTime+" 時点");
-          $('#E2').attr("src",Image.imagePath);
+          $('#E2').attr("src",Image.imagePath+".png");
         });
 
-        setTimeout(function(){
           socket.on('switch_flame', function() {
-            location.href = "http://10.65.129.139:3000/traffic/roadinfo";
-            console.log("交通情報フレームパターンへ")
+            setTimeout(function(){
+              location.href = "http://10.65.129.139:3000/traffic/roadinfo";
+              console.log("交通情報フレームパターンへ");
+            } ,50000);
           });
-        },1000);
 
      });
     </script>
@@ -69,58 +70,60 @@
   <body>
     <img src="../weather_title.jpg" alt="タイトル"></p>
     <p id="date"></p>
-    <p id="info">雨雲の動き</p>
+    <p id="info">最新の気象データ</p>
     <p id="E1credit1"></p>
 
       <div class="element" id="temp">
         <p id="tempL">気温</p>
-        <p class="side" id="tempD">1</p>
+        <p class="side" id="tempD"></p>
         <p class="side" id="tempU">℃</p>
       </div>
 
       <div class="element" id="humi">
         <p id="humiL">湿度</p>
-        <p class="side" id="humiD">1</p>
+        <p class="side" id="humiD"></p>
         <p class="side" id="humiU">%</p>
+      </div>
+
+      <div class="element" id="press">
+        <p id="pressL">気圧</p>
+        <p class="side" id="pressD"></p>
+        <p class="side" id="pressU">hPa</p>
+      </div>
+
+      <div class="element" id="rainrate">
+        <p id="rainrateL">降水強度</p>
+        <p class="side" id="rainrateD"></p>
+        <p class="side" id="rainrateiU">mm/h</p>
       </div>
 
       <div class="element" id="wind_s">
         <p id="wind_sL">風速</p>
-        <p class="side" id="wind_sD">1</p>
+        <p class="side" id="wind_sD"></p>
         <p class="side" id="wind_sU">m/s</p>
       </div>
 
       <div class="element" id="wind_d">
         <p id="wind_dL">風向</p>
-        <p class="side" id="wind_dD">1</p>
+        <p class="side" id="wind_dD"></p>
       </div>
 
-      <div class="element" id="wind_max_s">
-        <p id="wind_max_sL">最大瞬間風速</p>
-        <p class="side" id="wind_max_sD">1</p>
-        <p class="side" id="wind_max_sU">m/s</p>
+      <div class="element" id="windchill">
+        <p id="windchillL">風冷指数</p>
+        <p class="side" id="windchillD"></p>
+        <p class="side" id="windchillU">℃</p>
       </div>
 
-      <div class="element" id="press_l">
-        <p id="press_lL">気圧</p>
-        <p class="side" id="press_lD">1</p>
-        <p class="side" id="press_lU">hPa</p>
-      </div>
-
-      <div class="element" id="rain_i">
-        <p id="rain_iL">降水強度</p>
-        <p class="side" id="rain_iD">1</p>
-        <p class="side" id="rain_iU">mm/h</p>
-      </div>
-
-      <div class="element" id="rain_m">
-        <p id="rain_mL">1時間降水量</p>
-        <p class="side" id="rain_mD">1</p>
-        <p class="side" id="rain_mU">mm/h</p>
+      <div class="element" id="heatindex">
+        <p id="heatindexL">熱指数</p>
+        <p class="side" id="heatindexD"></p>
+        <p class="side" id="heatindexU">℃</p>
       </div>
 
 
-    <p id="E1credit2">※風向・降水強度は参考値です</p>
+
+
+    <p id="E1credit2">※観測値は参考値です</p>
 
     <img id="E2" src=" "></img>
     <p id="E2credit1"></p>
